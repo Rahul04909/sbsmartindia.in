@@ -48,25 +48,25 @@
                     <div class="brand-grid">
                         <div class="cat-item">
                             <div class="cat-item-img-box">
-                                <span class="placeholder-text">Meter</span>
+                                <img src="asstes/categories/AscoWATSN.png" alt="Meter">
                             </div>
                             <div class="cat-item-name">Smart Meter</div>
                         </div>
                         <div class="cat-item">
                             <div class="cat-item-img-box">
-                                <span class="placeholder-text">EMS</span>
+                                <img src="asstes/categories/Asco230series.png" alt="EMS">
                             </div>
                             <div class="cat-item-name">EMS</div>
                         </div>
                         <div class="cat-item">
                             <div class="cat-item-img-box">
-                                <span class="placeholder-text">Control</span>
+                                <img src="asstes/categories/Asco7000series[1].png" alt="Control">
                             </div>
                             <div class="cat-item-name">Controls</div>
                         </div>
                         <div class="cat-item">
                             <div class="cat-item-img-box">
-                                <span class="placeholder-text">Switch</span>
+                                <img src="asstes/categories/AscoTransferpact[1].png" alt="Switch">
                             </div>
                             <div class="cat-item-name">Switches</div>
                         </div>
@@ -80,25 +80,25 @@
                     <div class="brand-grid">
                         <div class="cat-item">
                             <div class="cat-item-img-box">
-                                <span class="placeholder-text">Switch</span>
+                                <img src="asstes/categories/AscoTransferpact[1].png" alt="Switchgear">
                             </div>
                             <div class="cat-item-name">Switchgear</div>
                         </div>
                         <div class="cat-item">
                             <div class="cat-item-img-box">
-                                <span class="placeholder-text">Enc</span>
+                                <img src="asstes/categories/AscoWATSN.png" alt="Enclosures">
                             </div>
                             <div class="cat-item-name">Enclosures</div>
                         </div>
                         <div class="cat-item">
                             <div class="cat-item-img-box">
-                                <span class="placeholder-text">PDB</span>
+                                <img src="asstes/categories/Asco230series.png" alt="PDB">
                             </div>
                             <div class="cat-item-name">PDB</div>
                         </div>
                         <div class="cat-item">
                             <div class="cat-item-img-box">
-                                <span class="placeholder-text">Drive</span>
+                                <img src="asstes/categories/Asco7000series[1].png" alt="Drives">
                             </div>
                             <div class="cat-item-name">Drives</div>
                         </div>
@@ -112,25 +112,25 @@
                     <div class="brand-grid">
                         <div class="cat-item">
                             <div class="cat-item-img-box">
-                                <span class="placeholder-text">TB</span>
+                                <img src="asstes/categories/Asco7000series[1].png" alt="Terminals">
                             </div>
                             <div class="cat-item-name">Terminals</div>
                         </div>
                         <div class="cat-item">
                             <div class="cat-item-img-box">
-                                <span class="placeholder-sub">Module</span>
+                                <img src="asstes/categories/Asco230series.png" alt="Modules">
                             </div>
                             <div class="cat-item-name">Modules</div>
                         </div>
                         <div class="cat-item">
                             <div class="cat-item-img-box">
-                                <span class="placeholder-text">PSU</span>
+                                <img src="asstes/categories/AscoTransferpact[1].png" alt="Power Supply">
                             </div>
                             <div class="cat-item-name">Power Supply</div>
                         </div>
                         <div class="cat-item">
                             <div class="cat-item-img-box">
-                                <span class="placeholder-sub">Marking</span>
+                                <img src="asstes/categories/AscoWATSN.png" alt="Marking">
                             </div>
                             <div class="cat-item-name">Marking</div>
                         </div>
@@ -144,25 +144,25 @@
                     <div class="brand-grid">
                         <div class="cat-item">
                             <div class="cat-item-img-box">
-                                <span class="placeholder-text">Tool</span>
+                                <img src="asstes/categories/Asco230series.png" alt="Tools">
                             </div>
                             <div class="cat-item-name">Tools</div>
                         </div>
                         <div class="cat-item">
                             <div class="cat-item-img-box">
-                                <span class="placeholder-text">PPE</span>
+                                <img src="asstes/categories/AscoWATSN.png" alt="Safety">
                             </div>
                             <div class="cat-item-name">Safety</div>
                         </div>
                         <div class="cat-item">
                             <div class="cat-item-img-box">
-                                <span class="placeholder-text">Etc</span>
+                                <img src="asstes/categories/Asco7000series[1].png" alt="Accessories">
                             </div>
                             <div class="cat-item-name">Accessories</div>
                         </div>
                         <div class="cat-item">
                             <div class="cat-item-img-box">
-                                <span class="placeholder-text">All</span>
+                                <img src="asstes/categories/AscoTransferpact[1].png" alt="All">
                             </div>
                             <div class="cat-item-name">View All</div>
                         </div>
