@@ -1,0 +1,100 @@
+/* Stats Section */
+.stats-section {
+    padding: 60px 0;
+    background-color: #f9f9f9;
+    text-align: center;
+}
+
+.stats-header {
+    margin-bottom: 50px;
+}
+
+.stats-header h2 {
+    font-size: 32px;
+    font-weight: 700;
+    margin-bottom: 10px;
+    color: #212121;
+}
+
+.stats-header p {
+    font-size: 16px;
+    color: #777;
+    margin: 0;
+}
+
+.stats-container {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.stat-item {
+    flex: 1;
+    min-width: 200px;
+    padding: 20px;
+    position: relative;
+}
+
+/* Vertical Divider Lines */
+.stat-item:not(:last-child)::after {
+    content: '';
+    position: absolute;
+    right: 0;
+    top: 20%;
+    height: 60%;
+    width: 1px;
+    background-color: #e0e0e0;
+}
+
+.stat-number {
+    font-size: 42px;
+    font-weight: 700;
+    color: #2874f0;
+    /* Flipkart Blue */
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: baseline;
+}
+
+.stat-symbol {
+    font-size: 32px;
+    margin-left: 2px;
+}
+
+.stat-label {
+    font-size: 14px;
+    font-weight: 600;
+    color: #555;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+    .stats-container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .stat-item {
+        width: 100%;
+        border-bottom: 1px solid #e0e0e0;
+    }
+
+    .stat-item:not(:last-child)::after {
+        display: none;
+        /* Remove vertical dividers on mobile */
+    }
+
+    .stat-item:last-child {
+        border-bottom: none;
+    }
+
+    .stat-number {
+        font-size: 36px;
+    }
+}

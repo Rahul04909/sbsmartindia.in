@@ -11,12 +11,14 @@
     <link rel="stylesheet" href="asstes/css/hero.css">
     <link rel="stylesheet" href="asstes/css/footer.css">
     <link rel="stylesheet" href="asstes/css/categories.css">
+    <link rel="stylesheet" href="asstes/css/stats.css">
 </head>
 <body>
 
     <?php include 'includes/header.php'; ?>
     <?php include 'includes/hero.php'; ?>
     <?php include 'includes/categories.php'; ?>
+    <?php include 'includes/stats.php'; ?>
     <?php include 'includes/footer.php'; ?>
 
 </body>
