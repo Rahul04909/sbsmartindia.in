@@ -15,16 +15,6 @@
 
     <?php include 'includes/header.php'; ?>
     <?php include 'includes/hero.php'; ?>
-
-    <main>
-        <div class="container">
-            <div style="padding: 50px 0; text-align: center; color: #999;">
-                <h2>Content Area</h2>
-                <p>Welcome to SB Smart India</p>
-            </div>
-        </div>
-    </main>
-
     <?php include 'includes/footer.php'; ?>
 
 </body>
