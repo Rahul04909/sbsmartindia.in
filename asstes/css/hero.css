@@ -2,8 +2,6 @@
 .hero-slider-container {
     position: relative;
     width: 100%;
-    margin-top: 10px;
-    /* Slight gap from header like Flipkart */
     overflow: hidden;
     background-color: #f1f2f4;
 }
