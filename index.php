@@ -23,8 +23,4 @@
 
 </body>
 </html>
-<style>
-    body{
-        background: linear-gradient(180deg, #DEEFFF 0%, #F1F3F6 100%);
-    }
-</style>
+
