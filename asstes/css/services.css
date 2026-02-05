@@ -1,0 +1,110 @@
+/* Services Section */
+.services-section {
+    padding: 30px 0;
+    background-color: #fff;
+    border-top: 1px solid #f0f0f0;
+}
+
+.services-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    max-width: 1300px;
+    margin: 0 auto;
+    padding: 0 15px;
+}
+
+.service-item {
+    flex: 1;
+    padding: 10px 15px;
+    position: relative;
+    text-align: left;
+}
+
+/* Icons */
+.service-icon {
+    font-size: 24px;
+    color: #db2b30;
+    /* Flipkart-ish Red/Orange */
+    margin-bottom: 12px;
+}
+
+/* Text */
+.service-title {
+    font-size: 14px;
+    font-weight: 700;
+    color: #212121;
+    margin-bottom: 5px;
+    text-transform: capitalize;
+}
+
+.service-desc {
+    font-size: 13px;
+    color: #878787;
+    line-height: 1.4;
+}
+
+.service-desc strong {
+    color: #444;
+}
+
+/* WhatsApp specific green icon if needed, or keep red. 
+   Using green for whatsapp as per typical convention is better UX, 
+   but image shows red headset. Keeping red to match design request. */
+
+/* Vertical Dividers */
+.service-item:not(:last-child)::after {
+    content: '';
+    position: absolute;
+    right: 0;
+    top: 10%;
+    height: 80%;
+    width: 1px;
+    background-color: #f0f0f0;
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 992px) {
+    .services-container {
+        flex-wrap: wrap;
+    }
+
+    .service-item {
+        flex: 0 0 50%;
+        /* 2 items per row */
+        margin-bottom: 20px;
+    }
+
+    .service-item:nth-child(2n)::after {
+        display: none;
+        /* Hide divider for end of row in 2-col layout */
+    }
+
+    .service-item:last-child {
+        flex: 0 0 100%;
+        /* Last item full width */
+        border-bottom: none;
+        margin-bottom: 0;
+    }
+}
+
+@media (max-width: 576px) {
+    .service-item {
+        flex: 0 0 100%;
+        /* 1 item per row */
+        border-bottom: 1px solid #f0f0f0;
+        padding-bottom: 20px;
+        margin-bottom: 20px;
+    }
+
+    .service-item::after {
+        display: none !important;
+        /* No vertical dividers on mobile */
+    }
+
+    .service-item:last-child {
+        border-bottom: none;
+        padding-bottom: 0;
+        margin-bottom: 0;
+    }
+}

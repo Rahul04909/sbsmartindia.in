@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="asstes/css/footer.css">
     <link rel="stylesheet" href="asstes/css/categories.css">
     <link rel="stylesheet" href="asstes/css/stats.css">
+    <link rel="stylesheet" href="asstes/css/services.css">
 </head>
 <body>
 
@@ -19,6 +20,7 @@
     <?php include 'includes/hero.php'; ?>
     <?php include 'includes/categories.php'; ?>
     <?php include 'includes/stats.php'; ?>
+    <?php include 'includes/services.php'; ?>
     <?php include 'includes/footer.php'; ?>
 
 </body>
