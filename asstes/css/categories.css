@@ -1,7 +1,7 @@
 /* Categories Section */
 .categories-section {
     padding: 40px 0;
-    background-color: #f1f3f6;
+    background-color: radial-gradient(circle at center, #ffffff 0%, #f1f3f5 100%);
     /* Light gray background like Flipkart/Reference */
     overflow: hidden;
 }
