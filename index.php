@@ -8,10 +8,12 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- Custom CSS -->
     <link rel="stylesheet" href="asstes/css/style.css">
+    <link rel="stylesheet" href="asstes/css/hero.css">
 </head>
 <body>
 
     <?php include 'includes/header.php'; ?>
+    <?php include 'includes/hero.php'; ?>
 
     <main>
         <div class="container">

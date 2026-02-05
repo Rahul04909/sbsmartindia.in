@@ -1,0 +1,108 @@
+/* Hero Slider Container */
+.hero-slider-container {
+    position: relative;
+    width: 100%;
+    margin-top: 10px;
+    /* Slight gap from header like Flipkart */
+    overflow: hidden;
+    background-color: #f1f2f4;
+}
+
+.hero-slider-wrapper {
+    display: flex;
+    transition: transform 0.5s ease-in-out;
+}
+
+.hero-slide {
+    min-width: 100%;
+    position: relative;
+}
+
+.hero-slide img {
+    width: 100%;
+    display: block;
+    height: auto;
+    max-height: 400px;
+    /* Limit height on large screens */
+    object-fit: cover;
+}
+
+/* Navigation Arrows */
+.slider-prev,
+.slider-next {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(255, 255, 255, 0.8);
+    border: none;
+    width: 40px;
+    height: 90px;
+    cursor: pointer;
+    z-index: 10;
+    box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s;
+    display: flex;
+    /* Flex to center icon */
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    color: #333;
+}
+
+.slider-prev:hover,
+.slider-next:hover {
+    background-color: #fff;
+}
+
+.slider-prev {
+    left: 0;
+    border-radius: 0 4px 4px 0;
+}
+
+.slider-next {
+    right: 0;
+    border-radius: 4px 0 0 4px;
+}
+
+/* Dots Navigation */
+.slider-dots {
+    position: absolute;
+    bottom: 15px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 10px;
+    z-index: 10;
+}
+
+.slider-dot {
+    width: 10px;
+    height: 10px;
+    background-color: rgba(255, 255, 255, 0.5);
+    border-radius: 50%;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.slider-dot.active {
+    background-color: #fff;
+    transform: scale(1.2);
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+
+    .slider-prev,
+    .slider-next {
+        width: 30px;
+        height: 60px;
+        font-size: 16px;
+    }
+
+    .hero-slide img {
+        min-height: 150px;
+        /* Ensure visibility on mobile */
+        object-fit: fill;
+        /* Ensure full image is seen on mobile even if distorted slightly, typically preferred for banner ads */
+    }
+}
