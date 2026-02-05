@@ -18,14 +18,14 @@
     flex: 1;
     padding: 10px 15px;
     position: relative;
-    text-align: left;
+    text-align: center;
 }
 
 /* Icons */
 .service-icon {
     font-size: 24px;
-    color: #db2b30;
-    /* Flipkart-ish Red/Orange */
+    color: #2874f0;
+    /* Matches Stats Section Blue */
     margin-bottom: 12px;
 }
 
