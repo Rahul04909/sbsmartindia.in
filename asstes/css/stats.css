@@ -1,7 +1,7 @@
 /* Stats Section */
 .stats-section {
     padding: 60px 0;
-    background-color: #f9f9f9;
+    background: linear-gradient(180deg, #DEEFFF 0%, #F1F3F6 100%);
     text-align: center;
 }
 
