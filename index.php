@@ -9,6 +9,7 @@
     <!-- Custom CSS -->
     <link rel="stylesheet" href="asstes/css/style.css">
     <link rel="stylesheet" href="asstes/css/hero.css">
+    <link rel="stylesheet" href="asstes/css/footer.css">
 </head>
 <body>
 
@@ -23,6 +24,8 @@
             </div>
         </div>
     </main>
+
+    <?php include 'includes/footer.php'; ?>
 
 </body>
 </html>
