@@ -62,15 +62,7 @@ include 'includes/header.php';
         </div>
     </div>
 
-    <div class="widget-card">
-        <div class="widget-icon" style="background-color: #fcece9; color: #f56e50;">
-            <i class="fas fa-chart-line"></i>
-        </div>
-        <div class="widget-info">
-            <h3>$1,204</h3>
-            <p>Today's Sales</p>
-        </div>
-    </div>
+
 </div>
 
 <!-- Charts -->
