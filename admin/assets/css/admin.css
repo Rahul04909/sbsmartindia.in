@@ -347,19 +347,19 @@ a {
 /* Widgets Grid */
 .dashboard-widgets {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-    gap: 20px;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 15px;
     margin-bottom: 30px;
 }
 
 .widget-card {
     background: var(--card-bg);
-    padding: 20px;
+    padding: 15px;
     border: 1px solid var(--border-color);
     border-radius: 4px;
     display: flex;
     align-items: center;
-    gap: 20px;
+    gap: 12px;
     box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
     transition: transform 0.2s, box-shadow 0.2s;
 }
@@ -371,15 +371,16 @@ a {
 }
 
 .widget-icon {
-    width: 60px;
-    height: 60px;
+    width: 45px;
+    height: 45px;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 28px;
+    font-size: 20px;
     background-color: #f0f6fc;
     color: var(--primary-color);
     border-radius: 50%;
+    flex-shrink: 0;
 }
 
 .widget-icon.green {
@@ -398,16 +399,18 @@ a {
 }
 
 .widget-info h3 {
-    font-size: 28px;
+    font-size: 20px;
     font-weight: 700;
-    margin-bottom: 5px;
+    margin-bottom: 2px;
     line-height: 1;
 }
 
 .widget-info p {
     color: var(--text-muted);
-    font-size: 13px;
+    font-size: 11px;
     font-weight: 500;
+    line-height: 1.2;
+    white-space: nowrap;
 }
 
 /* Charts Section */
@@ -539,6 +542,13 @@ a {
         display: none;
     }
 
+    .dashboard-widgets {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+    }
+}
+
+@media (max-width: 480px) {
     .dashboard-widgets {
         grid-template-columns: 1fr;
     }

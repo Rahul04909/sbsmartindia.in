@@ -51,6 +51,26 @@ include 'includes/header.php';
             <p>System Alerts</p>
         </div>
     </div>
+
+    <div class="widget-card">
+        <div class="widget-icon" style="background-color: #e6f6fa; color: #1aabbb;">
+            <i class="fas fa-shopping-cart"></i>
+        </div>
+        <div class="widget-info">
+            <h3>12</h3>
+            <p>New Orders</p>
+        </div>
+    </div>
+
+    <div class="widget-card">
+        <div class="widget-icon" style="background-color: #fcece9; color: #f56e50;">
+            <i class="fas fa-chart-line"></i>
+        </div>
+        <div class="widget-info">
+            <h3>$1,204</h3>
+            <p>Today's Sales</p>
+        </div>
+    </div>
 </div>
 
 <!-- Charts -->
