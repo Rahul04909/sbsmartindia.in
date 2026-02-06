@@ -15,7 +15,7 @@ include 'auth_session.php';
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <!-- Admin CSS -->
-    <link rel="stylesheet" href="assets/css/admin.css?v=<?php echo time(); ?>">
+    <link rel="stylesheet" href="/sbsmartindia.in/admin/assets/css/admin.css?v=<?php echo time(); ?>">
     
     <!-- Chart.js (Optional but recommended) -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
