@@ -1,7 +1,7 @@
 <aside class="admin-sidebar">
     <div class="sidebar-header">
-        <div class="sidebar-brand">
-            <i class="fas fa-shield-alt"></i> WaryChary Admin
+        <div class="sidebar-brand" style="justify-content: center; width: 100%;">
+            <img src="../asstes/logo/logo.png" alt="Admin Logo" style="max-height: 45px; width: auto;">
         </div>
     </div>
     
