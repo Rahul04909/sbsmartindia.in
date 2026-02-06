@@ -22,8 +22,8 @@
                 <i class="fas fa-chevron-right arrow"></i>
             </a>
             <ul class="submenu">
-                <li><a href="/sbsmartindia.in/admin/brands/index.php">All Brands</a></li>
-                <li><a href="/sbsmartindia.in/admin/brands/add-brand.php">Add New Brand</a></li>
+                <li><a href="../../admin/brands/index.php">All Brands</a></li>
+                <li><a href="../../admin/brands/add-brand.php">Add New Brand</a></li>
             </ul>
         </li>
 
