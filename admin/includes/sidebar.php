@@ -9,7 +9,7 @@
         <li class="menu-item <?php echo ($page == 'dashboard') ? 'active' : ''; ?>">
             <a href="index.php" class="menu-link">
                 <div class="menu-text">
-                    <i class="fas fa-tachometer-alt"></i> <span>Dashboard</span>
+                    <i class="fas fa-home"></i> <span>Dashboard</span>
                 </div>
             </a>
         </li>
@@ -17,57 +17,52 @@
         <li class="menu-item has-submenu">
             <a href="#" class="menu-link">
                 <div class="menu-text">
-                    <i class="fas fa-thumbtack"></i> <span>Products</span>
+                    <i class="fas fa-thumbtack"></i> <span>Brands</span>
+                </div>
+                <i class="fas fa-chevron-right arrow"></i>
+            </a>
+            <ul class="submenu">
+                <li><a href="#">All Brands</a></li>
+                <li><a href="#">Add New Brand</a></li>
+            </ul>
+        </li>
+
+        <li class="menu-item has-submenu">
+            <a href="#" class="menu-link">
+                <div class="menu-text">
+                    <i class="fas fa-images"></i> <span>Product Categories</span>
+                </div>
+                <i class="fas fa-chevron-right arrow"></i>
+            </a>
+            <ul class="submenu">
+                <li><a href="#">All Product Categories</a></li>
+                <li><a href="#">Add New Product Category</a></li>
+            </ul>
+        </li>
+
+        <li class="menu-item has-submenu">
+            <a href="#" class="menu-link">
+                <div class="menu-text">
+                    <i class="fas fa-file-alt"></i> <span>Products</span>
                 </div>
                 <i class="fas fa-chevron-right arrow"></i>
             </a>
             <ul class="submenu">
                 <li><a href="#">All Products</a></li>
-                <li><a href="#">Add New</a></li>
+                <li><a href="#">Add New Product</a></li>
             </ul>
         </li>
 
         <li class="menu-item has-submenu">
             <a href="#" class="menu-link">
                 <div class="menu-text">
-                    <i class="fas fa-images"></i> <span>Orders</span>
+                    <i class="fas fa-users"></i> <span>Orders</span>
                 </div>
                 <i class="fas fa-chevron-right arrow"></i>
             </a>
             <ul class="submenu">
                 <li><a href="#">All Orders</a></li>
-                <li><a href="#">Pending Orders</a></li>
-                <li><a href="#">Completed Orders</a></li>
-            </ul>
-        </li>
-
-        <li class="menu-item has-submenu">
-            <a href="#" class="menu-link">
-                <div class="menu-text">
-                    <i class="fas fa-file-alt"></i> <span>Senior Partners</span>
-                </div>
-                <i class="fas fa-chevron-right arrow"></i>
-            </a>
-            <ul class="submenu">
-                <li><a href="#">All Senior Partners</a></li>
-                <li><a href="#">Add Senior Partner</a></li>
-                <li><a href="#">Senior Partner Earnings</a></li>
-                <li><a href="#">Senior Partner Payouts</a></li>
-            </ul>
-        </li>
-
-        <li class="menu-item has-submenu">
-            <a href="#" class="menu-link">
-                <div class="menu-text">
-                    <i class="fas fa-users"></i> <span>Partners</span>
-                </div>
-                <i class="fas fa-chevron-right arrow"></i>
-            </a>
-            <ul class="submenu">
-                <li><a href="#">All Partners</a></li>
-                <li><a href="#">Add Partner</a></li>
-                <li><a href="#">Partner Earnings</a></li>
-                <li><a href="#">Partner Payouts</a></li>
+                <li><a href="#">Add New Order</a></li>
             </ul>
         </li>
 
@@ -94,8 +89,6 @@
             <ul class="submenu">
                 <li><a href="#">General</a></li>
                 <li><a href="#">Smtp Settings</a></li>
-                <li><a href="#">Razorpay Settings</a></li>
-                <li><a href="#">Manage Commisions</a></li>
             </ul>
         </li>
     </ul>
