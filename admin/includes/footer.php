@@ -2,7 +2,7 @@
         
         <footer class="admin-footer">
             <div class="footer-left">
-                Thank you for creating with <a href="#">WaryChary</a>.
+                Thank you for creating with <a href="#">Minib</a>.
             </div>
             <div class="footer-right">
                 Version 1.0.0
