@@ -1,13 +1,13 @@
 <aside class="admin-sidebar">
     <div class="sidebar-header">
         <div class="sidebar-brand" style="justify-content: center; width: 100%;">
-            <img src="/sbsmartindia.in/asstes/logo/logo.png" alt="Admin Logo" style="max-height: 45px; width: auto;">
+            <img src="<?php echo $url_prefix; ?>asstes/logo/logo.png" alt="Admin Logo" style="max-height: 45px; width: auto;">
         </div>
     </div>
     
     <ul class="sidebar-menu">
         <li class="menu-item <?php echo ($page == 'dashboard') ? 'active' : ''; ?>">
-            <a href="/sbsmartindia.in/admin/index.php" class="menu-link">
+            <a href="<?php echo $url_prefix; ?>index.php" class="menu-link">
                 <div class="menu-text">
                     <i class="fas fa-home"></i> <span>Dashboard</span>
                 </div>
@@ -22,8 +22,8 @@
                 <i class="fas fa-chevron-right arrow"></i>
             </a>
             <ul class="submenu">
-                <li><a href="../../admin/brands/index.php">All Brands</a></li>
-                <li><a href="../../admin/brands/add-brand.php">Add New Brand</a></li>
+                <li><a href="<?php echo $url_prefix; ?>brands/index.php">All Brands</a></li>
+                <li><a href="<?php echo $url_prefix; ?>brands/add-brand.php">Add New Brand</a></li>
             </ul>
         </li>
 
@@ -94,7 +94,7 @@
     </ul>
 
     <div class="sidebar-footer">
-        <a href="/sbsmartindia.in/admin/logout.php" class="btn-logout">
+        <a href="<?php echo $url_prefix; ?>logout.php" class="btn-logout">
             <i class="fas fa-sign-out-alt"></i> <span>Logout</span>
         </a>
     </div>

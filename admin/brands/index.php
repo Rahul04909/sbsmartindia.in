@@ -1,5 +1,6 @@
 <?php
 $page = 'brands';
+$url_prefix = '../';
 include '../includes/header.php';
 require_once '../../database/db_config.php';
 ?>

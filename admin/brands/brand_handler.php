@@ -4,7 +4,7 @@ require_once '../../database/db_config.php';
 
 // Auth Check
 if (!isset($_SESSION['admin_logged_in']) || $_SESSION['admin_logged_in'] !== true) {
-    header("Location: /admin/login.php");
+    header("Location: ../login.php");
     exit();
 }
 

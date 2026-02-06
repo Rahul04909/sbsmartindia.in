@@ -1,5 +1,6 @@
 <?php
 $page = 'brands';
+$url_prefix = '../';
 include '../includes/header.php';
 ?>
 <!-- Summernote CSS -->
