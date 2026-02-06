@@ -504,6 +504,54 @@ a {
     color: var(--primary-color);
 }
 
+
+/* Action Buttons */
+.action-buttons {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    white-space: nowrap;
+}
+
+.btn-action {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 6px 12px;
+    border-radius: 4px;
+    font-size: 12px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.2s;
+    border: 1px solid transparent;
+}
+
+.btn-action i {
+    margin-right: 5px;
+}
+
+.btn-edit {
+    background-color: #f0f6fc;
+    color: var(--primary-color);
+    border-color: rgba(13, 110, 253, 0.2);
+}
+
+.btn-edit:hover {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+.btn-delete {
+    background-color: #fce8e8;
+    color: var(--danger);
+    border-color: rgba(220, 53, 69, 0.2);
+}
+
+.btn-delete:hover {
+    background-color: var(--danger);
+    color: white;
+}
+
 /* Footer */
 .admin-footer {
     padding: 20px 30px;

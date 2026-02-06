@@ -59,8 +59,10 @@ require_once '../../database/db_config.php';
                             echo "<td><strong>" . $row['name'] . "</strong></td>";
                             echo "<td>" . $desc . "</td>";
                             echo "<td>
-                                <a href='edit-brand.php?id=" . $row['id'] . "' style='color: var(--primary-color); margin-right: 10px;'><i class='fas fa-edit'></i> Edit</a>
-                                <a href='brand_handler.php?delete=" . $row['id'] . "' onclick=\"return confirm('Are you sure you want to delete this brand?');\" style='color: var(--danger);'><i class='fas fa-trash'></i> Delete</a>
+                                <div class='action-buttons'>
+                                    <a href='edit-brand.php?id=" . $row['id'] . "' class='btn-action btn-edit'><i class='fas fa-edit'></i> Edit</a>
+                                    <a href='brand_handler.php?delete=" . $row['id'] . "' class='btn-action btn-delete' onclick=\"return confirm('Are you sure you want to delete this brand?');\"><i class='fas fa-trash'></i> Delete</a>
+                                </div>
                             </td>";
                             echo "</tr>";
                         }
