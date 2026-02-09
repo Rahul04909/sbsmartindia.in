@@ -1,3 +1,6 @@
+<?php
+require_once 'database/db_config.php';
+?>
 <section class="categories-section">
     <div class="container">
         <div class="categories-header">
@@ -10,165 +13,50 @@
             
             <div class="categories-wrapper" id="categoriesWrapper">
                 
-                <!-- Card 1: Asco Schneider -->
-                <div class="brand-card">
-                    <div class="brand-title">Asco Schneider</div>
-                    <div class="brand-grid">
-                        <div class="cat-item">
-                            <div class="cat-item-img-box">
-                                <img src="asstes/categories/Asco7000series[1].png" alt="7000 Series">
-                            </div>
-                            <div class="cat-item-name">7000 Series</div>
-                        </div>
-                        <div class="cat-item">
-                            <div class="cat-item-img-box">
-                                <img src="asstes/categories/AscoTransferpact[1].png" alt="Transferpact">
-                            </div>
-                            <div class="cat-item-name">Transferpact</div>
-                        </div>
-                        <div class="cat-item">
-                            <div class="cat-item-img-box">
-                                <img src="asstes/categories/Asco230series.png" alt="Series 230">
-                            </div>
-                            <div class="cat-item-name">Series 230</div>
-                        </div>
-                        <div class="cat-item">
-                            <div class="cat-item-img-box">
-                                <img src="asstes/categories/AscoWATSN.png" alt="Series 300">
-                            </div>
-                            <div class="cat-item-name">Series 300</div>
-                        </div>
-                    </div>
-                    <a href="#" class="see-all-brand">See all Asco Schneider</a>
-                </div>
+                <?php
+                // Fetch Brands that have categories
+                // Use distinct to avoid brands with no categories, or just fetch all and check count
+                $brand_sql = "SELECT * FROM brands ORDER BY id DESC"; // Ordering by ID or Name
+                $brand_result = $conn->query($brand_sql);
 
-                <!-- Card 2: Secure -->
-                <div class="brand-card">
-                    <div class="brand-title">Secure</div>
-                    <div class="brand-grid">
-                        <div class="cat-item">
-                            <div class="cat-item-img-box">
-                                <img src="asstes/categories/AscoWATSN.png" alt="Meter">
-                            </div>
-                            <div class="cat-item-name">Smart Meter</div>
-                        </div>
-                        <div class="cat-item">
-                            <div class="cat-item-img-box">
-                                <img src="asstes/categories/Asco230series.png" alt="EMS">
-                            </div>
-                            <div class="cat-item-name">EMS</div>
-                        </div>
-                        <div class="cat-item">
-                            <div class="cat-item-img-box">
-                                <img src="asstes/categories/Asco7000series[1].png" alt="Control">
-                            </div>
-                            <div class="cat-item-name">Controls</div>
-                        </div>
-                        <div class="cat-item">
-                            <div class="cat-item-img-box">
-                                <img src="asstes/categories/AscoTransferpact[1].png" alt="Switch">
-                            </div>
-                            <div class="cat-item-name">Switches</div>
-                        </div>
-                    </div>
-                    <a href="#" class="see-all-brand">See all Secure</a>
-                </div>
+                if ($brand_result->num_rows > 0) {
+                    while($brand = $brand_result->fetch_assoc()) {
+                        $brand_id = $brand['id'];
+                        $brand_name = $brand['name'];
+                        
+                        // Fetch Categories for this Brand (Limit 4)
+                        $cat_sql = "SELECT * FROM product_categories WHERE brand_id = $brand_id ORDER BY id DESC LIMIT 4";
+                        $cat_result = $conn->query($cat_sql);
 
-                <!-- Card 3: BCH -->
-                <div class="brand-card">
-                    <div class="brand-title">BCH</div>
-                    <div class="brand-grid">
-                        <div class="cat-item">
-                            <div class="cat-item-img-box">
-                                <img src="asstes/categories/AscoTransferpact[1].png" alt="Switchgear">
+                        if ($cat_result->num_rows > 0) {
+                            ?>
+                            <div class="brand-card">
+                                <div class="brand-title"><?php echo htmlspecialchars($brand_name); ?></div>
+                                <div class="brand-grid">
+                                    <?php
+                                    while($cat = $cat_result->fetch_assoc()) {
+                                        $cat_name = $cat['name'];
+                                        $cat_img = $cat['image'] ? $cat['image'] : 'assets/images/no-image.png'; // Fallback image if needed
+                                        ?>
+                                        <div class="cat-item">
+                                            <div class="cat-item-img-box">
+                                                <img src="<?php echo htmlspecialchars($cat_img); ?>" alt="<?php echo htmlspecialchars($cat_name); ?>">
+                                            </div>
+                                            <div class="cat-item-name"><?php echo htmlspecialchars($cat_name); ?></div>
+                                        </div>
+                                        <?php
+                                    }
+                                    ?>
+                                </div>
+                                <a href="#" class="see-all-brand">See all <?php echo htmlspecialchars($brand_name); ?></a>
                             </div>
-                            <div class="cat-item-name">Switchgear</div>
-                        </div>
-                        <div class="cat-item">
-                            <div class="cat-item-img-box">
-                                <img src="asstes/categories/AscoWATSN.png" alt="Enclosures">
-                            </div>
-                            <div class="cat-item-name">Enclosures</div>
-                        </div>
-                        <div class="cat-item">
-                            <div class="cat-item-img-box">
-                                <img src="asstes/categories/Asco230series.png" alt="PDB">
-                            </div>
-                            <div class="cat-item-name">PDB</div>
-                        </div>
-                        <div class="cat-item">
-                            <div class="cat-item-img-box">
-                                <img src="asstes/categories/Asco7000series[1].png" alt="Drives">
-                            </div>
-                            <div class="cat-item-name">Drives</div>
-                        </div>
-                    </div>
-                    <a href="#" class="see-all-brand">See all BCH</a>
-                </div>
-
-                <!-- Card 4: Connectwell -->
-                <div class="brand-card">
-                    <div class="brand-title">Connectwell</div>
-                    <div class="brand-grid">
-                        <div class="cat-item">
-                            <div class="cat-item-img-box">
-                                <img src="asstes/categories/Asco7000series[1].png" alt="Terminals">
-                            </div>
-                            <div class="cat-item-name">Terminals</div>
-                        </div>
-                        <div class="cat-item">
-                            <div class="cat-item-img-box">
-                                <img src="asstes/categories/Asco230series.png" alt="Modules">
-                            </div>
-                            <div class="cat-item-name">Modules</div>
-                        </div>
-                        <div class="cat-item">
-                            <div class="cat-item-img-box">
-                                <img src="asstes/categories/AscoTransferpact[1].png" alt="Power Supply">
-                            </div>
-                            <div class="cat-item-name">Power Supply</div>
-                        </div>
-                        <div class="cat-item">
-                            <div class="cat-item-img-box">
-                                <img src="asstes/categories/AscoWATSN.png" alt="Marking">
-                            </div>
-                            <div class="cat-item-name">Marking</div>
-                        </div>
-                    </div>
-                    <a href="#" class="see-all-brand">See all Connectwell</a>
-                </div>
-
-                <!-- Card 5: Other -->
-                <div class="brand-card">
-                    <div class="brand-title">Other</div>
-                    <div class="brand-grid">
-                        <div class="cat-item">
-                            <div class="cat-item-img-box">
-                                <img src="asstes/categories/Asco230series.png" alt="Tools">
-                            </div>
-                            <div class="cat-item-name">Tools</div>
-                        </div>
-                        <div class="cat-item">
-                            <div class="cat-item-img-box">
-                                <img src="asstes/categories/AscoWATSN.png" alt="Safety">
-                            </div>
-                            <div class="cat-item-name">Safety</div>
-                        </div>
-                        <div class="cat-item">
-                            <div class="cat-item-img-box">
-                                <img src="asstes/categories/Asco7000series[1].png" alt="Accessories">
-                            </div>
-                            <div class="cat-item-name">Accessories</div>
-                        </div>
-                        <div class="cat-item">
-                            <div class="cat-item-img-box">
-                                <img src="asstes/categories/AscoTransferpact[1].png" alt="All">
-                            </div>
-                            <div class="cat-item-name">View All</div>
-                        </div>
-                    </div>
-                    <a href="#" class="see-all-brand">See all Other</a>
-                </div>
+                            <?php
+                        }
+                    }
+                } else {
+                    echo "<p style='text-align:center; width:100%; color:#888;'>No categories found.</p>";
+                }
+                ?>
 
             </div>
 

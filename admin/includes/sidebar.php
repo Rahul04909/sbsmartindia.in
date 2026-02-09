@@ -35,8 +35,8 @@
                 <i class="fas fa-chevron-right arrow"></i>
             </a>
             <ul class="submenu">
-                <li><a href="#">All Product Categories</a></li>
-                <li><a href="#">Add New Product Category</a></li>
+                <li><a href="<?php echo $url_prefix; ?>product-categories/index.php">All Product Categories</a></li>
+                <li><a href="<?php echo $url_prefix; ?>product-categories/add-category.php">Add New Product Category</a></li>
             </ul>
         </li>
 
