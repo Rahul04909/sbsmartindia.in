@@ -40,6 +40,18 @@
             </ul>
         </li>
 
+        <li>
+            <a href="#" class="sidebar-dropdown-toggle">
+                <i class="fas fa-layer-group"></i>
+                <span>Product Sub-Categories</span>
+                <i class="fas fa-chevron-right arrow"></i>
+            </a>
+            <ul class="submenu">
+                <li><a href="<?php echo $url_prefix; ?>product-sub-categories/index.php">All Sub-Categories</a></li>
+                <li><a href="<?php echo $url_prefix; ?>product-sub-categories/add-sub-category.php">Add Sub-Category</a></li>
+            </ul>
+        </li>
+
         <li class="menu-item has-submenu">
             <a href="#" class="menu-link">
                 <div class="menu-text">
