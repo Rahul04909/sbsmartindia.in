@@ -40,10 +40,11 @@
             </ul>
         </li>
 
-        <li>
-            <a href="#" class="sidebar-dropdown-toggle">
-                <i class="fas fa-layer-group"></i>
-                <span>Product Sub-Categories</span>
+        <li class="menu-item has-submenu">
+            <a href="#" class="menu-link">
+                <div class="menu-text">
+                    <i class="fas fa-layer-group"></i> <span>Product Sub-Categories</span>
+                </div>
                 <i class="fas fa-chevron-right arrow"></i>
             </a>
             <ul class="submenu">
