@@ -75,11 +75,16 @@
     padding: 30px;
     width: 100%;
     display: flex;
-    gap: 30px;
+    justify-content: center;
+    /* Center content horizontally */
+    gap: 40px;
+    max-width: 1200px;
+    margin: 0 auto;
 }
 
 .brand-grid-container {
-    flex: 1;
+    flex: 0 0 70%;
+    /* Adjust width to fit centered grid */
 }
 
 .brand-grid-header {
@@ -106,8 +111,10 @@
 
 .brand-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
-    gap: 15px;
+    grid-template-columns: repeat(4, 1fr);
+    /* 4 columns */
+    gap: 20px;
+    justify-content: center;
 }
 
 .brand-mega-item {
@@ -115,30 +122,36 @@
     flex-direction: column;
     align-items: center;
     text-align: center;
-    padding: 10px;
+    padding: 15px;
     border: 1px solid #eee;
-    border-radius: 6px;
+    border-radius: 8px;
+    /* Slightly more rounded */
     transition: all 0.2s;
     text-decoration: none;
     color: #333;
+    height: 100%;
+    /* Consistent height */
+    justify-content: center;
+    background: #fff;
 }
 
 .brand-mega-item:hover {
     border-color: #fca311;
     transform: translateY(-3px);
-    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.05);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
 }
 
 .brand-mega-item img {
-    width: 60px;
-    height: 40px;
+    width: 80px;
+    /* Slightly larger */
+    height: 50px;
     object-fit: contain;
-    margin-bottom: 8px;
+    margin-bottom: 10px;
 }
 
 .brand-mega-item span {
-    font-size: 12px;
-    font-weight: 500;
+    font-size: 13px;
+    font-weight: 600;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;

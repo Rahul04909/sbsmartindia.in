@@ -79,7 +79,7 @@
                                     }
 
                                     if (isset($conn)) {
-                                        $h_brand_sql = "SELECT * FROM brands ORDER BY name ASC";
+                                        $h_brand_sql = "SELECT * FROM brands ORDER BY RAND() LIMIT 8";
                                         $h_brand_res = $conn->query($h_brand_sql);
 
                                         if ($h_brand_res && $h_brand_res->num_rows > 0) {
