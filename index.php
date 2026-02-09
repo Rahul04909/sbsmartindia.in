@@ -13,11 +13,13 @@
     <link rel="stylesheet" href="asstes/css/categories.css">
     <link rel="stylesheet" href="asstes/css/stats.css">
     <link rel="stylesheet" href="asstes/css/services.css">
+    <link rel="stylesheet" href="assets/css/brand-menu.css">
 </head>
 <body>
 
     <?php include 'includes/header.php'; ?>
     <?php include 'includes/hero.php'; ?>
+    <?php include 'includes/brand-menu.php'; ?>
     <?php include 'includes/categories.php'; ?>
     <?php include 'includes/stats.php'; ?>
     <?php include 'includes/services.php'; ?>
