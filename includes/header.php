@@ -47,7 +47,6 @@
             </div>
         </div>
     </div>
-    </div>
 
     <!-- Main Navigation -->
     <nav class="main-navigation">
@@ -60,12 +59,12 @@
                     <a href="#" class="nav-link">Brands <i class="fa-solid fa-chevron-down"></i></a>
                     <div class="mega-menu">
                         <div class="mega-menu-content">
-                            <div class="brand-grid-container">
-                                <div class="brand-grid-header">
+                            <div class="header-brand-grid-container">
+                                <div class="header-brand-grid-header">
                                     <h3>Our Brands</h3>
                                     <a href="#">View All Brands</a>
                                 </div>
-                                <div class="brand-grid">
+                                <div class="header-brand-grid">
                                     <?php
                                     // Ensure DB connection
                                     if (!isset($conn)) {
