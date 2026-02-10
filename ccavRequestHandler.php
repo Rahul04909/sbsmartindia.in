@@ -13,6 +13,15 @@ $access_code = "AVYV96HJ39CI86VYIC";
     $total_items = [];
     $total_amount = 0;
 
+    // Collect Billing Details
+    $name = isset($_POST['billing_name']) ? $conn->real_escape_string($_POST['billing_name']) : '';
+    $email = isset($_POST['billing_email']) ? $conn->real_escape_string($_POST['billing_email']) : '';
+    $phone = isset($_POST['billing_tel']) ? $conn->real_escape_string($_POST['billing_tel']) : '';
+    $address = isset($_POST['billing_address']) ? $conn->real_escape_string($_POST['billing_address']) : '';
+    $city = isset($_POST['billing_city']) ? $conn->real_escape_string($_POST['billing_city']) : '';
+    $state = isset($_POST['billing_state']) ? $conn->real_escape_string($_POST['billing_state']) : '';
+    $zip = isset($_POST['billing_zip']) ? $conn->real_escape_string($_POST['billing_zip']) : '';
+
     if (isset($_POST['from_cart']) && $_POST['from_cart'] == 1) {
         // Handle Cart Checkout
         $session_id = session_id();
