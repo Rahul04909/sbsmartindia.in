@@ -1,0 +1,269 @@
+<?php
+$page = 'products';
+$url_prefix = '../';
+include '../includes/header.php';
+require_once '../../database/db_config.php';
+
+if (!isset($_GET['id'])) {
+    header("Location: index.php");
+    exit();
+}
+
+$id = (int)$_GET['id'];
+$sql = "SELECT * FROM products WHERE id=$id";
+$result = $conn->query($sql);
+
+if ($result->num_rows == 0) {
+    header("Location: index.php");
+    exit();
+}
+
+$product = $result->fetch_assoc();
+?>
+
+<div class="admin-content">
+    <div class="page-header">
+        <h1 class="page-title">Edit Product</h1>
+        <a href="index.php" class="btn-admin" style="background-color: #646970; border-color: #646970;">
+            <i class="fas fa-arrow-left"></i> Back to Products
+        </a>
+    </div>
+
+    <form action="product_handler.php" method="POST" enctype="multipart/form-data" id="productForm">
+        <input type="hidden" name="product_id" value="<?php echo $product['id']; ?>">
+        
+        <div class="charts-row">
+            <!-- Left Column -->
+            <div class="chart-card" style="grid-column: span 2;">
+                <div class="card-header">
+                    <h3 class="card-title">Product Information</h3>
+                </div>
+                
+                 <div class="row" style="display: flex; gap: 20px; margin-bottom: 20px;">
+                    <div style="flex: 1;">
+                        <label style="display: block; margin-bottom: 8px; font-weight: 500;">Brand <span style="color: red;">*</span></label>
+                        <select name="brand_id" id="brand_id" required style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px;">
+                            <option value="">Select Brand</option>
+                            <?php
+                            $brand_sql = "SELECT id, name FROM brands ORDER BY name ASC";
+                            $brand_result = $conn->query($brand_sql);
+                            if ($brand_result->num_rows > 0) {
+                                while($brand = $brand_result->fetch_assoc()) {
+                                    $selected = ($brand['id'] == $product['brand_id']) ? 'selected' : '';
+                                    echo "<option value='" . $brand['id'] . "' $selected>" . htmlspecialchars($brand['name']) . "</option>";
+                                }
+                            }
+                            ?>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="row" style="display: flex; gap: 20px; margin-bottom: 20px;">
+                    <div style="flex: 1;">
+                        <label style="display: block; margin-bottom: 8px; font-weight: 500;">Category <span style="color: red;">*</span></label>
+                        <select name="category_id" id="category_id" required style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px;">
+                            <option value="">Select Category</option>
+                            <?php 
+                             // Fetch current category based on sub_category
+                             $sub_cat_id = $product['sub_category_id'];
+                             $curr_cat_sql = "SELECT category_id FROM product_sub_categories WHERE id=$sub_cat_id";
+                             $curr_cat_res = $conn->query($curr_cat_sql);
+                             $current_category_id = 0;
+                             if($curr_cat_res->num_rows > 0){
+                                 $current_category_id = $curr_cat_res->fetch_assoc()['category_id'];
+                             }
+
+                             $cat_sql = "SELECT id, name, brand_id FROM product_categories ORDER BY name ASC";
+                             $cat_result = $conn->query($cat_sql);
+                             $categories = [];
+                             while($row = $cat_result->fetch_assoc()){
+                                 $categories[] = $row;
+                                 $selected = ($row['id'] == $current_category_id) ? 'selected' : '';
+                                 // Only show if brand matches or no brand selected yet (handled by JS but initial load needs logic)
+                                 if($row['brand_id'] == $product['brand_id']) {
+                                    echo "<option value='" . $row['id'] . "' $selected>" . htmlspecialchars($row['name']) . "</option>";
+                                 }
+                             }
+                            ?>
+                        </select>
+                    </div>
+                    <div style="flex: 1;">
+                        <label style="display: block; margin-bottom: 8px; font-weight: 500;">Sub Category <span style="color: red;">*</span></label>
+                        <select name="sub_category_id" id="sub_category_id" required style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px;">
+                            <option value="">Select Sub Category</option>
+                            <?php
+                            if($current_category_id) {
+                                $sub_sql = "SELECT id, name FROM product_sub_categories WHERE category_id=$current_category_id ORDER BY name ASC";
+                                $sub_res = $conn->query($sub_sql);
+                                while($sub = $sub_res->fetch_assoc()){
+                                    $selected = ($sub['id'] == $product['sub_category_id']) ? 'selected' : '';
+                                    echo "<option value='" . $sub['id'] . "' $selected>" . htmlspecialchars($sub['name']) . "</option>";
+                                }
+                            }
+                            ?>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group" style="margin-bottom: 20px;">
+                    <label style="display: block; margin-bottom: 8px; font-weight: 500;">Product Title <span style="color: red;">*</span></label>
+                    <input type="text" name="title" value="<?php echo htmlspecialchars($product['title']); ?>" required style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px;">
+                </div>
+
+                <div class="form-group" style="margin-bottom: 20px;">
+                    <label style="display: block; margin-bottom: 8px; font-weight: 500;">Description</label>
+                    <textarea name="description" id="summernote"><?php echo $product['description']; ?></textarea>
+                </div>
+            </div>
+
+            <!-- Right Column -->
+            <div class="chart-card">
+                <div class="card-header">
+                    <h3 class="card-title">Pricing & Stock</h3>
+                </div>
+
+                <div class="form-group" style="margin-bottom: 20px;">
+                    <label style="display: block; margin-bottom: 8px; font-weight: 500;">MRP (₹)</label>
+                    <input type="number" step="0.01" name="mrp" id="mrp" value="<?php echo $product['mrp']; ?>" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px;">
+                </div>
+
+                <div class="form-group" style="margin-bottom: 20px;">
+                    <label style="display: block; margin-bottom: 8px; font-weight: 500;">Sales Price (₹) <span style="color: red;">*</span></label>
+                    <input type="number" step="0.01" name="sales_price" id="sales_price" value="<?php echo $product['sales_price']; ?>" required style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px;">
+                </div>
+
+                <div class="form-group" style="margin-bottom: 20px;">
+                    <label style="display: block; margin-bottom: 8px; font-weight: 500;">Discount Percentage (%)</label>
+                    <input type="number" step="0.01" name="discount_percentage" id="discount_percentage" value="<?php echo $product['discount_percentage']; ?>" readonly style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px; background: #eee;">
+                </div>
+
+                <div class="form-group" style="margin-bottom: 20px;">
+                    <label style="display: block; margin-bottom: 8px; font-weight: 500;">Stock Quantity</label>
+                    <input type="number" name="stock" value="<?php echo $product['stock']; ?>" min="0" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px;">
+                </div>
+                 
+                 <div class="form-group" style="margin-bottom: 20px;">
+                    <label style="display: block; margin-bottom: 8px; font-weight: 500;">Featured Image</label>
+                    <?php if(!empty($product['featured_image'])): ?>
+                        <div style="margin-bottom: 10px;">
+                            <img src="../../<?php echo $product['featured_image']; ?>" style="width: 100px; border-radius: 4px;">
+                        </div>
+                    <?php endif; ?>
+                    <input type="file" name="featured_image" accept="image/*" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px; background: #f9f9f9;">
+                    <small style="color: #646970; display: block; margin-top: 5px;">Leave empty to keep current image</small>
+                </div>
+
+                 <div class="form-group" style="margin-bottom: 20px;">
+                    <label style="display: block; margin-bottom: 8px; font-weight: 500;">Gallery Images</label>
+                    <div class="gallery-preview" style="display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 10px;">
+                        <?php
+                        $gal_sql = "SELECT * FROM product_images WHERE product_id=$id";
+                        $gal_result = $conn->query($gal_sql);
+                        while($img = $gal_result->fetch_assoc()) {
+                            echo '<div style="position: relative;">';
+                            echo '<img src="../../'.$img['image_path'].'" style="width: 60px; height: 60px; object-fit: cover; border-radius: 4px;">';
+                            echo '<a href="product_handler.php?delete_image='.$img['id'].'&product_id='.$id.'" onclick="return confirm(\'Delete this image?\')" style="position: absolute; top: -5px; right: -5px; background: red; color: white; border-radius: 50%; width: 18px; height: 18px; text-align: center; line-height: 18px; font-size: 12px;">&times;</a>';
+                            echo '</div>';
+                        }
+                        ?>
+                    </div>
+                    <input type="file" name="gallery_images[]" accept="image/*" multiple style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px; background: #f9f9f9;">
+                    <small style="color: #646970; display: block; margin-top: 5px;">Upload new images to add to gallery</small>
+                </div>
+                
+                 <button type="submit" name="update_product" class="btn-admin" style="padding: 12px 24px;">
+                    <i class="fas fa-save"></i> Update Product
+                </button>
+            </div>
+            
+            <!-- SEO Column -->
+            <div class="chart-card" style="grid-column: span 3;">
+                <div class="card-header">
+                    <h3 class="card-title">SEO Information</h3>
+                </div>
+                
+                <div class="form-group" style="margin-bottom: 20px;">
+                    <label style="display: block; margin-bottom: 8px; font-weight: 500;">Meta Title</label>
+                    <input type="text" name="meta_title" value="<?php echo htmlspecialchars($product['meta_title']); ?>" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px;">
+                </div>
+
+                <div class="form-group" style="margin-bottom: 20px;">
+                    <label style="display: block; margin-bottom: 8px; font-weight: 500;">Meta Description</label>
+                    <textarea name="meta_description" rows="3" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px; resize: vertical;"><?php echo htmlspecialchars($product['meta_description']); ?></textarea>
+                </div>
+
+                 <div class="form-group" style="margin-bottom: 20px;">
+                    <label style="display: block; margin-bottom: 8px; font-weight: 500;">Meta Keywords</label>
+                    <input type="text" name="meta_keywords" value="<?php echo htmlspecialchars($product['meta_keywords']); ?>" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px;">
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+<!-- Scripts for Dynamic Behavior -->
+<script>
+$(document).ready(function() {
+    // Summernote
+    $('#summernote').summernote({
+        height: 300,
+        toolbar: [
+            ['style', ['style']],
+            ['font', ['bold', 'underline', 'clear']],
+            ['color', ['color']],
+            ['para', ['ul', 'ol', 'paragraph']],
+            ['table', ['table']],
+            ['insert', ['link', 'picture', 'video']],
+            ['view', ['fullscreen', 'codeview', 'help']]
+        ]
+    });
+
+    // Discount Calculation
+    $('#mrp, #sales_price').on('input', function() {
+        var mrp = parseFloat($('#mrp').val()) || 0;
+        var sales = parseFloat($('#sales_price').val()) || 0;
+        
+        if(mrp > 0 && sales > 0 && mrp > sales) {
+            var discount = ((mrp - sales) / mrp) * 100;
+            $('#discount_percentage').val(discount.toFixed(2));
+        } else {
+            $('#discount_percentage').val(0);
+        }
+    });
+    
+     // JS side data for categories
+    const categories = <?php echo json_encode($categories); ?>;
+
+    $('#brand_id').change(function(){
+        const brandId = $(this).val();
+        const catSelect = $('#category_id');
+        catSelect.empty().append('<option value="">Select Category</option>');
+        
+        if(brandId) {
+             const filtered = categories.filter(c => c.brand_id == brandId);
+             filtered.forEach(c => {
+                 catSelect.append(`<option value="${c.id}">${c.name}</option>`);
+             });
+        }
+         $('#sub_category_id').empty().append('<option value="">Select Sub Category</option>');
+    });
+
+    $('#category_id').change(function() {
+        var category_id = $(this).val();
+        if(category_id) {
+            $.ajax({
+                url: 'get_sub_categories.php',
+                type: 'POST',
+                data: {category_id: category_id},
+                success: function(response) {
+                    $('#sub_category_id').html(response);
+                }
+            });
+        } else {
+            $('#sub_category_id').html('<option value="">Select Sub Category</option>');
+        }
+    });
+});
+</script>
+
+<?php include '../includes/footer.php'; ?>

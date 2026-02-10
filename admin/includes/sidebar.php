@@ -61,8 +61,8 @@
                 <i class="fas fa-chevron-right arrow"></i>
             </a>
             <ul class="submenu">
-                <li><a href="#">All Products</a></li>
-                <li><a href="#">Add New Product</a></li>
+                <li><a href="<?php echo $url_prefix; ?>products/index.php">All Products</a></li>
+                <li><a href="<?php echo $url_prefix; ?>products/add-product.php">Add New Product</a></li>
             </ul>
         </li>
 
