@@ -77,8 +77,14 @@ include '../includes/header.php';
                                   </td>";
                             echo "<td>
                                     <strong>" . htmlspecialchars($row['customer_name']) . "</strong><br>
-                                    <small><i class='fas fa-phone'></i> " . htmlspecialchars($row['customer_mobile']) . "</small><br>
-                                    <small><i class='fas fa-envelope'></i> " . htmlspecialchars($row['customer_email']) . "</small>
+                                    <div style='display:flex; align-items:center; gap:5px; margin-top:3px;'>
+                                        <i class='fas fa-phone' style='width:15px; color:#555;'></i>
+                                        <small>" . htmlspecialchars($row['customer_mobile']) . "</small>
+                                    </div>
+                                    <div style='display:flex; align-items:center; gap:5px; margin-top:3px;'>
+                                        <i class='fas fa-envelope' style='width:15px; color:#555;'></i>
+                                        <small style='word-break:break-all;'>" . htmlspecialchars($row['customer_email']) . "</small>
+                                    </div>
                                   </td>";
                             echo "<td>" . ($row['company_name'] ? htmlspecialchars($row['company_name']) : '-') . "</td>";
                             echo "<td>
