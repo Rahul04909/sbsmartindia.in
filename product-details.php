@@ -1,5 +1,29 @@
 <?php
 require_once 'database/db_config.php';
+?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Details - SB Smart India</title>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="asstes/css/style.css">
+    <link rel="stylesheet" href="asstes/css/hero.css">
+    <link rel="stylesheet" href="asstes/css/footer.css">
+    <link rel="stylesheet" href="asstes/css/categories.css">
+    <link rel="stylesheet" href="asstes/css/stats.css">
+    <link rel="stylesheet" href="asstes/css/services.css">
+    <link rel="stylesheet" href="assets/css/brand-menu.css">
+    <link rel="stylesheet" href="assets/css/latest-products.css">
+    <link rel="stylesheet" href="assets/css/header-menu.css">
+    <link rel="stylesheet" href="assets/css/product-details.css">
+</head>
+<body>
+
+<?php
 require_once 'includes/header.php';
 
 // Get Product ID
@@ -71,7 +95,7 @@ if ($product_id > 0) {
         }
 
         ?>
-        <link rel="stylesheet" href="assets/css/product-details.css">
+
         
         <div class="product-details-container container">
             <!-- Breadcrumbs -->
@@ -300,4 +324,7 @@ if ($product_id > 0) {
 }
 
 require_once 'includes/footer.php';
+?>
+</body>
+</html>
 ?>
