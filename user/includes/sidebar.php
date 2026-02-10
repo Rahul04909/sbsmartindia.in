@@ -21,7 +21,7 @@
             </a>
         </li>
         <li>
-            <a href="#" class="<?php echo ($page == 'profile') ? 'active' : ''; ?>">
+            <a href="../../user/profile.php" class="<?php echo ($page == 'profile') ? 'active' : ''; ?>">
                 <i class="fa-solid fa-id-card"></i> Profile & Address
             </a>
         </li>
