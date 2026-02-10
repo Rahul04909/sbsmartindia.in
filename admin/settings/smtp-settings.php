@@ -1,5 +1,5 @@
-<?php
 $page = 'settings';
+$url_prefix = '../'; // Fix for relative assets
 require_once '../../database/db_config.php';
 require_once '../../vendor/autoload.php'; // Ensure PHPMailer is loaded
 
