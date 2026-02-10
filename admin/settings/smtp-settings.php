@@ -1,3 +1,4 @@
+<?php
 $page = 'settings';
 $url_prefix = '../'; // Fix for relative assets
 require_once '../../database/db_config.php';
