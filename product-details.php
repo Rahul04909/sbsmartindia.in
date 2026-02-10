@@ -176,9 +176,19 @@ if ($product_id > 0) {
                         <?php endif; ?>
                     </div>
                     
-                    <div style="margin-top: 20px; font-size: 14px; color: #555;">
-                        <p><i class="fa-solid fa-lock"></i> Secure transaction</p>
-                        <p><i class="fa-solid fa-truck"></i> Fast Delivery</p>
+                    <div class="product-trust-badges">
+                        <div class="trust-item">
+                            <div class="icon-box"><i class="fa-solid fa-shield-halved"></i></div>
+                            <span>Secure Transaction</span>
+                        </div>
+                        <div class="trust-item">
+                            <div class="icon-box"><i class="fa-solid fa-truck-fast"></i></div>
+                            <span>Fast Delivery</span>
+                        </div>
+                        <div class="trust-item">
+                            <div class="icon-box"><i class="fa-solid fa-headset"></i></div>
+                            <span>Support 24/7</span>
+                        </div>
                     </div>
                 </div>
             </div>
