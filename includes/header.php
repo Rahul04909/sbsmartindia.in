@@ -76,7 +76,7 @@
                             <li class="nav-item">
                                 <a href="#" class="nav-link brand-nav-btn">
                                     <?php if ($nb_logo): ?>
-                                        <img src="<?php echo htmlspecialchars($nb_logo); ?>" alt="<?php echo htmlspecialchars($nb_name); ?>">
+                                        <img src="<?php echo $url_prefix . htmlspecialchars($nb_logo); ?>" alt="<?php echo htmlspecialchars($nb_name); ?>">
                                     <?php else: ?>
                                         <span><?php echo htmlspecialchars($nb_name); ?></span>
                                     <?php endif; ?>
