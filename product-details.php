@@ -163,7 +163,7 @@ if ($product_id > 0) {
                         
                         <div class="action-buttons">
                              <?php if($product['is_price_request']): ?>
-                                <a href="contact-us.php?product=<?php echo urlencode($product['title']); ?>" class="btn-primary">Request Quote</a>
+                                <button type="button" class="btn-primary" onclick="openQuoteModal(<?php echo $product['id']; ?>, '<?php echo addslashes($product['title']); ?>')">Request Quote</button>
                             <?php else: ?>
                                 <button type="button" class="btn-cart" onclick="addToCart(<?php echo $product['id']; ?>)">Add to Cart</button>
                                 <a href="checkout.php?product_id=<?php echo $product['id']; ?>" class="btn-primary">Buy Now</a>
@@ -377,8 +377,12 @@ if ($product_id > 0) {
 } else {
     echo "<div class='container' style='padding: 100px; text-align: center;'><h2>Invalid Product ID</h2><a href='index.php' class='btn-primary'>Go Home</a></div>";
 }
-
-require_once 'includes/footer.php';
 ?>
+
+
+<!-- Include Quote Modal -->
+<?php include 'components/quote-modal.php'; ?>
+
+<?php require_once 'includes/footer.php'; ?>
 </body>
 </html>
