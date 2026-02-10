@@ -87,17 +87,12 @@
             </a>
         </li>
 
-        <li class="menu-item has-submenu">
-            <a href="#" class="menu-link">
+        <li class="menu-item <?php echo ($page == 'users') ? 'active' : ''; ?>">
+            <a href="<?php echo $url_prefix; ?>users/index.php" class="menu-link">
                 <div class="menu-text">
-                    <i class="fas fa-tools"></i> <span>Users</span>
+                    <i class="fas fa-users"></i> <span>Users</span>
                 </div>
-                <i class="fas fa-chevron-right arrow"></i>
             </a>
-            <ul class="submenu">
-                <li><a href="#">All Users</a></li>
-                <li><a href="#">Add User</a></li>
-            </ul>
         </li>
 
         <li class="menu-item has-submenu">
