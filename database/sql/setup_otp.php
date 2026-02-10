@@ -1,8 +1,5 @@
 <?php
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "u436737546_sbsmart";
+include_once "../db_config.php";
 
 // Create connection
 $conn = new mysqli($servername, $username, $password, $dbname);
