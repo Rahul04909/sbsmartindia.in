@@ -41,7 +41,7 @@
             <div class="header-icons">
                 <div class="icon-item" style="position: relative;">
                     <a href="cart.php" title="Bag"><i class="fa-solid fa-bag-shopping"></i></a>
-                    <span id="cart-count-badge" style="position:absolute; top:-8px; right:-8px; background:red; color:white; border-radius:50%; font-size:10px; width:16px; height:16px; display:flex; align-items:center; justify-content:center; display:none;">0</span>
+                    <span id="cart-count-badge" class="cart-badge" style="display:none;">0</span>
                 </div>
                 <div class="icon-item">
                     <?php if (isset($_SESSION['user_id'])): ?>
