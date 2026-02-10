@@ -74,7 +74,10 @@
 
                     if ($nav_brand_res && $nav_brand_res->num_rows > 0) {
                         while ($nav_brand = $nav_brand_res->fetch_assoc()) {
-                            $nb_logo = $nav_brand['logo'] && file_exists($nav_brand['logo']) ? $nav_brand['logo'] : '';
+                            $raw_logo = $nav_brand['logo'];
+                            $check_path = (isset($url_prefix) ? $url_prefix : '') . $raw_logo;
+                            
+                            $nb_logo = $raw_logo && file_exists($check_path) ? $raw_logo : '';
                             $nb_name = $nav_brand['name'];
                 ?>
                             <li class="nav-item">
