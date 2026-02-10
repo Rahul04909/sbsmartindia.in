@@ -3,9 +3,9 @@ include('includes/ccavenue_crypto.php');
 require_once 'database/db_config.php';
 
 // CCAvenue Configuration (REPLACE WITH YOUR KEYS)
-$merchant_id = "YOUR_MERCHANT_ID";
-$working_key = "YOUR_WORKING_KEY";
-$access_code = "YOUR_ACCESS_CODE";
+$merchant_id = "254361";
+$working_key = "20F8426E1EE4F3AE18D8DE38F727AEAC";
+$access_code = "AVYV96HJ39CI86VYIC";
 
 if(isset($_POST['checkout_submit'])) {
     

@@ -3,7 +3,7 @@ include('includes/ccavenue_crypto.php');
 require_once 'database/db_config.php';
 
 // CCAvenue Configuration (REPLACE WITH YOUR KEYS)
-$working_key = "YOUR_WORKING_KEY"; // Shared by CCAVENUES
+$working_key = "20F8426E1EE4F3AE18D8DE38F727AEAC"; // Shared by CCAVENUES
 
 $encResponse = $_POST["encResp"];			//This is the response sent by the CCAvenue Server
 $rcvdString = decrypt($encResponse, $working_key);		//Crypto Decryption used as per the specified working key.
