@@ -146,7 +146,8 @@
 
 .save-amount {
     font-size: 14px;
-    color: #B12704;
+    color: #007600;
+    /* Green */
     font-weight: 600;
     display: block;
     margin-top: 5px;
@@ -177,6 +178,14 @@
     display: flex;
     gap: 15px;
     margin-bottom: 30px;
+}
+
+.btn-buy,
+.btn-enquire {
+    flex: 1;
+    max-width: 200px;
+    /* Limit maximum width */
+    text-align: center;
 }
 
 .btn-buy {

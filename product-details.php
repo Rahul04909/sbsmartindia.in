@@ -169,10 +169,10 @@ if ($product_id > 0) {
 
                     <div class="action-buttons">
                         <?php if($product['is_price_request']): ?>
-                            <a href="contact-us.php?product=<?php echo urlencode($product['title']); ?>" class="btn-enquire" style="flex: 1; text-align: center;">Request Quote</a>
+                            <a href="contact-us.php?product=<?php echo urlencode($product['title']); ?>" class="btn-enquire">Request Quote</a>
                         <?php else: ?>
                             <button class="btn-buy">Buy Now</button>
-                            <a href="contact-us.php?product=<?php echo urlencode($product['title']); ?>" class="btn-enquire" style="flex: 1; text-align: center;">Enquire</a>
+                            <a href="contact-us.php?product=<?php echo urlencode($product['title']); ?>" class="btn-enquire">Enquire</a>
                         <?php endif; ?>
                     </div>
                     
