@@ -159,12 +159,12 @@ if ($product_id > 0) {
                         <?php endif; ?>
                     </div>
 
-                    <div class="stock-status <?php echo $product['stock_status'] == 'In Stock' ? 'in-stock' : 'out-of-stock'; ?>">
-                        <?php echo htmlspecialchars($product['stock_status']); ?>
-                    </div>
-
-                    <div class="short-desc">
-                        <?php echo nl2br(htmlspecialchars(substr(strip_tags($product['description']), 0, 200) . '...')); ?>
+                    <div class="dispatch-info" style="margin-bottom: 20px; font-size: 15px; font-weight: 500;">
+                        <?php if ($product['stock_status'] == 'In Stock'): ?>
+                            <span style="color: #007600;"><i class="fa-solid fa-check"></i> Ready to Dispatch</span>
+                        <?php else: ?>
+                            <span style="color: #b12704;"><i class="fa-solid fa-clock"></i> Stock will be available as per OEM Lead time 3 to 5 Weeks</span>
+                        <?php endif; ?>
                     </div>
 
                     <div class="action-buttons">
