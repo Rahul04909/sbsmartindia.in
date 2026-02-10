@@ -91,7 +91,7 @@
 }
 
 /* Navigation Buttons */
-.brand-nav-btn {
+.brand-slider-btn {
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
@@ -110,17 +110,17 @@
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
-.brand-nav-btn:hover {
+.brand-slider-btn:hover {
     background: var(--primary-color);
     color: #fff;
     border-color: var(--primary-color);
 }
 
-.brand-nav-prev {
+.brand-slider-prev {
     left: -10px;
 }
 
-.brand-nav-next {
+.brand-slider-next {
     right: -10px;
 }
 

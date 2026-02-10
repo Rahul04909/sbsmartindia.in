@@ -6,7 +6,7 @@
         </div>
 
         <div class="brand-menu-container">
-            <button class="brand-nav-btn brand-nav-prev" onclick="scrollBrands(-1)"><i class="fa-solid fa-chevron-left"></i></button>
+            <button class="brand-slider-btn brand-slider-prev" onclick="scrollBrands(-1)"><i class="fa-solid fa-chevron-left"></i></button>
             
             <div class="brand-menu-wrapper" id="brandMenuWrapper">
                 <?php
@@ -52,7 +52,7 @@
                 ?>
             </div>
 
-            <button class="brand-nav-btn brand-nav-next" onclick="scrollBrands(1)"><i class="fa-solid fa-chevron-right"></i></button>
+            <button class="brand-slider-btn brand-slider-next" onclick="scrollBrands(1)"><i class="fa-solid fa-chevron-right"></i></button>
         </div>
     </div>
 </section>
