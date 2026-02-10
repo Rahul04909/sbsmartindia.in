@@ -56,10 +56,14 @@
                 <?php
                 // Ensure DB connection
                 if (!isset($conn)) {
-                    if (file_exists('database/db_config.php')) {
-                        require_once 'database/db_config.php';
-                    } elseif (file_exists('../database/db_config.php')) {
-                        require_once '../database/db_config.php';
+                    // Adjust path based on location
+                    $db_path = isset($url_prefix) && $url_prefix === '../' ? '../database/db_config.php' : 'database/db_config.php';
+                    if (file_exists($db_path)) {
+                        require_once $db_path;
+                    } elseif (file_exists('database/db_config.php')) { // Fallback
+                         require_once 'database/db_config.php';
+                    } elseif (file_exists('../database/db_config.php')) { // Fallback
+                         require_once '../database/db_config.php';
                     }
                 }
 
@@ -76,7 +80,7 @@
                             <li class="nav-item">
                                 <a href="#" class="nav-link brand-nav-btn">
                                     <?php if ($nb_logo): ?>
-                                        <img src="<?php echo $url_prefix . htmlspecialchars($nb_logo); ?>" alt="<?php echo htmlspecialchars($nb_name); ?>">
+                                        <img src="<?php echo $url_prefix . $nb_logo; ?>" alt="<?php echo htmlspecialchars($nb_name); ?>">
                                     <?php else: ?>
                                         <span><?php echo htmlspecialchars($nb_name); ?></span>
                                     <?php endif; ?>
