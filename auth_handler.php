@@ -42,10 +42,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         // Generate OTP
         $otp = rand(100000, 999999);
-        $expires_at = date('Y-m-d H:i:s', strtotime('+10 minutes'));
-
+        // Let MySQL handle time to avoid timezone mismatch
+        
         // Save OTP
-        $sql = "INSERT INTO email_otps (email, otp, expires_at) VALUES ('$email', '$otp', '$expires_at')";
+        $sql = "INSERT INTO email_otps (email, otp, expires_at) VALUES ('$email', '$otp', DATE_ADD(NOW(), INTERVAL 10 MINUTE))";
         if ($conn->query($sql)) {
             // Send Email
             require_once 'includes/mail_helper.php';
