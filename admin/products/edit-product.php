@@ -123,13 +123,20 @@ $product = $result->fetch_assoc();
                 </div>
 
                 <div class="form-group" style="margin-bottom: 20px;">
+                    <label style="display: block; margin-bottom: 8px; font-weight: 500;">
+                        <input type="checkbox" name="is_price_request" id="is_price_request" value="1" <?php echo ($product['is_price_request'] == 1) ? 'checked' : ''; ?>> 
+                        Price on Request
+                    </label>
+                </div>
+
+                <div class="form-group" style="margin-bottom: 20px;">
                     <label style="display: block; margin-bottom: 8px; font-weight: 500;">MRP (₹)</label>
-                    <input type="number" step="0.01" name="mrp" id="mrp" value="<?php echo $product['mrp']; ?>" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px;">
+                    <input type="number" step="0.01" name="mrp" id="mrp" value="<?php echo $product['mrp']; ?>" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px;" <?php echo ($product['is_price_request'] == 1) ? 'disabled' : ''; ?>>
                 </div>
 
                 <div class="form-group" style="margin-bottom: 20px;">
                     <label style="display: block; margin-bottom: 8px; font-weight: 500;">Sales Price (₹) <span style="color: red;">*</span></label>
-                    <input type="number" step="0.01" name="sales_price" id="sales_price" value="<?php echo $product['sales_price']; ?>" required style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px;">
+                    <input type="number" step="0.01" name="sales_price" id="sales_price" value="<?php echo $product['sales_price']; ?>" required style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px;" <?php echo ($product['is_price_request'] == 1) ? 'disabled' : ''; ?>>
                 </div>
 
                 <div class="form-group" style="margin-bottom: 20px;">
@@ -233,6 +240,41 @@ $(document).ready(function() {
             $('#discount_percentage').val(discount.toFixed(2));
         } else {
             $('#discount_percentage').val(0);
+        }
+    });
+
+    // Price on Request Toggle
+    function togglePriceFields() {
+        if($('#is_price_request').is(':checked')) {
+            $('#mrp, #sales_price').prop('disabled', true);
+            $('#mrp, #sales_price').prop('required', false);
+            $('#discount_percentage').val('');
+        } else {
+            $('#mrp, #sales_price').prop('disabled', false);
+            $('#sales_price').prop('required', true);
+        }
+    }
+
+    // Initial check
+    togglePriceFields();
+
+    $('#is_price_request').change(function() {
+        togglePriceFields();
+        if($(this).is(':checked')) {
+             $('#mrp, #sales_price').val('');
+        }
+    });
+    
+    // Validations: Sales price should not be greater than MRP
+    $('#productForm').on('submit', function(e) {
+        if(!$('#is_price_request').is(':checked')) {
+            var mrp = parseFloat($('#mrp').val()) || 0;
+            var sales = parseFloat($('#sales_price').val()) || 0;
+    
+            if (sales > mrp && mrp > 0) {
+                alert('Sales Price cannot be greater than MRP');
+                e.preventDefault();
+            }
         }
     });
     

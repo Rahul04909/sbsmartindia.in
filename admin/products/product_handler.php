@@ -44,14 +44,22 @@ if (isset($_POST['add_product'])) {
     $meta_title = $conn->real_escape_string($_POST['meta_title']);
     $meta_description = $conn->real_escape_string($_POST['meta_description']);
     $meta_keywords = $conn->real_escape_string($_POST['meta_keywords']); 
+    $is_price_request = isset($_POST['is_price_request']) ? 1 : 0;
+    
+    // If price on request, set prices to 0
+    if($is_price_request) {
+        $mrp = 0;
+        $sales_price = 0;
+        $discount_percentage = 0;
+    }
     
     $featured_image = null;
     if (isset($_FILES['featured_image']) && $_FILES['featured_image']['error'] == 0) {
         $featured_image = uploadImage($_FILES['featured_image'], 'products');
     }
 
-    $sql = "INSERT INTO products (brand_id, sub_category_id, title, description, mrp, sales_price, discount_percentage, stock, featured_image, meta_title, meta_description, meta_keywords) 
-            VALUES ('$brand_id', '$sub_category_id', '$title', '$description', '$mrp', '$sales_price', '$discount_percentage', '$stock', '$featured_image', '$meta_title', '$meta_description', '$meta_keywords')";
+    $sql = "INSERT INTO products (brand_id, sub_category_id, title, description, mrp, sales_price, discount_percentage, stock, is_price_request, featured_image, meta_title, meta_description, meta_keywords) 
+            VALUES ('$brand_id', '$sub_category_id', '$title', '$description', '$mrp', '$sales_price', '$discount_percentage', '$stock', '$is_price_request', '$featured_image', '$meta_title', '$meta_description', '$meta_keywords')";
 
     if ($conn->query($sql) === TRUE) {
         $product_id = $conn->insert_id;
@@ -98,6 +106,14 @@ if (isset($_POST['update_product'])) {
     $meta_title = $conn->real_escape_string($_POST['meta_title']);
     $meta_description = $conn->real_escape_string($_POST['meta_description']);
     $meta_keywords = $conn->real_escape_string($_POST['meta_keywords']);
+    $is_price_request = isset($_POST['is_price_request']) ? 1 : 0;
+
+    // If price on request, set prices to 0
+    if($is_price_request) {
+        $mrp = 0;
+        $sales_price = 0;
+        $discount_percentage = 0;
+    }
 
     $sql = "UPDATE products SET 
             brand_id='$brand_id',
@@ -108,6 +124,7 @@ if (isset($_POST['update_product'])) {
             sales_price='$sales_price', 
             discount_percentage='$discount_percentage', 
             stock='$stock',
+            is_price_request='$is_price_request',
             meta_title='$meta_title',
             meta_description='$meta_description',
             meta_keywords='$meta_keywords'

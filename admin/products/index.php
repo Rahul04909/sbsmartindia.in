@@ -74,8 +74,20 @@ require_once '../../database/db_config.php';
                                     <br>
                                     <small style="color: #777;">&rarr; <?php echo htmlspecialchars($row['sub_category_name']); ?></small>
                                 </td>
-                                <td>₹<?php echo number_format($row['mrp'], 2); ?></td>
-                                <td>₹<?php echo number_format($row['sales_price'], 2); ?></td>
+                                <td>
+                                    <?php if($row['is_price_request']): ?>
+                                        <span class="badge bg-info">Price on Request</span>
+                                    <?php else: ?>
+                                        ₹<?php echo number_format($row['mrp'], 2); ?>
+                                    <?php endif; ?>
+                                </td>
+                                <td>
+                                    <?php if($row['is_price_request']): ?>
+                                        -
+                                    <?php else: ?>
+                                        ₹<?php echo number_format($row['sales_price'], 2); ?>
+                                    <?php endif; ?>
+                                </td>
                                 <td>
                                     <span class="badge <?php echo $row['stock'] > 0 ? 'bg-success' : 'bg-danger'; ?>">
                                         <?php echo $row['stock']; ?>
