@@ -164,7 +164,7 @@ if ($product_id > 0) {
                              <?php if($product['is_price_request']): ?>
                                 <a href="contact-us.php?product=<?php echo urlencode($product['title']); ?>" class="btn-primary">Request Quote</a>
                             <?php else: ?>
-                                <button class="btn-primary">Buy Now</button>
+                                <a href="checkout.php?product_id=<?php echo $product['id']; ?>" class="btn-primary">Buy Now</a>
                                 <a href="contact-us.php?product=<?php echo urlencode($product['title']); ?>" class="btn-secondary">Enquire Now</a>
                             <?php endif; ?>
                         </div>
