@@ -1,0 +1,31 @@
+/* Authority Buttons in Header */
+.auth-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 16px;
+    background-color: #007bff;
+    /* Primary Blue */
+    color: #fff;
+    text-decoration: none;
+    border-radius: 4px;
+    font-size: 14px;
+    font-weight: 600;
+    transition: background-color 0.3s ease;
+    border: none;
+    cursor: pointer;
+}
+
+.auth-btn:hover {
+    background-color: #0056b3;
+    color: #fff;
+}
+
+.auth-btn i {
+    font-size: 16px;
+}
+
+/* Adjust spacing in icon-item */
+.header-icons .icon-item {
+    margin-left: 10px;
+}

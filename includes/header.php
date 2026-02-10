@@ -43,7 +43,16 @@
                     <a href="#" title="Bag"><i class="fa-solid fa-bag-shopping"></i></a>
                 </div>
                 <div class="icon-item">
-                    <a href="#" title="Account" id="account-link"><i class="fa-regular fa-user"></i></a>
+                    <?php if (isset($_SESSION['user_id'])): ?>
+                        <?php $url_prefix = isset($url_prefix) ? $url_prefix : ''; ?>
+                        <a href="<?php echo $url_prefix; ?>user/index.php" class="auth-btn">
+                            <i class="fa-regular fa-user"></i> My Account
+                        </a>
+                    <?php else: ?>
+                        <a href="#" id="login-btn-trigger" class="auth-btn">
+                            <i class="fa-solid fa-right-to-bracket"></i> Login
+                        </a>
+                    <?php endif; ?>
                 </div>
             </div>
         </div>
@@ -98,6 +107,7 @@
         </div>
     </nav>
 </header>
+<link rel="stylesheet" href="<?php echo isset($url_prefix) ? $url_prefix : ''; ?>assets/css/header-auth.css">
 <?php include_once dirname(__DIR__) . '/components/auth-modal.php'; ?>
 <script>
     var isLoggedIn = <?php echo isset($_SESSION['user_id']) ? 'true' : 'false'; ?>;

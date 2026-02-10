@@ -1,7 +1,7 @@
 $(document).ready(function () {
 
     // Open Modal logic - Delegated event for robustness
-    $(document).on('click', '#account-link, a[title="Account"]', function (e) {
+    $(document).on('click', '#account-link, a[title="Account"], #login-btn-trigger', function (e) {
         e.preventDefault();
 
         // Check login status via global var set by session
