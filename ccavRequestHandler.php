@@ -46,37 +46,37 @@ if(isset($_POST['checkout_submit'])) {
                      VALUES ('$db_id', '$product_id', '$product_name', '$quantity', '$amount')";
         $conn->query($item_sql);
         
-        // 3. Prepare CCAvenue Data
+    // 3. Prepare CCAvenue Data
+        $site_url = "http://sbsmart.in"; // Replace with your actual domain
+
         $merchant_data = "";
-        
-        // Mandatory Parameters
         $merchant_data .= "merchant_id=" . $merchant_id . "&";
         $merchant_data .= "order_id=" . $order_id . "&";
         $merchant_data .= "amount=" . $amount . "&";
         $merchant_data .= "currency=INR&";
-        $merchant_data .= "redirect_url=http://localhost/sbsmartindia.in/ccavResponseHandler.php&";
-        $merchant_data .= "cancel_url=http://localhost/sbsmartindia.in/ccavResponseHandler.php&";
+        $merchant_data .= "redirect_url=" . $site_url . "/ccavResponseHandler.php&";
+        $merchant_data .= "cancel_url=" . $site_url . "/ccavResponseHandler.php&";
         $merchant_data .= "language=EN&";
         
-        // Billing Data
-        $merchant_data .= "billing_name=" . $name . "&";
-        $merchant_data .= "billing_address=" . $address . "&";
-        $merchant_data .= "billing_city=" . $city . "&";
-        $merchant_data .= "billing_state=" . $state . "&";
-        $merchant_data .= "billing_zip=" . $zip . "&";
+        // Billing Data (Urlencode to handle special chars)
+        $merchant_data .= "billing_name=" . urlencode($name) . "&";
+        $merchant_data .= "billing_address=" . urlencode($address) . "&";
+        $merchant_data .= "billing_city=" . urlencode($city) . "&";
+        $merchant_data .= "billing_state=" . urlencode($state) . "&";
+        $merchant_data .= "billing_zip=" . urlencode($zip) . "&";
         $merchant_data .= "billing_country=India&";
-        $merchant_data .= "billing_tel=" . $phone . "&";
-        $merchant_data .= "billing_email=" . $email . "&";
+        $merchant_data .= "billing_tel=" . urlencode($phone) . "&";
+        $merchant_data .= "billing_email=" . urlencode($email);
         
         // Encrypt Data
         $encrypted_data = encrypt($merchant_data, $working_key);
         
+        // Production URL
+        $production_url = "https://secure.ccavenue.com/transaction/transaction.do?command=initiateTransaction";
         ?>
-        <form method="post" name="redirect" action="https://secure.ccavenue.com/transaction/transaction.do?command=initiateTransaction"> 
-            <?php
-            echo "<input type='hidden' name='encRequest' value='$encrypted_data'>";
-            echo "<input type='hidden' name='access_code' value='$access_code'>";
-            ?>
+        <form method="post" name="redirect" action="<?php echo $production_url; ?>"> 
+            <input type="hidden" name="encRequest" value="<?php echo $encrypted_data; ?>">
+            <input type="hidden" name="access_code" value="<?php echo $access_code; ?>">
         </form>
         <script language='javascript'>document.redirect.submit();</script>
         <?php
