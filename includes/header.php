@@ -42,7 +42,7 @@
                     <a href="#" title="Bag"><i class="fa-solid fa-bag-shopping"></i></a>
                 </div>
                 <div class="icon-item">
-                    <a href="#" title="Account"><i class="fa-regular fa-user"></i></a>
+                    <a href="#" title="Account" id="account-link"><i class="fa-regular fa-user"></i></a>
                 </div>
             </div>
         </div>
@@ -92,18 +92,6 @@
 </header>
 <?php include_once 'components/auth-modal.php'; ?>
 <script>
-    $(document).ready(function() {
-        // Trigger modal on Account Icon click
-        $('a[title="Account"]').click(function(e) {
-            e.preventDefault();
-            <?php if(isset($_SESSION['user_id'])): ?>
-                // If logged in, maybe go to profile page or show logout
-                if(confirm('Logout from ' + '<?php echo isset($_SESSION['user_name']) ? $_SESSION['user_name'] : "Account"; ?>' + '?')) {
-                    window.location.href = 'logout.php'; // Create logout.php if needed or handle here
-                }
-            <?php else: ?>
-                $('#authModal').css('display', 'flex').hide().fadeIn();
-            <?php endif; ?>
-        });
-    });
+    var isLoggedIn = <?php echo isset($_SESSION['user_id']) ? 'true' : 'false'; ?>;
+    var userName = "<?php echo isset($_SESSION['user_name']) ? htmlspecialchars($_SESSION['user_name']) : ''; ?>";
 </script>
