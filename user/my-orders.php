@@ -6,9 +6,27 @@ if (!isset($_SESSION['user_id'])) {
 }
 $url_prefix = '../';
 require_once '../database/db_config.php';
-require_once '../includes/header.php';
 ?>
-<link rel="stylesheet" href="../assets/css/user-dashboard.css">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Orders | SB Smart India</title>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Global CSS -->
+    <link rel="stylesheet" href="../asstes/css/style.css">
+    <link rel="stylesheet" href="../assets/css/header-menu.css">
+    <link rel="stylesheet" href="../asstes/css/footer.css">
+    <link rel="stylesheet" href="../assets/css/user-dashboard.css">
+</head>
+<body>
+
+<?php require_once '../includes/header.php'; ?>
 
 <div class="container" style="display: flex; margin-top: 20px; margin-bottom: 20px;">
     <?php require_once 'includes/sidebar.php'; ?>
