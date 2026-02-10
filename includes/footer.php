@@ -4,8 +4,9 @@
             <!-- Column 1: Brand -->
             <div class="footer-col">
                 <div class="footer-logo">
-                    <a href="index.php">
-                        <img src="asstes/logo/logo.png" alt="SB Smart India">
+                    <?php $url_prefix = isset($url_prefix) ? $url_prefix : ''; ?>
+                    <a href="<?php echo $url_prefix; ?>index.php">
+                        <img src="<?php echo $url_prefix; ?>asstes/logo/logo.png" alt="SB Smart India">
                     </a>
                 </div>
                 <p class="footer-desc">

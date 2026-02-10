@@ -5,6 +5,7 @@ if (!isset($_SESSION['user_id'])) {
     exit();
 }
 $page = 'dashboard';
+$url_prefix = '../'; // For assets in header/footer
 ?>
 <!DOCTYPE html>
 <html lang="en">

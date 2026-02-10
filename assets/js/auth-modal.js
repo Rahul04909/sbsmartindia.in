@@ -134,7 +134,11 @@ $(document).ready(function () {
             dataType: 'json',
             success: function (response) {
                 if (response.status === 'success') {
-                    location.reload();
+                    if (response.redirect) {
+                        window.location.href = response.redirect;
+                    } else {
+                        location.reload();
+                    }
                 } else {
                     alert(response.message);
                 }
