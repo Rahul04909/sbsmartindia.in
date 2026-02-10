@@ -1,3 +1,4 @@
+<?php
 $page = 'quotes';
 $url_prefix = '../'; // Points to Admin Root
 require_once '../../database/db_config.php';
