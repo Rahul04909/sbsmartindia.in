@@ -41,21 +41,7 @@ if ($res_today && $row = $res_today->fetch_assoc()) {
     $todays_orders = $row['total'];
 }
 
-// 4. Pending Dispatch
-$pending_dispatch = 0;
-$sql_pending = "SELECT COUNT(*) as total FROM orders WHERE order_status IN ('Processing', 'Pending')";
-$res_pending = $conn->query($sql_pending);
-if ($res_pending && $row = $res_pending->fetch_assoc()) {
-    $pending_dispatch = $row['total'];
-}
 
-// 5. Completed Orders
-$completed_orders = 0;
-$sql_completed = "SELECT COUNT(*) as total FROM orders WHERE order_status = 'Delivered'";
-$res_completed = $conn->query($sql_completed);
-if ($res_completed && $row = $res_completed->fetch_assoc()) {
-    $completed_orders = $row['total'];
-}
 
 // 6. Counts: Users, Products, Brands, Quotes
 $total_users = $conn->query("SELECT COUNT(*) as total FROM users")->fetch_assoc()['total'] ?? 0;
@@ -63,20 +49,7 @@ $total_products = $conn->query("SELECT COUNT(*) as total FROM products")->fetch_
 $total_brands = $conn->query("SELECT COUNT(*) as total FROM brands")->fetch_assoc()['total'] ?? 0;
 $total_quotes = $conn->query("SELECT COUNT(*) as total FROM quote_requests")->fetch_assoc()['total'] ?? 0;
 
-// 7. Partners (Safety check)
-$partners_count = 0;
-$sr_partners_count = 0;
 
-// Check if tables exist
-$check_partners = $conn->query("SHOW TABLES LIKE 'partners'");
-if ($check_partners && $check_partners->num_rows > 0) {
-    $partners_count = $conn->query("SELECT COUNT(*) as total FROM partners")->fetch_assoc()['total'] ?? 0;
-}
-
-$check_sr_partners = $conn->query("SHOW TABLES LIKE 'senior_partners'");
-if ($check_sr_partners && $check_sr_partners->num_rows > 0) {
-    $sr_partners_count = $conn->query("SELECT COUNT(*) as total FROM senior_partners")->fetch_assoc()['total'] ?? 0;
-}
 
 ?>
 
@@ -136,7 +109,7 @@ if ($check_sr_partners && $check_sr_partners->num_rows > 0) {
         </div>
     </div>
 
-    <!-- Stat Cards Row 2 -->
+    <!-- Stat Cards Row 2 (Consolidated) -->
     <div class="dashboard-stats-grid" style="margin-top: 20px;">
         <!-- Today's Orders -->
         <div class="stat-card-row">
@@ -149,55 +122,6 @@ if ($check_sr_partners && $check_sr_partners->num_rows > 0) {
             </div>
         </div>
 
-        <!-- Pending Dispatch -->
-        <div class="stat-card-row">
-            <div class="stat-icon-circle red">
-                <i class="fas fa-clock"></i>
-            </div>
-            <div class="stat-info">
-                <span class="stat-row-label">Pending Dispatch</span>
-                <h3 class="stat-row-value red-text"><?php echo number_format($pending_dispatch); ?></h3>
-                <a href="orders/index.php?status=pending" class="stat-link">View Pending →</a>
-            </div>
-        </div>
-
-        <!-- Completed Orders -->
-        <div class="stat-card-row">
-            <div class="stat-icon-circle green">
-                <i class="fas fa-check-circle"></i>
-            </div>
-            <div class="stat-info">
-                <span class="stat-row-label">Completed Orders</span>
-                <h3 class="stat-row-value green-text"><?php echo number_format($completed_orders); ?></h3>
-                <a href="orders/index.php?status=completed" class="stat-link">View History →</a>
-            </div>
-        </div>
-    </div>
-
-    <!-- Stat Cards Row 3 -->
-    <div class="dashboard-stats-grid" style="margin-top: 20px;">
-        <!-- Senior Partners -->
-        <div class="stat-card-row">
-            <div class="stat-icon-circle dark">
-                <i class="fas fa-user-shield"></i>
-            </div>
-            <div class="stat-info">
-                <span class="stat-row-label">Senior Partners</span>
-                <h3 class="stat-row-value"><?php echo number_format($sr_partners_count); ?></h3>
-            </div>
-        </div>
-
-        <!-- Partners -->
-        <div class="stat-card-row">
-            <div class="stat-icon-circle blue">
-                <i class="fas fa-handshake"></i>
-            </div>
-            <div class="stat-info">
-                <span class="stat-row-label">Partners</span>
-                <h3 class="stat-row-value"><?php echo number_format($partners_count); ?></h3>
-            </div>
-        </div>
-
         <!-- Total Users -->
         <div class="stat-card-row">
             <div class="stat-icon-circle cyan">
@@ -206,6 +130,28 @@ if ($check_sr_partners && $check_sr_partners->num_rows > 0) {
             <div class="stat-info">
                 <span class="stat-row-label">Total Users</span>
                 <h3 class="stat-row-value"><?php echo number_format($total_users); ?></h3>
+            </div>
+        </div>
+
+        <!-- Total Products -->
+        <div class="stat-card-row">
+            <div class="stat-icon-circle green">
+                <i class="fas fa-boxes"></i>
+            </div>
+            <div class="stat-info">
+                <span class="stat-row-label">Total Products</span>
+                <h3 class="stat-row-value"><?php echo number_format($total_products); ?></h3>
+            </div>
+        </div>
+
+        <!-- Total Brands -->
+        <div class="stat-card-row">
+            <div class="stat-icon-circle dark">
+                <i class="fas fa-thumbtack"></i>
+            </div>
+            <div class="stat-info">
+                <span class="stat-row-label">Total Brands</span>
+                <h3 class="stat-row-value"><?php echo number_format($total_brands); ?></h3>
             </div>
         </div>
     </div>
