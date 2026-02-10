@@ -16,7 +16,7 @@
             </a>
         </li>
         <li>
-            <a href="../my-orders.php" class="<?php echo ($page == 'orders') ? 'active' : ''; ?>">
+            <a href="../../user/my-orders.php" class="<?php echo ($page == 'orders') ? 'active' : ''; ?>">
                 <i class="fa-solid fa-box-open"></i> My Orders
             </a>
         </li>
