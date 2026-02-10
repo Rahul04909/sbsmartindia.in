@@ -160,10 +160,10 @@ if ($product_id > 0) {
                     </div>
 
                     <div class="dispatch-info" style="margin-bottom: 20px; font-size: 15px; font-weight: 500;">
-                        <?php if ($product['stock_status'] == 'In Stock'): ?>
+                        <?php if ($product['stock'] > 0): ?>
                             <span style="color: #007600;"><i class="fa-solid fa-check"></i> Ready to Dispatch</span>
                         <?php else: ?>
-                            <span style="color: #b12704;"><i class="fa-solid fa-clock"></i> Stock will be available as per OEM Lead time 3 to 5 Weeks</span>
+                            <span style="color: #007600;"><i class="fa-solid fa-clock"></i> Stock will be available as per OEM Lead time 3 to 5 Weeks</span>
                         <?php endif; ?>
                     </div>
 
