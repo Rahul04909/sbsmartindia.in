@@ -9,15 +9,13 @@ require_once 'database/db_config.php';
     <title>Product Details - SB Smart India</title>
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
     <!-- Custom CSS -->
     <link rel="stylesheet" href="asstes/css/style.css">
-    <link rel="stylesheet" href="asstes/css/hero.css">
     <link rel="stylesheet" href="asstes/css/footer.css">
-    <link rel="stylesheet" href="asstes/css/categories.css">
-    <link rel="stylesheet" href="asstes/css/stats.css">
-    <link rel="stylesheet" href="asstes/css/services.css">
     <link rel="stylesheet" href="assets/css/brand-menu.css">
-    <link rel="stylesheet" href="assets/css/latest-products.css">
     <link rel="stylesheet" href="assets/css/header-menu.css">
     <link rel="stylesheet" href="assets/css/product-details.css">
 </head>
@@ -72,9 +70,9 @@ if ($product_id > 0) {
             
             $insert_review = "INSERT INTO product_reviews (product_id, name, email, rating, review_text) VALUES ($product_id, '$name', '$email', $rating, '$comment')";
             if ($conn->query($insert_review)) {
-                $review_msg = "<div class='alert alert-success'>Review submitted successfully!</div>";
+                $review_msg = "<div class='alert alert-success' style='color:green; margin-bottom:10px;'>Review submitted successfully!</div>";
             } else {
-                $review_msg = "<div class='alert alert-danger'>Error submitting review.</div>";
+                $review_msg = "<div class='alert alert-danger' style='color:red; margin-bottom:10px;'>Error submitting review.</div>";
             }
         }
         
@@ -96,18 +94,18 @@ if ($product_id > 0) {
 
         ?>
 
-        
-        <div class="product-details-container container">
+        <div class="product-details-container">
             <!-- Breadcrumbs -->
-            <div class="breadcrumbs" style="margin-bottom: 20px; font-size: 14px; color: #555;">
+            <div class="breadcrumbs">
                 <a href="index.php">Home</a> &gt; 
                 <a href="products.php">Products</a> &gt; 
                 <span><?php echo htmlspecialchars($product['title']); ?></span>
             </div>
 
-            <div class="product-layout">
-                <!-- Left: Gallery -->
-                <div class="product-gallery">
+            <!-- Main Split Layout -->
+            <div class="product-hero">
+                <!-- Left: Image Gallery -->
+                <div class="product-gallery-card">
                     <div class="gallery-thumbs">
                         <?php foreach($gallery as $index => $img): ?>
                             <div class="gallery-thumb <?php echo $index === 0 ? 'active' : ''; ?>" onclick="changeImage(this, '<?php echo $img; ?>')">
@@ -120,221 +118,233 @@ if ($product_id > 0) {
                     </div>
                 </div>
 
-                <!-- Right: Info -->
-                <div class="product-info">
-                    <h1><?php echo htmlspecialchars($product['title']); ?></h1>
+                <!-- Right: Product Info & CTA -->
+                <div class="product-info-col">
+                    <div class="brand-badge"><?php echo htmlspecialchars($brand_name); ?></div>
+                    <h1 class="product-title"><?php echo htmlspecialchars($product['title']); ?></h1>
                     
-                    <div class="product-rating">
-                        <div class="rating-stars">
+                    <div class="rating-row">
+                        <div class="stars">
                             <?php
                             for ($i = 1; $i <= 5; $i++) {
                                 echo $i <= $avg_rating ? '<i class="fa-solid fa-star"></i>' : '<i class="fa-regular fa-star"></i>';
                             }
                             ?>
                         </div>
-                        <span class="rating-count"><?php echo $total_reviews; ?> ratings</span>
-                    </div>
-                    
-                    <div class="product-meta">
-                        <span>Brand: <strong><?php echo htmlspecialchars($brand_name); ?></strong></span>
-                        <span>Model: <strong><?php echo htmlspecialchars($product['model_number']); ?></strong></span>
+                        <span class="review-count">(<?php echo $total_reviews; ?> Reviews)</span>
                     </div>
 
-                    <div class="price-box">
-                        <?php if ($product['is_price_request']): ?>
-                            <span class="price-request-large">Price on Request</span>
-                            <div class="save-amount">Contact us for best pricing</div>
-                        <?php else: ?>
-                            <div style="display: flex; align-items: baseline;">
-                                <span style="font-size: 14px; vertical-align: top; margin-right: 2px;">₹</span>
-                                <span class="current-price-large"><?php echo number_format($product['sales_price']); ?></span>
-                                <span class="mrp-large">M.R.P.: ₹<?php echo number_format($product['mrp']); ?></span>
-                            </div>
-                            <?php if($product['mrp'] > $product['sales_price']): ?>
-                                <div class="save-amount">
-                                    You Save: ₹<?php echo number_format($product['mrp'] - $product['sales_price']); ?> 
-                                    (<?php echo round((($product['mrp'] - $product['sales_price']) / $product['mrp']) * 100); ?>%)
+                    <!-- Sticky CTA Card -->
+                    <div class="cta-card">
+                        <div class="price-section">
+                            <?php if ($product['is_price_request']): ?>
+                                <span class="price-request-text">Price on Request</span>
+                            <?php else: ?>
+                                <span class="price-label">Best Price:</span>
+                                <div>
+                                    <span class="price-currency">₹</span>
+                                    <span class="price-large"><?php echo number_format($product['sales_price']); ?></span>
+                                    <span class="price-mrp">MRP: ₹<?php echo number_format($product['mrp']); ?></span>
                                 </div>
+                                <?php if($product['mrp'] > $product['sales_price']): ?>
+                                    <span class="price-save">You Save: ₹<?php echo number_format($product['mrp'] - $product['sales_price']); ?> (<?php echo round((($product['mrp'] - $product['sales_price']) / $product['mrp']) * 100); ?>%)</span>
+                                <?php endif; ?>
                             <?php endif; ?>
-                        <?php endif; ?>
-                    </div>
-
-                    <div class="dispatch-info" style="margin-bottom: 20px; font-size: 15px; font-weight: 500;">
-                        <?php if ($product['stock'] > 0): ?>
-                            <span style="color: #007600;"><i class="fa-solid fa-check"></i> Ready to Dispatch</span>
-                        <?php else: ?>
-                            <span style="color: #007600;"><i class="fa-solid fa-clock"></i> Stock will be available as per OEM Lead time 3 to 5 Weeks</span>
-                        <?php endif; ?>
-                    </div>
-
-                    <div class="action-buttons">
-                        <?php if($product['is_price_request']): ?>
-                            <a href="contact-us.php?product=<?php echo urlencode($product['title']); ?>" class="btn-enquire">Request Quote</a>
-                        <?php else: ?>
-                            <button class="btn-buy">Buy Now</button>
-                            <a href="contact-us.php?product=<?php echo urlencode($product['title']); ?>" class="btn-enquire">Enquire</a>
-                        <?php endif; ?>
-                    </div>
-                    
-                    <div class="product-trust-badges">
-                        <div class="trust-item">
-                            <div class="icon-box"><i class="fa-solid fa-shield-halved"></i></div>
-                            <span>Secure Transaction</span>
                         </div>
-                        <div class="trust-item">
-                            <div class="icon-box"><i class="fa-solid fa-truck-fast"></i></div>
-                            <span>Fast Delivery</span>
-                        </div>
-                        <div class="trust-item">
-                            <div class="icon-box"><i class="fa-solid fa-headset"></i></div>
-                            <span>Support 24/7</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
 
-            <!-- Tabs -->
-            <div class="product-tabs">
-                <div class="tab-headers">
-                    <button class="tab-btn active" onclick="openTab('desc')">Description</button>
-                    <button class="tab-btn" onclick="openTab('reviews')">Reviews (<?php echo $total_reviews; ?>)</button>
-                </div>
-                
-                <div id="desc" class="tab-pane active">
-                    <?php echo $product['description']; // Assumed safe HTML from Summernote ?>
-                </div>
-                
-                <div id="reviews" class="tab-pane">
-                    <div class="review-layout" style="display: flex; gap: 40px; flex-wrap: wrap;">
-                        <div class="review-form-container" style="flex: 1; min-width: 300px;">
-                            <h3>Write a Review</h3>
-                            <?php echo $review_msg; ?>
-                            <form method="POST" action="">
-                                <div class="form-group">
-                                    <label>Your Name</label>
-                                    <input type="text" name="name" class="form-control" required>
-                                </div>
-                                <div class="form-group">
-                                    <label>Your Email</label>
-                                    <input type="email" name="email" class="form-control" required>
-                                </div>
-                                <div class="form-group">
-                                    <label>Rating</label>
-                                    <select name="rating" class="form-control">
-                                        <option value="5">5 - Excellent</option>
-                                        <option value="4">4 - Very Good</option>
-                                        <option value="3">3 - Good</option>
-                                        <option value="2">2 - Fair</option>
-                                        <option value="1">1 - Poor</option>
-                                    </select>
-                                </div>
-                                <div class="form-group">
-                                    <label>Your Review</label>
-                                    <textarea name="comment" class="form-control" rows="4" required></textarea>
-                                </div>
-                                <button type="submit" name="submit_review" class="submit-btn">Submit Review</button>
-                            </form>
+                        <div class="stock-dispatch-row">
+                             <?php if ($product['stock'] > 0): ?>
+                                <span class="stock-status in-stock"><i class="fa-solid fa-check-circle"></i> Ready to Dispatch</span>
+                            <?php else: ?>
+                                <span class="stock-status out-stock"><i class="fa-solid fa-clock"></i> Ships in 3-5 Weeks</span>
+                            <?php endif; ?>
                         </div>
                         
-                        <div class="review-list" style="flex: 2; min-width: 300px;">
-                            <h3>Customer Reviews</h3>
-                            <?php if ($total_reviews > 0): ?>
-                                <?php foreach($reviews_data as $rev): ?>
-                                    <div class="review-item">
-                                        <div class="review-header">
-                                            <div class="reviewer-name"><?php echo htmlspecialchars($rev['name']); ?></div>
-                                            <div class="review-stars">
-                                                <?php
-                                                for ($i = 1; $i <= 5; $i++) {
-                                                    echo $i <= $rev['rating'] ? '<i class="fa-solid fa-star"></i>' : '<i class="fa-regular fa-star"></i>';
-                                                }
-                                                ?>
-                                            </div>
-                                            <div class="review-date"><?php echo date('d M Y', strtotime($rev['created_at'])); ?></div>
-                                        </div>
-                                        <div class="review-text">
-                                            <?php echo nl2br(htmlspecialchars($rev['review_text'])); ?>
-                                        </div>
-                                    </div>
-                                <?php endforeach; ?>
+                        <div class="action-buttons">
+                             <?php if($product['is_price_request']): ?>
+                                <a href="contact-us.php?product=<?php echo urlencode($product['title']); ?>" class="btn-primary">Request Quote</a>
                             <?php else: ?>
-                                <p>No reviews yet. Be the first to review this product!</p>
+                                <button class="btn-primary">Buy Now</button>
+                                <a href="contact-us.php?product=<?php echo urlencode($product['title']); ?>" class="btn-secondary">Enquire Now</a>
                             <?php endif; ?>
+                        </div>
+
+                        <div class="trust-icons-row" style="border-top: 1px solid #eee; padding-top: 15px;">
+                            <div class="trust-icon-item">
+                                <i class="fa-solid fa-shield-halved"></i>
+                                <span>Secure</span>
+                            </div>
+                            <div class="trust-icon-item">
+                                <i class="fa-solid fa-truck-fast"></i>
+                                <span>Fast Delivery</span>
+                            </div>
+                            <div class="trust-icon-item">
+                                <i class="fa-solid fa-headset"></i>
+                                <span>24/7 Support</span>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <!-- Related Products (Simple Implementation: Same Brand) -->
-            <div class="related-products" style="margin-top: 60px;">
-                <h2 style="font-size: 24px; font-weight: 700; margin-bottom: 20px;">Related Products</h2>
-                <div class="products-grid">
-                    <?php
-                    $related_sql = "SELECT * FROM products WHERE brand_id = " . ($product['brand_id'] ? $product['brand_id'] : 0) . " AND id != $product_id AND status = 1 LIMIT 4";
-                    $related_res = $conn->query($related_sql);
-                    
-                    if ($related_res && $related_res->num_rows > 0) {
-                        while($rel = $related_res->fetch_assoc()) {
-                            $rel_img = !empty($rel['featured_image']) ? $rel['featured_image'] : 'assets/images/no-image.png';
-                            ?>
-                            <div class="product-card">
-                                <Link href="product-details.php?id=<?php echo $rel['id']; ?>" style="text-decoration: none; color: inherit; display: block; height: 100%;">
-                                    <div class="product-image-box">
-                                        <img src="<?php echo $rel_img; ?>" class="product-image" alt="<?php echo htmlspecialchars($rel['title']); ?>">
-                                    </div>
-                                    <div class="product-details">
-                                        <div class="product-title" style="min-height: auto; margin-bottom: 5px;"><?php echo htmlspecialchars($rel['title']); ?></div>
-                                        <div class="current-price" style="font-size: 16px;">
-                                            <?php echo $rel['is_price_request'] ? 'Price on Request' : '₹' . number_format($rel['sales_price']); ?>
-                                        </div>
-                                    </div>
-                                </Link>
-                            </div>
-                            <?php
-                        }
-                    } else {
-                        echo "<p>No related products found.</p>";
-                    }
-                    ?>
+            <!-- Product Highlights Row -->
+            <div class="highlights-row">
+                <div class="highlight-card">
+                    <i class="fa-solid fa-medal"></i>
+                    <h4>100% Genuine Product</h4>
+                </div>
+                <div class="highlight-card">
+                    <i class="fa-solid fa-screwdriver-wrench"></i>
+                    <h4>Industrial Grade</h4>
+                </div>
+                <div class="highlight-card">
+                    <i class="fa-solid fa-clipboard-check"></i>
+                    <h4>Quality Tested</h4>
+                </div>
+                <div class="highlight-card">
+                    <i class="fa-solid fa-file-invoice"></i>
+                    <h4>GST Invoice Available</h4>
                 </div>
             </div>
+
+            <!-- Tabs Section -->
+            <div class="product-tabs-section">
+                <div class="tabs-nav">
+                    <button class="tab-btn active" onclick="openTab('desc')">Description</button>
+                    <button class="tab-btn" onclick="openTab('specs')">Specifications</button>
+                    <button class="tab-btn" onclick="openTab('reviews')">Reviews (<?php echo $total_reviews; ?>)</button>
+                </div>
+
+                <div class="tab-content-card">
+                    <div id="desc" class="tab-pane active">
+                        <h3>Product Description</h3>
+                        <?php echo $product['description']; ?>
+                    </div>
+                    
+                     <div id="specs" class="tab-pane">
+                        <h3>Technical Specifications</h3>
+                        <p>Detailed specifications for this model will be updated soon. Please contact support for datasheets.</p>
+                        <!-- Placeholder for future dynamic specs -->
+                    </div>
+
+                    <div id="reviews" class="tab-pane">
+                        <h3>Customer Reviews</h3>
+                        <div class="review-layout" style="display: grid; grid-template-columns: 1fr 1fr; gap: 40px;">
+                            <div class="review-form">
+                                <h4 style="margin-bottom: 15px;">Write a Review</h4>
+                                <?php echo $review_msg; ?>
+                                <form method="POST" action="">
+                                    <div style="margin-bottom: 15px;">
+                                        <label style="display:block; margin-bottom:5px; font-weight:600;">Name</label>
+                                        <input type="text" name="name" required style="width:100%; padding:10px; border:1px solid #ddd; border-radius:4px;">
+                                    </div>
+                                    <div style="margin-bottom: 15px;">
+                                        <label style="display:block; margin-bottom:5px; font-weight:600;">Email</label>
+                                        <input type="email" name="email" required style="width:100%; padding:10px; border:1px solid #ddd; border-radius:4px;">
+                                    </div>
+                                    <div style="margin-bottom: 15px;">
+                                        <label style="display:block; margin-bottom:5px; font-weight:600;">Rating</label>
+                                        <select name="rating" style="width:100%; padding:10px; border:1px solid #ddd; border-radius:4px;">
+                                            <option value="5">5 - Excellent</option>
+                                            <option value="4">4 - Very Good</option>
+                                            <option value="3">3 - Good</option>
+                                            <option value="2">2 - Fair</option>
+                                            <option value="1">1 - Poor</option>
+                                        </select>
+                                    </div>
+                                    <div style="margin-bottom: 15px;">
+                                        <label style="display:block; margin-bottom:5px; font-weight:600;">Review</label>
+                                        <textarea name="comment" rows="4" required style="width:100%; padding:10px; border:1px solid #ddd; border-radius:4px;"></textarea>
+                                    </div>
+                                    <button type="submit" name="submit_review" class="btn-primary">Submit Review</button>
+                                </form>
+                            </div>
+                            
+                            <div class="reviews-list">
+                                <?php if ($total_reviews > 0): ?>
+                                    <?php foreach($reviews_data as $rev): ?>
+                                        <div style="border-bottom: 1px solid #eee; padding-bottom: 15px; margin-bottom: 15px;">
+                                            <div style="display:flex; justify-content:space-between; margin-bottom:5px;">
+                                                <strong><?php echo htmlspecialchars($rev['name']); ?></strong>
+                                                <span style="color:#888; font-size:12px;"><?php echo date('d M Y', strtotime($rev['created_at'])); ?></span>
+                                            </div>
+                                            <div style="color:#ffc107; font-size:12px; margin-bottom:8px;">
+                                                <?php for($i=1; $i<=5; $i++) echo $i <= $rev['rating'] ? '<i class="fa-solid fa-star"></i>' : '<i class="fa-regular fa-star"></i>'; ?>
+                                            </div>
+                                            <p style="font-size:14px; color:#555;"><?php echo nl2br(htmlspecialchars($rev['review_text'])); ?></p>
+                                        </div>
+                                    <?php endforeach; ?>
+                                <?php else: ?>
+                                    <p>No reviews yet.</p>
+                                <?php endif; ?>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Why Buy From Us -->
+            <div class="why-buy-section">
+                <h2 class="section-title">Why Buy From SB Smart?</h2>
+                <div class="reasons-grid">
+                    <div class="reason-item">
+                        <div class="reason-icon"><i class="fa-solid fa-certificate"></i></div>
+                        <div class="reason-title">Authorized Supplier</div>
+                        <div class="reason-desc">Genuine products directly from manufacturers with warranty support.</div>
+                    </div>
+                     <div class="reason-item">
+                        <div class="reason-icon"><i class="fa-solid fa-industry"></i></div>
+                        <div class="reason-title">Industrial Expertise</div>
+                        <div class="reason-desc">Over 10 years of experience in industrial automation and electricals.</div>
+                    </div>
+                     <div class="reason-item">
+                        <div class="reason-icon"><i class="fa-solid fa-truck-fast"></i></div>
+                        <div class="reason-title">PAN India Delivery</div>
+                        <div class="reason-desc">Fast and secure shipping to all major industrial hubs across India.</div>
+                    </div>
+                     <div class="reason-item">
+                        <div class="reason-icon"><i class="fa-solid fa-users-gear"></i></div>
+                        <div class="reason-title">Dedicated Support</div>
+                        <div class="reason-desc">Expert technical team available for product selection and support.</div>
+                    </div>
+                </div>
+            </div>
+
         </div>
 
-        <script>
-        function changeImage(element, src) {
-            document.getElementById('mainImage').src = src;
-            document.querySelectorAll('.gallery-thumb').forEach(el => el.classList.remove('active'));
-            element.classList.add('active');
-        }
+    <script>
+    function changeImage(element, src) {
+        document.getElementById('mainImage').src = src;
+        document.querySelectorAll('.gallery-thumb').forEach(el => el.classList.remove('active'));
+        element.classList.add('active');
+    }
 
-        function openTab(tabName) {
-            var i;
-            var x = document.getElementsByClassName("tab-pane");
-            for (i = 0; i < x.length; i++) {
-                x[i].style.display = "none";
-                x[i].classList.remove("active");
-            }
-            document.getElementById(tabName).style.display = "block";
-            document.getElementById(tabName).classList.add("active");
-            
-            var tabs = document.getElementsByClassName("tab-btn");
-            for (i = 0; i < tabs.length; i++) {
-                tabs[i].classList.remove("active");
-            }
-            event.currentTarget.classList.add("active");
+    function openTab(tabName) {
+        var i;
+        var x = document.getElementsByClassName("tab-pane");
+        for (i = 0; i < x.length; i++) {
+            x[i].style.display = "none";
+            x[i].classList.remove("active");
         }
-        </script>
-
+        document.getElementById(tabName).style.display = "block";
+        document.getElementById(tabName).classList.add("active");
+        
+        var tabs = document.getElementsByClassName("tab-btn");
+        for (i = 0; i < tabs.length; i++) {
+            tabs[i].classList.remove("active");
+        }
+        event.currentTarget.classList.add("active");
+    }
+    </script>
         <?php
     } else {
-        echo "<div class='container' style='padding: 50px; text-align: center;'><h2>Product not found</h2><a href='index.php' class='btn-buy'>Go Home</a></div>";
+        echo "<div class='container' style='padding: 100px; text-align: center;'><h2>Product not found</h2><a href='index.php' class='btn-primary'>Go Home</a></div>";
     }
 } else {
-    echo "<div class='container' style='padding: 50px; text-align: center;'><h2>Invalid Product ID</h2><a href='index.php' class='btn-buy'>Go Home</a></div>";
+    echo "<div class='container' style='padding: 100px; text-align: center;'><h2>Invalid Product ID</h2><a href='index.php' class='btn-primary'>Go Home</a></div>";
 }
 
 require_once 'includes/footer.php';
 ?>
 </body>
 </html>
-?>
