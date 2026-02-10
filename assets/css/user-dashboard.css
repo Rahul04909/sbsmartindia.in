@@ -1,0 +1,225 @@
+/* User Dashboard Variables */
+:root {
+    --dashboard-bg: #f4f6f8;
+    --sidebar-bg: #ffffff;
+    --sidebar-width: 280px;
+    --primary-color: #0F1111;
+    /* Amazon-like dark */
+    --accent-color: #FFD814;
+    /* Amazon-like yellow */
+    --text-color: #333;
+    --border-color: #ddd;
+    --card-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
+    --hover-bg: #f0f2f5;
+}
+
+body {
+    background-color: var(--dashboard-bg);
+}
+
+/* Dashboard Layout */
+.dashboard-container {
+    display: flex;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 20px;
+    gap: 30px;
+    min-height: 80vh;
+}
+
+/* Sidebar Styling */
+.user-sidebar {
+    width: var(--sidebar-width);
+    background: var(--sidebar-bg);
+    border-radius: 8px;
+    box-shadow: var(--card-shadow);
+    height: fit-content;
+    overflow: hidden;
+    flex-shrink: 0;
+}
+
+.user-info-box {
+    padding: 20px;
+    background: linear-gradient(to right, #232f3e, #37475a);
+    color: white;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.user-avatar {
+    width: 50px;
+    height: 50px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    color: var(--accent-color);
+}
+
+.user-text h4 {
+    margin: 0;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.user-text span {
+    font-size: 12px;
+    opacity: 0.8;
+}
+
+.sidebar-menu {
+    list-style: none;
+    padding: 10px 0;
+    margin: 0;
+}
+
+.sidebar-menu li a {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 12px 20px;
+    color: var(--text-color);
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 500;
+    transition: background 0.2s;
+    border-left: 3px solid transparent;
+}
+
+.sidebar-menu li a:hover,
+.sidebar-menu li a.active {
+    background: var(--hover-bg);
+    border-left-color: #232f3e;
+    color: #000;
+    font-weight: 600;
+}
+
+.sidebar-menu li a i {
+    width: 20px;
+    text-align: center;
+    color: #555;
+}
+
+.sidebar-menu li a:hover i,
+.sidebar-menu li a.active i {
+    color: #232f3e;
+}
+
+/* Main Content Area */
+.dashboard-content {
+    flex: 1;
+}
+
+.dashboard-header {
+    margin-bottom: 25px;
+}
+
+.dashboard-header h1 {
+    font-size: 24px;
+    color: var(--text-color);
+    margin-bottom: 5px;
+}
+
+/* Dashboard Cards Grid */
+.dashboard-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 20px;
+}
+
+.dash-card {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    border: 1px solid var(--border-color);
+    text-decoration: none;
+    color: var(--text-color);
+    transition: transform 0.2s, box-shadow 0.2s;
+    display: flex;
+    gap: 20px;
+    align-items: flex-start;
+}
+
+.dash-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    border-color: #bbb;
+}
+
+.card-icon {
+    width: 50px;
+    height: 50px;
+    background: #e6f7ff;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    color: #007185;
+}
+
+.dash-card:nth-child(2) .card-icon {
+    background: #fff5e6;
+    color: #b16a00;
+}
+
+.dash-card:nth-child(3) .card-icon {
+    background: #e6fffa;
+    color: #007a5e;
+}
+
+.dash-card:nth-child(4) .card-icon {
+    background: #fce8e6;
+    color: #c40000;
+}
+
+.card-info h3 {
+    margin: 0 0 5px 0;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.card-info p {
+    margin: 0;
+    font-size: 13px;
+    color: #666;
+    line-height: 1.4;
+}
+
+/* Responsive */
+@media (max-width: 992px) {
+    .dashboard-container {
+        flex-direction: column;
+    }
+
+    .user-sidebar {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .user-info-box {
+        justify-content: center;
+    }
+
+    .sidebar-menu {
+        display: flex;
+        overflow-x: auto;
+        padding-bottom: 0;
+    }
+
+    .sidebar-menu li a {
+        white-space: nowrap;
+        border-left: none;
+        border-bottom: 3px solid transparent;
+        padding: 15px;
+    }
+
+    .sidebar-menu li a:hover,
+    .sidebar-menu li a.active {
+        border-bottom-color: #232f3e;
+    }
+}

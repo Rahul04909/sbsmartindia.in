@@ -103,7 +103,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $_SESSION['user_id'] = $user['id'];
                 $_SESSION['user_name'] = $user['name'];
                 $_SESSION['user_email'] = $user['email'];
-                echo json_encode(['status' => 'success', 'message' => 'Login successful!', 'redirect' => $_SERVER['HTTP_REFERER']]);
+                echo json_encode(['status' => 'success', 'message' => 'Login successful!', 'redirect' => 'user/index.php']);
             } else {
                 echo json_encode(['status' => 'error', 'message' => 'Invalid password']);
             }
