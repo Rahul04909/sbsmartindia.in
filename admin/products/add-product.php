@@ -81,6 +81,13 @@ require_once '../../database/db_config.php';
                 </div>
 
                 <div class="form-group" style="margin-bottom: 20px;">
+                    <label style="display: block; margin-bottom: 8px; font-weight: 500;">
+                        <input type="checkbox" name="is_price_request" id="is_price_request" value="1"> 
+                        Price on Request
+                    </label>
+                </div>
+
+                <div class="form-group" style="margin-bottom: 20px;">
                     <label style="display: block; margin-bottom: 8px; font-weight: 500;">MRP (₹)</label>
                     <input type="number" step="0.01" name="mrp" id="mrp" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px;">
                 </div>
@@ -178,14 +185,28 @@ $(document).ready(function() {
         }
     });
 
+    // Price on Request Toggle
+    $('#is_price_request').change(function() {
+        if($(this).is(':checked')) {
+            $('#mrp, #sales_price').prop('disabled', true).val('');
+            $('#mrp, #sales_price').prop('required', false);
+            $('#discount_percentage').val('');
+        } else {
+            $('#mrp, #sales_price').prop('disabled', false);
+             $('#sales_price').prop('required', true);
+        }
+    });
+
     // Validations: Sales price should not be greater than MRP
     $('#productForm').on('submit', function(e) {
-        var mrp = parseFloat($('#mrp').val()) || 0;
-        var sales = parseFloat($('#sales_price').val()) || 0;
-
-        if (sales > mrp && mrp > 0) {
-            alert('Sales Price cannot be greater than MRP');
-            e.preventDefault();
+        if(!$('#is_price_request').is(':checked')) {
+            var mrp = parseFloat($('#mrp').val()) || 0;
+            var sales = parseFloat($('#sales_price').val()) || 0;
+    
+            if (sales > mrp && mrp > 0) {
+                alert('Sales Price cannot be greater than MRP');
+                e.preventDefault();
+            }
         }
     });
     
