@@ -105,7 +105,7 @@ include '../includes/header.php';
     
     <div class="row" style="display: flex; gap: 20px;">
         <!-- Settings Form -->
-        <div class="widget-card" style="flex: 2; cursor: default;">
+        <div class="widget-card" style="flex: 2; cursor: default; display: block;">
             <div class="card-header" style="border-bottom: 1px solid #eee; padding-bottom: 15px; margin-bottom: 20px;">
                 <h3 style="margin: 0; color: #333;">Mail Server Settings</h3>
             </div>
@@ -160,7 +160,7 @@ include '../includes/header.php';
         </div>
 
         <!-- Test Email -->
-        <div class="widget-card" style="flex: 1; height: fit-content; cursor: default;">
+        <div class="widget-card" style="flex: 1; height: fit-content; cursor: default; display: block;">
             <div class="card-header" style="border-bottom: 1px solid #eee; padding-bottom: 15px; margin-bottom: 20px;">
                 <h3 style="margin: 0; color: #333;">Send Test Email</h3>
             </div>
