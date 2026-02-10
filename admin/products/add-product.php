@@ -72,6 +72,11 @@ require_once '../../database/db_config.php';
                     <label style="display: block; margin-bottom: 8px; font-weight: 500;">Description</label>
                     <textarea name="description" id="summernote"></textarea>
                 </div>
+
+                <div class="form-group" style="margin-bottom: 20px;">
+                    <label style="display: block; margin-bottom: 8px; font-weight: 500;">Specifications</label>
+                    <textarea name="specifications" id="summernote_specs"></textarea>
+                </div>
             </div>
 
             <!-- Right Column -->
@@ -160,6 +165,19 @@ require_once '../../database/db_config.php';
 $(document).ready(function() {
     // Summernote
     $('#summernote').summernote({
+        height: 300,
+        toolbar: [
+            ['style', ['style']],
+            ['font', ['bold', 'underline', 'clear']],
+            ['color', ['color']],
+            ['para', ['ul', 'ol', 'paragraph']],
+            ['table', ['table']],
+            ['insert', ['link', 'picture', 'video']],
+            ['view', ['fullscreen', 'codeview', 'help']]
+        ]
+    });
+
+    $('#summernote_specs').summernote({
         height: 300,
         toolbar: [
             ['style', ['style']],

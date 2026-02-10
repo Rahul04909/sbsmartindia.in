@@ -37,6 +37,7 @@ if (isset($_POST['add_product'])) {
     $sub_category_id = (int)$_POST['sub_category_id'];
     $title = $conn->real_escape_string($_POST['title']);
     $description = $conn->real_escape_string($_POST['description']);
+    $specifications = $conn->real_escape_string($_POST['specifications']);
     $mrp = (float)$_POST['mrp'];
     $sales_price = (float)$_POST['sales_price'];
     $discount_percentage = (float)$_POST['discount_percentage'];
@@ -58,8 +59,8 @@ if (isset($_POST['add_product'])) {
         $featured_image = uploadImage($_FILES['featured_image'], 'products');
     }
 
-    $sql = "INSERT INTO products (brand_id, sub_category_id, title, description, mrp, sales_price, discount_percentage, stock, is_price_request, featured_image, meta_title, meta_description, meta_keywords) 
-            VALUES ('$brand_id', '$sub_category_id', '$title', '$description', '$mrp', '$sales_price', '$discount_percentage', '$stock', '$is_price_request', '$featured_image', '$meta_title', '$meta_description', '$meta_keywords')";
+    $sql = "INSERT INTO products (brand_id, sub_category_id, title, description, specifications, mrp, sales_price, discount_percentage, stock, is_price_request, featured_image, meta_title, meta_description, meta_keywords) 
+            VALUES ('$brand_id', '$sub_category_id', '$title', '$description', '$specifications', '$mrp', '$sales_price', '$discount_percentage', '$stock', '$is_price_request', '$featured_image', '$meta_title', '$meta_description', '$meta_keywords')";
 
     if ($conn->query($sql) === TRUE) {
         $product_id = $conn->insert_id;
@@ -99,6 +100,7 @@ if (isset($_POST['update_product'])) {
     $sub_category_id = (int)$_POST['sub_category_id'];
     $title = $conn->real_escape_string($_POST['title']);
     $description = $conn->real_escape_string($_POST['description']);
+    $specifications = $conn->real_escape_string($_POST['specifications']);
     $mrp = (float)$_POST['mrp'];
     $sales_price = (float)$_POST['sales_price'];
     $discount_percentage = (float)$_POST['discount_percentage'];
@@ -120,6 +122,7 @@ if (isset($_POST['update_product'])) {
             sub_category_id='$sub_category_id', 
             title='$title', 
             description='$description', 
+            specifications='$specifications',
             mrp='$mrp', 
             sales_price='$sales_price', 
             discount_percentage='$discount_percentage', 

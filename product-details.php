@@ -223,8 +223,11 @@ if ($product_id > 0) {
                     
                      <div id="specs" class="tab-pane">
                         <h3>Technical Specifications</h3>
-                        <p>Detailed specifications for this model will be updated soon. Please contact support for datasheets.</p>
-                        <!-- Placeholder for future dynamic specs -->
+                        <?php if(!empty($product['specifications'])): ?>
+                            <?php echo $product['specifications']; ?>
+                        <?php else: ?>
+                            <p>Detailed specifications will be updated soon.</p>
+                        <?php endif; ?>
                     </div>
 
                     <div id="reviews" class="tab-pane">

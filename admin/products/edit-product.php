@@ -230,6 +230,19 @@ $(document).ready(function() {
         ]
     });
 
+    $('#summernote_specs').summernote({
+        height: 300,
+        toolbar: [
+            ['style', ['style']],
+            ['font', ['bold', 'underline', 'clear']],
+            ['color', ['color']],
+            ['para', ['ul', 'ol', 'paragraph']],
+            ['table', ['table']],
+            ['insert', ['link', 'picture', 'video']],
+            ['view', ['fullscreen', 'codeview', 'help']]
+        ]
+    });
+
     // Discount Calculation
     $('#mrp, #sales_price').on('input', function() {
         var mrp = parseFloat($('#mrp').val()) || 0;
