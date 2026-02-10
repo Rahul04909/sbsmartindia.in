@@ -6,23 +6,21 @@ if (!isset($_SESSION['user_id'])) {
 }
 $url_prefix = '../';
 require_once '../database/db_config.php';
-require_once 'includes/sidebar.php';
-
-$user_id = $_SESSION['user_id'];
-$sql = "SELECT * FROM orders WHERE user_id = $user_id ORDER BY created_at DESC";
-$result = $conn->query($sql);
+require_once '../includes/header.php';
 ?>
-<!-- Main Content -->
-<div class="user-content">
-    <div class="user-header">
-        <h2>My Orders</h2>
-        <div class="user-info">
-            <span class="user-name"><?php echo htmlspecialchars($_SESSION['user_name']); ?></span>
-            <div class="user-avatar">
-                <i class="fa-regular fa-user"></i>
+<link rel="stylesheet" href="../assets/css/user-dashboard.css">
+
+<div class="container" style="display: flex; margin-top: 20px; margin-bottom: 20px;">
+    <?php require_once 'includes/sidebar.php'; ?>
+
+    <!-- Main Content -->
+    <div class="user-content" style="flex: 1; padding-left: 20px;">
+        <div class="user-header">
+            <h2>My Orders</h2>
+            <div class="user-info">
+                <span class="user-name"><?php echo htmlspecialchars($_SESSION['user_name']); ?></span>
             </div>
         </div>
-    </div>
 
     <!-- Orders Table -->
     <div class="content-card">
@@ -77,6 +75,8 @@ $result = $conn->query($sql);
         <?php endif; ?>
     </div>
 </div>
+
+<?php require_once '../includes/footer.php'; ?>
 
 <style>
 /* Additional Styles for Table */
