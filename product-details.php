@@ -342,7 +342,32 @@ if ($product_id > 0) {
     }
 
     function addToCart(productId) {
-        alert("Add to Cart feature coming soon!");
+        var btn = document.querySelector('.btn-cart');
+        var originalText = btn.innerText;
+        btn.innerText = "Adding...";
+        btn.disabled = true;
+
+        $.ajax({
+            url: 'cart_handler.php',
+            type: 'POST',
+            data: { action: 'add', product_id: productId, quantity: 1 },
+            dataType: 'json',
+            success: function(response) {
+                if(response.status === 'success') {
+                    alert('Product added to cart!');
+                    updateCartCount(); // Function from header
+                } else {
+                    alert('Error: ' + response.message);
+                }
+            },
+            error: function() {
+                alert('An error occurred.');
+            },
+            complete: function() {
+                btn.innerText = originalText;
+                btn.disabled = false;
+            }
+        });
     }
     </script>
         <?php

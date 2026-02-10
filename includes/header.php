@@ -39,8 +39,9 @@
 
             <!-- Icons -->
             <div class="header-icons">
-                <div class="icon-item">
-                    <a href="#" title="Bag"><i class="fa-solid fa-bag-shopping"></i></a>
+                <div class="icon-item" style="position: relative;">
+                    <a href="cart.php" title="Bag"><i class="fa-solid fa-bag-shopping"></i></a>
+                    <span id="cart-count-badge" style="position:absolute; top:-8px; right:-8px; background:red; color:white; border-radius:50%; font-size:10px; width:16px; height:16px; display:flex; align-items:center; justify-content:center; display:none;">0</span>
                 </div>
                 <div class="icon-item">
                     <?php if (isset($_SESSION['user_id'])): ?>
@@ -112,4 +113,24 @@
 <script>
     var isLoggedIn = <?php echo isset($_SESSION['user_id']) ? 'true' : 'false'; ?>;
     var userName = "<?php echo isset($_SESSION['user_name']) ? htmlspecialchars($_SESSION['user_name']) : ''; ?>";
+</script>
+<script>
+    function updateCartCount() {
+        $.ajax({
+            url: '<?php echo isset($url_prefix) ? $url_prefix : ''; ?>cart_handler.php',
+            type: 'POST',
+            data: { action: 'count' },
+            dataType: 'json',
+            success: function(response) {
+                if(response.status === 'success' && response.count > 0) {
+                    $('#cart-count-badge').text(response.count).show();
+                } else {
+                    $('#cart-count-badge').hide();
+                }
+            }
+        });
+    }
+    $(document).ready(function() {
+        updateCartCount();
+    });
 </script>
