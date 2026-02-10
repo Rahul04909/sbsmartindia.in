@@ -315,6 +315,26 @@ body {
     background-color: #eef4ff;
 }
 
+.btn-cart {
+    flex: 1;
+    padding: 14px 20px;
+    background-color: #ff9900;
+    /* Amazon-like Yellow/Orange */
+    color: #fff;
+    font-weight: 600;
+    border: none;
+    border-radius: var(--radius-btn);
+    cursor: pointer;
+    font-size: 16px;
+    transition: background 0.2s;
+    text-align: center;
+    text-decoration: none;
+}
+
+.btn-cart:hover {
+    background-color: #e68a00;
+}
+
 /* Trust Icons Row in CTA */
 .trust-icons-row {
     display: flex;

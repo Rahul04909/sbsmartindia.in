@@ -165,6 +165,7 @@ if ($product_id > 0) {
                              <?php if($product['is_price_request']): ?>
                                 <a href="contact-us.php?product=<?php echo urlencode($product['title']); ?>" class="btn-primary">Request Quote</a>
                             <?php else: ?>
+                                <button type="button" class="btn-cart" onclick="addToCart(<?php echo $product['id']; ?>)">Add to Cart</button>
                                 <a href="checkout.php?product_id=<?php echo $product['id']; ?>" class="btn-primary">Buy Now</a>
                                 <a href="contact-us.php?product=<?php echo urlencode($product['title']); ?>" class="btn-secondary">Enquire Now</a>
                             <?php endif; ?>
@@ -338,6 +339,10 @@ if ($product_id > 0) {
             tabs[i].classList.remove("active");
         }
         event.currentTarget.classList.add("active");
+    }
+
+    function addToCart(productId) {
+        alert("Add to Cart feature coming soon!");
     }
     </script>
         <?php
