@@ -93,4 +93,3 @@
 </div>
 
 <link rel="stylesheet" href="assets/css/auth-modal.css">
-<script src="assets/js/auth-modal.js"></script>

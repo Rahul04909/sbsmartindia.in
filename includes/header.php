@@ -90,7 +90,7 @@
         </div>
     </nav>
 </header>
-<?php include_once '../components/auth-modal.php'; ?>
+<?php include_once dirname(__DIR__) . '/components/auth-modal.php'; ?>
 <script>
     var isLoggedIn = <?php echo isset($_SESSION['user_id']) ? 'true' : 'false'; ?>;
     var userName = "<?php echo isset($_SESSION['user_name']) ? htmlspecialchars($_SESSION['user_name']) : ''; ?>";
