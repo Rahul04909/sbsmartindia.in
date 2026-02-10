@@ -81,12 +81,12 @@ $html = '
 <table class="details-table">
     <tr>
         <td class="bill-to">
-            <strong>BILL TO:</strong><br>
-            '.htmlspecialchars($order['customer_name']).'<br>
-            '.htmlspecialchars($order['customer_address']).'<br>
+            <strong>BILL TO:</strong><br><br>
+            <strong>Name:</strong> '.htmlspecialchars($order['customer_name']).'<br>
+            <strong>Address:</strong> '.htmlspecialchars($order['customer_address']).'<br>
             '.htmlspecialchars($order['customer_city']).', '.htmlspecialchars($order['customer_state']).' - '.htmlspecialchars($order['customer_zip']).'<br>
-            Phone: '.htmlspecialchars($order['customer_phone']).'<br>
-            Email: '.htmlspecialchars($order['customer_email']).'
+            <strong>Mobile:</strong> '.htmlspecialchars($order['customer_phone']).'<br>
+            <strong>Email:</strong> '.htmlspecialchars($order['customer_email']).'
         </td>
         <td class="invoice-meta">
             <strong>Order ID:</strong> #'.$order['order_id'].'<br>
