@@ -1,0 +1,373 @@
+/* Product Details Page Styles */
+.product-details-container {
+    padding: 40px 0;
+    font-family: 'Inter', sans-serif;
+    color: #333;
+}
+
+.product-layout {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap: 40px;
+    margin-bottom: 60px;
+}
+
+/* Image Gallery & Info Side-by-Side */
+
+/* Image Gallery */
+.product-gallery {
+    display: flex;
+    gap: 15px;
+}
+
+.gallery-thumbs {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 80px;
+    height: 500px;
+    /* Fixed height for scroll */
+    overflow-y: auto;
+    scrollbar-width: thin;
+}
+
+.gallery-thumb {
+    width: 80px;
+    height: 80px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    cursor: pointer;
+    overflow: hidden;
+    opacity: 0.7;
+    transition: all 0.2s;
+}
+
+.gallery-thumb:hover,
+.gallery-thumb.active {
+    border-color: #2874f0;
+    /* Accent Color */
+    opacity: 1;
+}
+
+.gallery-thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.gallery-main {
+    flex-grow: 1;
+    height: 500px;
+    border: 1px solid #eee;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #fff;
+    border-radius: 8px;
+    overflow: hidden;
+    position: relative;
+}
+
+.gallery-main img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    transition: transform 0.3s ease;
+    /* For zoom on hover later */
+}
+
+/* Product Info */
+.product-info h1 {
+    font-size: 28px;
+    font-weight: 600;
+    margin-bottom: 10px;
+    line-height: 1.3;
+}
+
+.product-meta {
+    font-size: 14px;
+    color: #777;
+    margin-bottom: 15px;
+}
+
+.product-meta span {
+    margin-right: 15px;
+}
+
+.product-meta strong {
+    color: #444;
+}
+
+.product-rating {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    margin-bottom: 20px;
+}
+
+.rating-stars {
+    color: #fca311;
+    font-size: 14px;
+}
+
+.rating-count {
+    color: #007185;
+    /* Amazon blue for links */
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.price-box {
+    margin-bottom: 25px;
+    border-top: 1px solid #eee;
+    border-bottom: 1px solid #eee;
+    padding: 15px 0;
+}
+
+.price-request-large {
+    font-size: 24px;
+    color: #0077b6;
+    font-weight: 700;
+}
+
+.current-price-large {
+    font-size: 28px;
+    font-weight: 700;
+    color: #B12704;
+    /* Amazon Price Color */
+}
+
+.mrp-large {
+    font-size: 14px;
+    color: #565959;
+    text-decoration: line-through;
+    margin-left: 10px;
+}
+
+.save-amount {
+    font-size: 14px;
+    color: #B12704;
+    font-weight: 600;
+    display: block;
+    margin-top: 5px;
+}
+
+.stock-status {
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 20px;
+}
+
+.in-stock {
+    color: #007600;
+}
+
+.out-of-stock {
+    color: #b12704;
+}
+
+.short-desc {
+    font-size: 15px;
+    line-height: 1.6;
+    color: #333;
+    margin-bottom: 30px;
+}
+
+.action-buttons {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 30px;
+}
+
+.btn-buy {
+    padding: 12px 30px;
+    background-color: #ffd814;
+    border: 1px solid #fcd200;
+    border-radius: 20px;
+    color: #111;
+    font-weight: 600;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.btn-buy:hover {
+    background-color: #f7ca00;
+}
+
+.btn-enquire {
+    padding: 12px 30px;
+    background-color: #fa8900;
+    border: 1px solid #fa8900;
+    border-radius: 20px;
+    color: #fff;
+    font-weight: 600;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.btn-enquire:hover {
+    background-color: #e37c00;
+}
+
+/* Tabs Section */
+.product-tabs {
+    margin-top: 40px;
+}
+
+.tab-headers {
+    display: flex;
+    border-bottom: 1px solid #ddd;
+    margin-bottom: 25px;
+}
+
+.tab-btn {
+    padding: 12px 25px;
+    background: none;
+    border: none;
+    font-size: 16px;
+    font-weight: 600;
+    color: #555;
+    cursor: pointer;
+    border-bottom: 3px solid transparent;
+    transition: all 0.2s;
+}
+
+.tab-btn.active {
+    color: #2874f0;
+    border-bottom-color: #2874f0;
+}
+
+.tab-pane {
+    display: none;
+    line-height: 1.6;
+    color: #333;
+}
+
+.tab-pane.active {
+    display: block;
+}
+
+/* Reviews Styling */
+.review-form-container {
+    background-color: #f8f9fa;
+    padding: 25px;
+    border-radius: 8px;
+    margin-bottom: 40px;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: 600;
+    font-size: 14px;
+}
+
+.form-control {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+.submit-btn {
+    padding: 10px 20px;
+    background-color: #333;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.review-list {
+    margin-top: 30px;
+}
+
+.review-item {
+    border-bottom: 1px solid #eee;
+    padding: 20px 0;
+}
+
+.review-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+.reviewer-name {
+    font-weight: 700;
+    font-size: 14px;
+}
+
+.review-date {
+    font-size: 12px;
+    color: #888;
+}
+
+.review-stars {
+    color: #fca311;
+    font-size: 12px;
+}
+
+.review-text {
+    font-size: 14px;
+    color: #333;
+    line-height: 1.5;
+}
+
+/* Mobile Responsive */
+@media (max-width: 991px) {
+    .product-layout {
+        grid-template-columns: 1fr;
+        gap: 30px;
+    }
+
+    .gallery-main {
+        height: 400px;
+    }
+}
+
+@media (max-width: 768px) {
+    .product-gallery {
+        flex-direction: column-reverse;
+    }
+
+    .gallery-thumbs {
+        flex-direction: row;
+        width: 100%;
+        height: auto;
+        overflow-x: auto;
+        padding-bottom: 5px;
+    }
+
+    .gallery-thumb {
+        flex-shrink: 0;
+    }
+
+    .product-info h1 {
+        font-size: 22px;
+    }
+
+    .price-request-large,
+    .current-price-large {
+        font-size: 24px;
+    }
+
+    .action-buttons {
+        flex-direction: column;
+    }
+
+    .btn-buy,
+    .btn-enquire {
+        width: 100%;
+        text-align: center;
+    }
+}
