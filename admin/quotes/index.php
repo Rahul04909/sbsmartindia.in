@@ -46,7 +46,6 @@ include '../includes/header.php';
                         <th>Customer</th>
                         <th>Company</th>
                         <th width="150">Location</th>
-                        <th>Status</th>
                         <th>Date</th>
                         <th width="100">Actions</th>
                     </tr>
@@ -86,7 +85,6 @@ include '../includes/header.php';
                                     " . htmlspecialchars($row['city']) . ", " . htmlspecialchars($row['state']) . "<br>
                                     <small>" . htmlspecialchars($row['pincode']) . "</small>
                                   </td>";
-                            echo "<td><span class='status-badge'>" . htmlspecialchars($row['status']) . "</span></td>";
                             echo "<td>" . date('d M Y', strtotime($row['created_at'])) . "</td>";
                             echo "<td>
                                 <a href='index.php?delete=" . $row['id'] . "' class='btn-action btn-delete' onclick=\"return confirm('Are you sure you want to delete this Quote Request?');\"><i class='fas fa-trash'></i> Delete</a>
