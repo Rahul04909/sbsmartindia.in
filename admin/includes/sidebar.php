@@ -79,6 +79,14 @@
             </ul>
         </li>
 
+        <li class="menu-item <?php echo ($page == 'quotes') ? 'active' : ''; ?>">
+            <a href="<?php echo $url_prefix; ?>quotes/index.php" class="menu-link">
+                <div class="menu-text">
+                    <i class="fas fa-file-invoice-dollar"></i> <span>Quote Requests</span>
+                </div>
+            </a>
+        </li>
+
         <li class="menu-item has-submenu">
             <a href="#" class="menu-link">
                 <div class="menu-text">

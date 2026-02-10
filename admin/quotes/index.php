@@ -1,6 +1,5 @@
-<?php
 $page = 'quotes';
-$url_prefix = '../../'; // Admin/quotes/ -> Admin/ -> Root
+$url_prefix = '../'; // Points to Admin Root
 require_once '../../database/db_config.php';
 
 // Handle Delete Action
