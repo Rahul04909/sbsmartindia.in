@@ -1,0 +1,240 @@
+/* Auth Modal Styles */
+.auth-modal {
+    display: none;
+    position: fixed;
+    z-index: 10000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(5px);
+    align-items: center;
+    justify-content: center;
+}
+
+.auth-modal-content {
+    background-color: #fff;
+    width: 90%;
+    max-width: 900px;
+    height: 550px;
+    border-radius: 12px;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+    animation: modalSlideIn 0.3s ease-out;
+}
+
+@keyframes modalSlideIn {
+    from {
+        transform: translateY(-50px);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.close-auth-modal {
+    position: absolute;
+    right: 20px;
+    top: 20px;
+    font-size: 24px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #666;
+    z-index: 10;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+}
+
+.close-auth-modal:hover {
+    background-color: #f0f0f0;
+    color: #333;
+}
+
+.auth-split-layout {
+    display: flex;
+    height: 100%;
+}
+
+.auth-image-side {
+    flex: 1;
+    background-image: url('../../assets/images/auth-bg.jpg');
+    /* Need a placeholder image here or use a gradient */
+    background-color: #004aad;
+    /* Fallback */
+    background-size: cover;
+    background-position: center;
+    position: relative;
+    display: flex;
+    align-items: flex-end;
+}
+
+/* Use a gradient if image not available */
+.auth-image-side::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, rgba(0, 74, 173, 0.9) 0%, rgba(0, 33, 87, 0.8) 100%);
+}
+
+.auth-overlay {
+    position: relative;
+    padding: 40px;
+    color: white;
+    z-index: 2;
+}
+
+.auth-overlay h2 {
+    font-size: 32px;
+    font-weight: 700;
+    margin-bottom: 5px;
+}
+
+.auth-overlay p {
+    font-size: 16px;
+    opacity: 0.9;
+}
+
+.auth-form-side {
+    flex: 1;
+    padding: 50px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    overflow-y: auto;
+}
+
+.auth-title {
+    font-size: 26px;
+    font-weight: 700;
+    color: #333;
+    margin-bottom: 5px;
+}
+
+.auth-subtitle {
+    color: #666;
+    font-size: 14px;
+    margin-bottom: 30px;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-size: 12px;
+    font-weight: 600;
+    color: #888;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.input-icon-wrapper {
+    position: relative;
+}
+
+.input-icon-wrapper i {
+    position: absolute;
+    left: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #aaa;
+}
+
+.input-icon-wrapper input {
+    width: 100%;
+    padding: 12px 12px 12px 40px;
+    border: 1px solid #e0e0e0;
+    border-radius: 6px;
+    font-size: 14px;
+    transition: all 0.2s;
+    background-color: #f9f9f9;
+    box-sizing: border-box;
+}
+
+.input-icon-wrapper input:focus {
+    border-color: #004aad;
+    background-color: #fff;
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(0, 74, 173, 0.1);
+}
+
+.btn-auth-submit {
+    width: 100%;
+    padding: 14px;
+    background-color: #004aad;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-weight: 600;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background 0.2s;
+    margin-top: 10px;
+}
+
+.btn-auth-submit:hover {
+    background-color: #003380;
+}
+
+.auth-switch {
+    margin-top: 25px;
+    text-align: center;
+    font-size: 14px;
+    color: #666;
+}
+
+.auth-switch a {
+    color: #004aad;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.auth-switch a:hover {
+    text-decoration: underline;
+}
+
+@media (max-width: 768px) {
+    .auth-modal-content {
+        height: auto;
+        min-height: 500px;
+        width: 95%;
+    }
+
+    .auth-split-layout {
+        flex-direction: column;
+    }
+
+    .auth-image-side {
+        height: 150px;
+        flex: none;
+    }
+
+    .auth-overlay {
+        padding: 20px;
+    }
+
+    .auth-overlay h2 {
+        font-size: 24px;
+    }
+
+    .auth-form-side {
+        padding: 30px 20px;
+        flex: 1;
+    }
+}

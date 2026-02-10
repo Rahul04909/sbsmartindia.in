@@ -90,3 +90,20 @@
         </div>
     </nav>
 </header>
+<?php include_once 'components/auth-modal.php'; ?>
+<script>
+    $(document).ready(function() {
+        // Trigger modal on Account Icon click
+        $('a[title="Account"]').click(function(e) {
+            e.preventDefault();
+            <?php if(isset($_SESSION['user_id'])): ?>
+                // If logged in, maybe go to profile page or show logout
+                if(confirm('Logout from ' + '<?php echo isset($_SESSION['user_name']) ? $_SESSION['user_name'] : "Account"; ?>' + '?')) {
+                    window.location.href = 'logout.php'; // Create logout.php if needed or handle here
+                }
+            <?php else: ?>
+                $('#authModal').css('display', 'flex').hide().fadeIn();
+            <?php endif; ?>
+        });
+    });
+</script>
