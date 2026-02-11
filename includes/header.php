@@ -51,7 +51,7 @@
                         </a>
                     <?php else: ?>
                         <a href="#" id="login-btn-trigger" class="auth-btn">
-                            <i class="fa-solid fa-right-to-bracket"></i> Login
+                            <i class="fa-regular fa-user"></i> Account
                         </a>
                     <?php endif; ?>
                 </div>
