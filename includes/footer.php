@@ -25,10 +25,10 @@
                 <h3 class="footer-heading">Quick Links</h3>
                 <ul>
                     <li><a href="index.php">Home</a></li>
-                    <li><a href="#">Products</a></li>
+                    <li><a href="../products.php">Products</a></li>
                     <li><a href="#">Assisted Orders</a></li>
                     <li><a href="#">About Us</a></li>
-                    <li><a href="../pages/contact.php">Contact</a></li>
+                    <li><a href="../pages/contact-us.php">Contact</a></li>
                     <li><a href="#">Blog</a></li>
                 </ul>
             </div>
