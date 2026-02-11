@@ -6,12 +6,12 @@ $page_title = "Shop - Products | SB Smart India";
 try {
     // 1. Initial Logic for Filters
     // Fetch Brands
-    $brands_sql = "SELECT * FROM brands WHERE status=1 ORDER BY name ASC";
+    $brands_sql = "SELECT * FROM brands ORDER BY name ASC";
     $brands_res = $conn->query($brands_sql);
     if(!$brands_res) throw new Exception("Brands Query Failed: " . $conn->error);
 
     // Fetch Categories with Sub-Categories
-    $cats_sql = "SELECT * FROM product_categories WHERE status=1 ORDER BY name ASC";
+    $cats_sql = "SELECT * FROM product_categories ORDER BY name ASC";
     $cats_res = $conn->query($cats_sql);
     if(!$cats_res) throw new Exception("Categories Query Failed: " . $conn->error);
 
@@ -20,7 +20,7 @@ try {
         while($cat = $cats_res->fetch_assoc()) {
             $cat_id = $cat['id'];
              // Fetch Sub-Categories
-            $sub_sql = "SELECT * FROM product_sub_categories WHERE category_id = $cat_id AND status = 1 ORDER BY name ASC";
+            $sub_sql = "SELECT * FROM product_sub_categories WHERE category_id = $cat_id ORDER BY name ASC";
             $sub_res = $conn->query($sub_sql);
             $subs = [];
             while($sub = $sub_res->fetch_assoc()) {
@@ -32,7 +32,7 @@ try {
     }
 
     // 2. Build Query based on GET params
-    $where_clauses = ["status = 1"];
+    $where_clauses = ["1=1"];
 
     // Filter by Brand
     if (isset($_GET['brand']) && !empty($_GET['brand'])) {
