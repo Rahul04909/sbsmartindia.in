@@ -38,10 +38,10 @@
                 <h3 class="footer-heading">Customer Service</h3>
                 <ul>
                     <li><a href="#">FAQs</a></li>
-                    <li><a href="#">Shipping Policy</a></li>
-                    <li><a href="#">Return & Refund</a></li>
-                    <li><a href="#">Terms & Conditions</a></li>
-                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="../pages/shipping-and-delivery-policy.php">Shipping Policy</a></li>
+                    <li><a href="../pages/refund-and-cancellation-policy.php">Return & Refund</a></li>
+                    <li><a href="../pages/terms-and-conditions.php">Terms & Conditions</a></li>
+                    <li><a href="../pages/privacy-policy.php">Privacy Policy</a></li>
                 </ul>
             </div>
 
