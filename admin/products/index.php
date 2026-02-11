@@ -25,6 +25,35 @@ require_once '../../database/db_config.php';
         </div>
     <?php endif; ?>
 
+    <!-- Bulk Import Section -->
+    <div class="table-card" style="margin-bottom: 20px;">
+        <div class="card-header" style="display: flex; justify-content: space-between; align-items: center; padding: 15px 20px; border-bottom: 1px solid #eee;">
+            <h3 class="card-title" style="margin: 0;">Bulk Import Products</h3>
+            <button type="button" class="btn-admin" onclick="document.getElementById('importFormContainer').style.display = document.getElementById('importFormContainer').style.display === 'none' ? 'block' : 'none';" style="background: #f8f9fa; color: #333; border: 1px solid #ddd;">
+                <i class="fas fa-chevron-down"></i> Toggle Import
+            </button>
+        </div>
+        <div id="importFormContainer" style="padding: 20px; display: none;">
+            <form action="import_handler.php" method="POST" enctype="multipart/form-data" style="display: flex; gap: 15px; align-items: flex-end; flex-wrap: wrap;">
+                <div style="flex: 1; min-width: 250px;">
+                    <label style="display: block; margin-bottom: 8px; font-weight: 500;">Upload Excel File (.xlsx)</label>
+                    <input type="file" name="import_file" accept=".xlsx, .xls" required style="width: 100%; padding: 8px; border: 1px solid #ddd; border-radius: 4px;">
+                </div>
+                <div>
+                    <button type="submit" name="import_products" class="btn-admin" style="padding: 10px 20px;">
+                        <i class="fas fa-file-import"></i> Import
+                    </button>
+                    <a href="download_sample.php" class="btn-admin" style="background-color: #28a745; border-color: #28a745; padding: 10px 20px; margin-left: 10px; text-decoration: none; display: inline-block;">
+                        <i class="fas fa-download"></i> Download Sample
+                    </a>
+                </div>
+            </form>
+             <div style="margin-top: 10px; color: #666; font-size: 0.9em;">
+                <i class="fas fa-info-circle"></i> Please download the sample file to see the required format. Ensure Brand, Category, and Sub Category names match exactly with existing records.
+            </div>
+        </div>
+    </div>
+
     <div class="table-card">
         <div class="table-responsive">
             <table class="wp-list-table">

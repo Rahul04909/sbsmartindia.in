@@ -13,30 +13,7 @@ require_once '../../database/db_config.php';
         </a>
     </div>
 
-    <div class="chart-card" style="margin-bottom: 20px;">
-        <div class="card-header">
-            <h3 class="card-title">Bulk Import Products</h3>
-        </div>
-        <div style="padding: 20px;">
-            <form action="import_handler.php" method="POST" enctype="multipart/form-data" style="display: flex; gap: 15px; align-items: center; flex-wrap: wrap;">
-                <div style="flex: 1; min-width: 250px;">
-                    <label style="display: block; margin-bottom: 8px; font-weight: 500;">Upload Excel File (.xlsx)</label>
-                    <input type="file" name="import_file" accept=".xlsx, .xls" required style="width: 100%; padding: 8px; border: 1px solid #ddd; border-radius: 4px;">
-                </div>
-                <div style="padding-top: 28px;"> <!-- Align with input -->
-                    <button type="submit" name="import_products" class="btn-admin" style="padding: 10px 20px;">
-                        <i class="fas fa-file-import"></i> Import
-                    </button>
-                    <a href="download_sample.php" class="btn-admin" style="background-color: #28a745; border-color: #28a745; padding: 10px 20px; margin-left: 10px; text-decoration: none; display: inline-block;">
-                        <i class="fas fa-download"></i> Download Sample
-                    </a>
-                </div>
-            </form>
-            <div style="margin-top: 10px; color: #666; font-size: 0.9em;">
-                <i class="fas fa-info-circle"></i> Please download the sample file to see the required format. Ensure Brand, Category, and Sub Category names match exactly with existing records.
-            </div>
-        </div>
-    </div>
+
 
     <form action="product_handler.php" method="POST" enctype="multipart/form-data" id="productForm">
         <div class="charts-row">
