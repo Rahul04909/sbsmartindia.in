@@ -92,11 +92,7 @@
                 ?>
                             <li class="nav-item">
                                 <a href="#" class="nav-link brand-nav-btn">
-                                    <?php if ($nb_logo): ?>
-                                        <img src="<?php echo $url_prefix . $nb_logo; ?>" alt="<?php echo htmlspecialchars($nb_name); ?>">
-                                    <?php else: ?>
-                                        <span><?php echo htmlspecialchars($nb_name); ?></span>
-                                    <?php endif; ?>
+                                    <span><?php echo htmlspecialchars($nb_name); ?></span>
                                 </a>
                             </li>
                 <?php
@@ -109,6 +105,7 @@
     </nav>
 </header>
 <link rel="stylesheet" href="<?php echo isset($url_prefix) ? $url_prefix : ''; ?>assets/css/header-auth.css">
+<link rel="stylesheet" href="<?php echo isset($url_prefix) ? $url_prefix : ''; ?>assets/css/brand-menu-text.css">
 <?php include_once dirname(__DIR__) . '/components/auth-modal.php'; ?>
 <script>
     var isLoggedIn = <?php echo isset($_SESSION['user_id']) ? 'true' : 'false'; ?>;
