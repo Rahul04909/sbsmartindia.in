@@ -1,9 +1,9 @@
 <?php
 declare(strict_types=1);
-require_once __DIR__ . '../database/db_config.php';
+require_once __DIR__ . '/../database/db_config.php';
 
 $page_title = "Contact Us - SBSmart";
-require __DIR__ . '../includes/header.php';
+require __DIR__ . '/../includes/header.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $name = trim($_POST['name'] ?? '');

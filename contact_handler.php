@@ -5,7 +5,12 @@ require_once 'includes/mail_helper.php';
 
 header('Content-Type: application/json');
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+// Enable error reporting but keep it internal to not break JSON
+ini_set('display_errors', 0);
+ini_set('log_errors', 1);
+
+try {
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $action = $_POST['action'] ?? '';
 
     if ($action === 'send_otp') {
@@ -63,8 +68,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             echo json_encode(['status' => 'error', 'message' => 'Invalid or expired OTP.']);
         }
     }
-    else {
-        echo json_encode(['status' => 'error', 'message' => 'Invalid Action']);
     }
+} catch (Exception $e) {
+    echo json_encode(['status' => 'error', 'message' => 'Server Error: ' . $e->getMessage()]);
 }
 ?>
