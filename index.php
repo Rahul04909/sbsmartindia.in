@@ -19,6 +19,7 @@ session_start();
     <link rel="stylesheet" href="assets/css/brand-menu.css">
     <link rel="stylesheet" href="assets/css/latest-products.css">
     <link rel="stylesheet" href="assets/css/header-menu.css">
+    <link rel="stylesheet" href="assets/css/mega-menu.css">
 </head>
 <body>
 

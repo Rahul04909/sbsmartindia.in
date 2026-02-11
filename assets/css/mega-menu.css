@@ -24,9 +24,21 @@
 
 .nav-item:hover .mega-menu {
     display: block !important;
-    animation: fadeIn 0.3s ease-in-out;
+    animation: fadeIn 0.2s ease-in-out;
     visibility: visible;
     opacity: 1;
+}
+
+/* Ensure hover state persists when moving to menu */
+.nav-item {
+    padding-bottom: 0px;
+    /* Adjust if needed */
+}
+
+/* Hover effect for the brand button when menu is active */
+.nav-item:hover .brand-nav-btn {
+    background-color: #f0f0f0;
+    color: #004aad;
 }
 
 /* Ensure container allows overflow */
