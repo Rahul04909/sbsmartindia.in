@@ -95,58 +95,51 @@
                                     <span><?php echo htmlspecialchars($nb_name); ?></span>
                                 </a>
                                 
-                                <!-- Mega Menu -->
-                                <div class="mega-menu">
-                                    <div class="container">
-                                        <div class="mega-menu-content">
-                                            <?php
-                                            // Fetch Categories for this Brand
-                                            $brand_id = $nav_brand['id'];
-                                            $cat_sql = "SELECT * FROM product_categories WHERE brand_id = $brand_id AND status = 1 ORDER BY name ASC";
-                                            $cat_res = $conn->query($cat_sql);
+                                <!-- Dropdown Menu -->
+                                <ul class="dropdown-menu">
+                                    <?php
+                                    // Fetch Categories for this Brand
+                                    $brand_id = $nav_brand['id'];
+                                    $cat_sql = "SELECT * FROM product_categories WHERE brand_id = $brand_id AND status = 1 ORDER BY name ASC";
+                                    $cat_res = $conn->query($cat_sql);
+                                    
+                                    if ($cat_res && $cat_res->num_rows > 0) {
+                                        while ($cat = $cat_res->fetch_assoc()) {
+                                            $cat_id = $cat['id'];
                                             
-                                            if ($cat_res && $cat_res->num_rows > 0) {
-                                                while ($cat = $cat_res->fetch_assoc()) {
-                                                    $cat_id = $cat['id'];
-                                            ?>
-                                                    <div class="mega-menu-category">
-                                                        <a href="products.php?category=<?php echo urlencode($cat_id); ?>" class="category-title">
-                                                            <?php echo htmlspecialchars($cat['name']); ?>
-                                                        </a>
-                                                        <ul class="sub-category-list">
-                                                            <?php
-                                                            // Fetch Sub Categories
-                                                            $sub_sql = "SELECT * FROM product_sub_categories WHERE category_id = $cat_id AND status = 1 ORDER BY name ASC LIMIT 5";
-                                                            $sub_res = $conn->query($sub_sql);
-                                                            
-                                                            if ($sub_res && $sub_res->num_rows > 0) {
-                                                                while ($sub = $sub_res->fetch_assoc()) {
-                                                            ?>
-                                                                    <li>
-                                                                        <a href="products.php?sub_category=<?php echo urlencode($sub['id']); ?>">
-                                                                            <?php echo htmlspecialchars($sub['name']); ?>
-                                                                        </a>
-                                                                    </li>
-                                                            <?php
-                                                                }
-                                                            }
-                                                            ?>
-                                                            <li>
-                                                                <a href="products.php?category=<?php echo urlencode($cat_id); ?>" style="font-weight: 600; color: #004aad; margin-top: 5px;">
-                                                                    View All <i class="fas fa-arrow-right" style="font-size: 10px;"></i>
-                                                                </a>
-                                                            </li>
-                                                        </ul>
-                                                    </div>
-                                            <?php
-                                                }
-                                            } else {
-                                                echo '<div class="col-12"><p>No categories found for this brand.</p></div>';
-                                            }
-                                            ?>
-                                        </div>
-                                    </div>
-                                </div>
+                                            // Check if has subcategories
+                                            $sub_count_sql = "SELECT COUNT(*) as count FROM product_sub_categories WHERE category_id = $cat_id AND status = 1";
+                                            $sub_count_res = $conn->query($sub_count_sql);
+                                            $has_sub = ($sub_count_res->fetch_assoc()['count'] > 0);
+                                    ?>
+                                            <li class="<?php echo $has_sub ? 'has-submenu' : ''; ?>">
+                                                <a href="products.php?category=<?php echo urlencode($cat_id); ?>">
+                                                    <?php echo htmlspecialchars($cat['name']); ?>
+                                                </a>
+                                                
+                                                <?php if ($has_sub): ?>
+                                                <ul class="dropdown-submenu">
+                                                    <?php
+                                                    $sub_sql = "SELECT * FROM product_sub_categories WHERE category_id = $cat_id AND status = 1 ORDER BY name ASC";
+                                                    $sub_res = $conn->query($sub_sql);
+                                                    while ($sub = $sub_res->fetch_assoc()) {
+                                                    ?>
+                                                        <li>
+                                                            <a href="products.php?sub_category=<?php echo urlencode($sub['id']); ?>">
+                                                                <?php echo htmlspecialchars($sub['name']); ?>
+                                                            </a>
+                                                        </li>
+                                                    <?php } ?>
+                                                </ul>
+                                                <?php endif; ?>
+                                            </li>
+                                    <?php
+                                        }
+                                    } else {
+                                        echo '<li><a href="#">No categories</a></li>';
+                                    }
+                                    ?>
+                                </ul>
                             </li>
                 <?php
                         }
