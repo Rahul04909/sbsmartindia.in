@@ -1,223 +1,281 @@
 <?php
-declare(strict_types=1);
-require_once __DIR__ . '/../database/db_config.php';
-
-$page_title = "Contact Us - SBSmart";
-require __DIR__ . '/../includes/header.php';
-
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $name = trim($_POST['name'] ?? '');
-    $email = trim($_POST['email'] ?? '');
-    $phone = trim($_POST['phone'] ?? '');
-    $message = trim($_POST['message'] ?? '');
-
-    if ($name === '' || $email === '' || $message === '') {
-        flash_set('error', 'Please fill required fields (name, email, message).');
-        header('Location: /contact-us.php');
-        exit;
-    }
-    if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-        flash_set('error', 'Invalid email.');
-        header('Location: /contact-us.php');
-        exit;
-    }
-
-    $cfg = require __DIR__ . '/includes/config.php';
-    $to = $cfg['site']['contact_email'] ?? ($cfg['mail']['from_email'] ?? 'noreply@sbsmart.in');
-    $subject = "Contact form: " . $name;
-    $html = "<p><strong>Name:</strong> " . esc($name) . "</p>"
-          . "<p><strong>Email:</strong> " . esc($email) . "</p>"
-          . "<p><strong>Phone:</strong> " . esc($phone) . "</p>"
-          . "<p><strong>Message:</strong><br>" . nl2br(esc($message)) . "</p>";
-
-    $mailer = new Mailer();
-    $ok = $mailer->send($to, $subject, $html, strip_tags($html));
-
-    if ($ok) {
-        flash_set('success', 'Thanks — we received your message.');
-    } else {
-        flash_set('error', 'Failed to send message. Please try again later.');
-    }
-    header('Location: /contact-us.php');
-    exit;
-}
+session_start();
+$url_prefix = '../';
+require_once '../database/db_config.php';
+$page_title = "Contact Us - S.B. Syscon Pvt. Ltd.";
 ?>
-<div class="container py-5">
-  <h1>Contact Us</h1>
-  <?php if ($m = flash_get('error')): ?><div class="alert alert-danger"><?= esc($m) ?></div><?php endif; ?>
-  <?php if ($m = flash_get('success')): ?><div class="alert alert-success"><?= esc($m) ?></div><?php endif; ?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><?php echo $page_title; ?></title>
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="../asstes/css/style.css">
+    <link rel="stylesheet" href="../asstes/css/footer.css">
+    <link rel="stylesheet" href="../assets/css/brand-menu.css">
+    <link rel="stylesheet" href="../assets/css/header-menu.css">
+    
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f8f9fa; }
+        .contact-container {
+            max-width: 1000px;
+            margin: 50px auto;
+            background: #fff;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            border-radius: 12px;
+            overflow: hidden;
+            display: flex;
+            flex-wrap: wrap;
+        }
+        .contact-info-side {
+            flex: 1;
+            background-color: #004aad; /* Brand Color */
+            color: #fff;
+            padding: 50px;
+            min-width: 300px;
+        }
+        .contact-info-side h2 { font-size: 28px; margin-bottom: 20px; font-weight: 700; }
+        .contact-info-side p { margin-bottom: 30px; opacity: 0.9; line-height: 1.6; }
+        .info-item { display: flex; align-items: flex-start; margin-bottom: 25px; }
+        .info-item i { font-size: 20px; margin-right: 15px; margin-top: 5px; }
+        .info-item span { font-size: 15px; }
+        
+        .contact-form-side {
+            flex: 1.5;
+            padding: 50px;
+            min-width: 300px;
+        }
+        .contact-form-side h2 { color: #333; margin-bottom: 30px; font-weight: 700; }
+        
+        .form-group { margin-bottom: 20px; }
+        .form-group label { display: block; margin-bottom: 8px; font-weight: 600; color: #555; }
+        .form-control {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 14px;
+            transition: border-color 0.3s;
+        }
+        .form-control:focus { outline: none; border-color: #004aad; }
+        textarea.form-control { resize: vertical; min-height: 120px; }
+        
+        .btn-submit {
+            background-color: #004aad;
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s;
+            display: inline-block;
+        }
+        .btn-submit:hover { background-color: #003380; }
+        .btn-submit:disabled { background-color: #ccc; cursor: not-allowed; }
 
-  <form method="post" action="/contact-us.php" id="contactUsForm">
-    <div class="mb-3">
-      <label class="form-label">Name *</label>
-      <input name="name" id="contactName" class="form-control" required minlength="3" maxlength="100" pattern="[A-Za-z\s.]+" title="Name should only contain letters and spaces">
-    </div>
-    <div class="mb-3">
-      <label class="form-label">Email *</label>
-      <input type="email" name="email" id="contactEmail" class="form-control" required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" title="Please enter a valid email address">
-    </div>
-    <div class="mb-3">
-      <label class="form-label">Phone</label>
-      <input name="phone" id="contactPhone" type="tel" class="form-control" pattern="^(\+91[\s]?)?[6-9]\d{9}$" title="Enter a valid 10-digit Indian mobile number starting with 6, 7, 8, or 9">
-    </div>
-    <div class="mb-3">
-      <label class="form-label">Message *</label>
-      <textarea name="message" id="contactMessage" class="form-control" rows="6" required minlength="10" maxlength="1000" title="Message must be between 10 and 1000 characters"></textarea>
-      <small class="text-muted" id="contactCharCount" style="font-size: 0.75rem; margin-top: 4px; display: block;">0 / 1000 characters</small>
-    </div>
-    <button class="btn btn-primary" type="submit">Send</button>
-  </form>
+        .otp-section { display: none; margin-top: 20px; border-top: 1px solid #eee; padding-top: 20px; }
+        .otp-input-group { display: flex; gap: 10px; align-items: center; }
+        .resend-otp { margin-left: auto; font-size: 13px; color: #004aad; cursor: pointer; }
+        
+        .breadcrumbs { margin: 25px auto; max-width: 1000px; font-size: 0.9rem; color: #6c757d; padding: 0 15px; }
+        .breadcrumbs a { color: #6c757d; text-decoration: none; }
+        .breadcrumbs a:hover { color: #000; }
+
+        @media(max-width: 768px) {
+            .contact-container { margin: 20px; flex-direction: column; }
+        }
+    </style>
+</head>
+<body>
+
+<?php require_once '../includes/header.php'; ?>
+
+<div class="breadcrumbs">
+    <a href="../index.php">Home</a> &gt; <span>Contact Us</span>
 </div>
 
+<div class="contact-container">
+    <!-- Info Side -->
+    <div class="contact-info-side">
+        <h2>Get in Touch</h2>
+        <p>Have questions about our products or need a custom quote? Our team is here to help you.</p>
+        
+        <div class="info-item">
+            <i class="fa-solid fa-location-dot"></i>
+            <span>1D-45A, NIT Faridabad, Haryana, India – 121001</span>
+        </div>
+        <div class="info-item">
+            <i class="fa-solid fa-phone"></i>
+            <span>(+91) 129 4150 555</span>
+        </div>
+        <div class="info-item">
+            <i class="fa-solid fa-envelope"></i>
+            <span>marcom.sbsyscon@gmail.com</span>
+        </div>
+        <div class="info-item">
+            <i class="fa-solid fa-clock"></i>
+            <span>Mon - Sat: 9:30am – 6:30pm</span>
+        </div>
+    </div>
+
+    <!-- Form Side -->
+    <div class="contact-form-side">
+        <h2>Send us a Message</h2>
+        <form id="contactForm">
+            <div class="form-group">
+                <label>Full Name</label>
+                <input type="text" name="name" class="form-control" required placeholder="Your Name">
+            </div>
+            <div class="form-group">
+                <label>Email Address</label>
+                <div style="display: flex; gap: 10px;">
+                    <input type="email" name="email" id="contactEmail" class="form-control" required placeholder="name@example.com">
+                    <button type="button" id="sendOtpBtn" class="btn-submit" style="white-space: nowrap; padding: 12px 15px;">Verify Email</button>
+                </div>
+                <small class="text-muted" id="emailHelp">Click "Verify Email" to receive an OTP.</small>
+            </div>
+            
+            <div id="otpSection" class="otp-section">
+                <div class="form-group">
+                    <label>Enter OTP</label>
+                    <div class="otp-input-group">
+                        <input type="text" name="otp" id="otpInput" class="form-control" placeholder="6-digit OTP" maxlength="6">
+                        <span class="resend-otp" id="resendOtp">Resend OTP</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Phone Number</label>
+                <input type="tel" name="phone" class="form-control" required placeholder="Mobile Number">
+            </div>
+            <div class="form-group">
+                <label>Message</label>
+                <textarea name="message" class="form-control" required placeholder="How can we help you?"></textarea>
+            </div>
+
+            <button type="submit" class="btn-submit" id="finalSubmitBtn" disabled>Submit Request</button>
+        </form>
+    </div>
+</div>
+
+<?php require_once '../includes/footer.php'; ?>
+
+<script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
 <script>
-document.addEventListener('DOMContentLoaded', function() {
-  const form = document.getElementById('contactUsForm');
-  if (!form) return;
-  
-  const nameInput = form.querySelector('#contactName');
-  const emailInput = form.querySelector('#contactEmail');
-  const phoneInput = form.querySelector('#contactPhone');
-  const messageInput = form.querySelector('#contactMessage');
-  const charCount = document.getElementById('contactCharCount');
-  
-  // Name validation - only letters and spaces
-  if (nameInput) {
-    nameInput.addEventListener('input', function() {
-      this.value = this.value.replace(/[^A-Za-z\s.]/g, '');
-    });
-  }
-  
-  // Phone validation - format as typing
-  if (phoneInput) {
-    phoneInput.addEventListener('input', function() {
-      this.value = this.value.replace(/[^\d+\s()-]/g, '');
-    });
-  }
-  
-  // Email validation on blur
-  if (emailInput) {
-    emailInput.addEventListener('blur', function() {
-      const emailPattern = /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$/i;
-      if (!emailPattern.test(this.value.trim()) && this.value.trim() !== '') {
-        this.style.borderColor = '#dc3545';
-        showError(this, 'Please enter a valid email address');
-      } else {
-        this.style.borderColor = '';
-        removeError(this);
-      }
-    });
-    
-    emailInput.addEventListener('focus', function() {
-      this.style.borderColor = '';
-      removeError(this);
-    });
-  }
-  
-  // Character counter for message
-  if (messageInput && charCount) {
-    messageInput.addEventListener('input', function() {
-      const length = this.value.length;
-      const maxLength = 1000;
-      charCount.textContent = `${length} / ${maxLength} characters`;
-      
-      if (length > maxLength) {
-        charCount.style.color = '#dc3545';
-      } else if (length >= maxLength * 0.9) {
-        charCount.style.color = '#f59e0b';
-      } else {
-        charCount.style.color = '#6b7280';
-      }
-    });
-  }
-  
-  // Form submission validation
-  form.addEventListener('submit', function(e) {
-    let isValid = true;
-    const errors = [];
-    
-    // Validate name
-    if (nameInput && nameInput.value.trim().length < 3) {
-      isValid = false;
-      errors.push('Name must be at least 3 characters long');
-      nameInput.style.borderColor = '#dc3545';
-    }
-    
-    // Validate email
-    const emailPattern = /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$/i;
-    if (emailInput && !emailPattern.test(emailInput.value.trim())) {
-      isValid = false;
-      errors.push('Please enter a valid email address');
-      emailInput.style.borderColor = '#dc3545';
-    }
-    
-    
-    // Validate phone if filled - Enhanced Indian mobile validation
-    if (phoneInput && phoneInput.value.trim() !== '') {
-      const phone = phoneInput.value.trim();
-      const digitsOnly = phone.replace(/\D/g, '');
-      let phoneValid = false;
-      
-      if (digitsOnly.length === 10) {
-        // Indian mobile: must start with 6, 7, 8, or 9
-        phoneValid = /^[6-9]\d{9}$/.test(digitsOnly);
-        if (!phoneValid) {
-          errors.push('Mobile number must start with 6, 7, 8, or 9');
+    $(document).ready(function() {
+        var isEmailVerified = false;
+
+        // Send OTP
+        $('#sendOtpBtn').click(function() {
+            var email = $('#contactEmail').val();
+            var btn = $(this);
+
+            if(!email) {
+                alert('Please enter your email first.');
+                return;
+            }
+            if(!validateEmail(email)) {
+                alert('Please enter a valid email address.');
+                 return;
+            }
+
+            btn.prop('disabled', true).text('Sending...');
+
+            $.ajax({
+                url: '../contact_handler.php',
+                type: 'POST',
+                data: { action: 'send_otp', email: email },
+                dataType: 'json',
+                success: function(response) {
+                    if(response.status === 'success') {
+                        alert(response.message);
+                        $('#otpSection').slideDown();
+                        $('#sendOtpBtn').parent().hide(); // Hide email input group parts or just disable
+                        $('#contactEmail').prop('readonly', true);
+                        $('#emailHelp').text('OTP sent to ' + email);
+                        $('#finalSubmitBtn').prop('disabled', false); // Enable submit, but we will verify OTP on submit
+                    } else {
+                        alert(response.message);
+                        btn.prop('disabled', false).text('Verify Email');
+                    }
+                },
+                error: function() {
+                    alert('Error sending OTP. Please try again.');
+                    btn.prop('disabled', false).text('Verify Email');
+                }
+            });
+        });
+
+        // Resend OTP
+        $('#resendOtp').click(function() {
+            var email = $('#contactEmail').val();
+            if(!email) return;
+            
+            $(this).text('Sending...');
+             $.ajax({
+                url: '../contact_handler.php',
+                type: 'POST',
+                data: { action: 'send_otp', email: email },
+                dataType: 'json',
+                success: function(response) {
+                    alert(response.message);
+                    $('#resendOtp').text('Resend OTP');
+                }
+            });
+        });
+
+        // Submit Form
+        $('#contactForm').submit(function(e) {
+            e.preventDefault();
+            
+            var otp = $('#otpInput').val();
+            if(!otp) {
+                alert('Please enter the OTP received on your email.');
+                return;
+            }
+
+            var formData = $(this).serialize();
+            formData += '&action=submit_contact';
+
+            var btn = $('#finalSubmitBtn');
+            btn.prop('disabled', true).text('Submitting...');
+
+            $.ajax({
+                url: '../contact_handler.php',
+                type: 'POST',
+                data: formData,
+                dataType: 'json',
+                success: function(response) {
+                    if(response.status === 'success') {
+                         // Replace form with success message
+                         $('.contact-form-side').html('<div style="text-align:center; padding:50px;"><i class="fa-solid fa-circle-check" style="font-size:50px; color:green; margin-bottom:20px;"></i><h2>Message Sent!</h2><p>' + response.message + '</p><a href="../index.php" class="btn-submit" style="text-decoration:none;">Back to Home</a></div>');
+                    } else {
+                        alert(response.message);
+                        btn.prop('disabled', false).text('Submit Request');
+                    }
+                },
+                error: function() {
+                    alert('An error occurred. Please try again.');
+                    btn.prop('disabled', false).text('Submit Request');
+                }
+            });
+        });
+
+        function validateEmail(email) {
+            var re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return re.test(email);
         }
-      } else if (digitsOnly.length === 12 && digitsOnly.startsWith('91')) {
-        // With country code +91
-        const mobileNumber = digitsOnly.substring(2);
-        phoneValid = /^[6-9]\d{9}$/.test(mobileNumber);
-        if (!phoneValid) {
-          errors.push('Mobile number must start with 6, 7, 8, or 9');
-        }
-      } else if (digitsOnly.length === 11 && digitsOnly.startsWith('0')) {
-        // With leading 0
-        const mobileNumber = digitsOnly.substring(1);
-        phoneValid = /^[6-9]\d{9}$/.test(mobileNumber);
-        if (!phoneValid) {
-          errors.push('Mobile number must start with 6, 7, 8, or 9');
-        }
-      } else {
-        errors.push('Mobile number must be 10 digits');
-        phoneValid = false;
-      }
-      
-      if (!phoneValid) {
-        isValid = false;
-        phoneInput.style.borderColor = '#dc3545';
-      }
-    }
-    
-    
-    // Validate message
-    if (messageInput && messageInput.value.trim().length < 10) {
-      isValid = false;
-      errors.push('Message must be at least 10 characters long');
-      messageInput.style.borderColor = '#dc3545';
-    }
-    
-    if (!isValid) {
-      e.preventDefault();
-      alert('Please fix the following errors:\n\n' + errors.join('\n'));
-      return false;
-    }
-  });
-  
-  // Helper functions
-  function showError(input, message) {
-    removeError(input);
-    const errorDiv = document.createElement('small');
-    errorDiv.className = 'error-message';
-    errorDiv.style.cssText = 'color: #dc3545; font-size: 0.75rem; margin-top: 4px; display: block;';
-    errorDiv.textContent = message;
-    input.parentElement.appendChild(errorDiv);
-  }
-  
-  function removeError(input) {
-    const error = input.parentElement.querySelector('.error-message');
-    if (error) error.remove();
-  }
-});
+    });
 </script>
 
-<?php require __DIR__ . '../includes/footer.php'; ?>
+</body>
+</html>
