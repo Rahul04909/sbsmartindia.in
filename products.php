@@ -3,123 +3,123 @@ session_start();
 require_once 'database/db_config.php';
 $page_title = "Shop - Products | SB Smart India";
 
-// 1. Initial Logic for Filters
-// Fetch Brands
-$brands_sql = "SELECT * FROM brands WHERE status=1 ORDER BY name ASC";
-$brands_res = $conn->query($brands_sql);
+try {
+    // 1. Initial Logic for Filters
+    // Fetch Brands
+    $brands_sql = "SELECT * FROM brands WHERE status=1 ORDER BY name ASC";
+    $brands_res = $conn->query($brands_sql);
+    if(!$brands_res) throw new Exception("Brands Query Failed: " . $conn->error);
 
-// Fetch Categories with Sub-Categories
-$cats_sql = "SELECT * FROM product_categories WHERE status=1 ORDER BY name ASC";
-$cats_res = $conn->query($cats_sql);
-$categories = [];
-if ($cats_res->num_rows > 0) {
-    while($cat = $cats_res->fetch_assoc()) {
-        $cat_id = $cat['id'];
-         // Fetch Sub-Categories
-        $sub_sql = "SELECT * FROM product_sub_categories WHERE category_id = $cat_id AND status = 1 ORDER BY name ASC";
-        $sub_res = $conn->query($sub_sql);
-        $subs = [];
-        while($sub = $sub_res->fetch_assoc()) {
-            $subs[] = $sub;
+    // Fetch Categories with Sub-Categories
+    $cats_sql = "SELECT * FROM product_categories WHERE status=1 ORDER BY name ASC";
+    $cats_res = $conn->query($cats_sql);
+    if(!$cats_res) throw new Exception("Categories Query Failed: " . $conn->error);
+
+    $categories = [];
+    if ($cats_res->num_rows > 0) {
+        while($cat = $cats_res->fetch_assoc()) {
+            $cat_id = $cat['id'];
+             // Fetch Sub-Categories
+            $sub_sql = "SELECT * FROM product_sub_categories WHERE category_id = $cat_id AND status = 1 ORDER BY name ASC";
+            $sub_res = $conn->query($sub_sql);
+            $subs = [];
+            while($sub = $sub_res->fetch_assoc()) {
+                $subs[] = $sub;
+            }
+            $cat['sub_categories'] = $subs;
+            $categories[] = $cat;
         }
-        $cat['sub_categories'] = $subs;
-        $categories[] = $cat;
     }
-}
 
-// 2. Build Query based on GET params
-$where_clauses = ["status = 1"];
+    // 2. Build Query based on GET params
+    $where_clauses = ["status = 1"];
 
-// Filter by Brand
-if (isset($_GET['brand']) && !empty($_GET['brand'])) {
-    $brand_filter = $_GET['brand'];
-    if(is_array($brand_filter)) {
-        $brand_ids = implode(',', array_map('intval', $brand_filter)); // Sanitize
-        $where_clauses[] = "brand_id IN ($brand_ids)";
-    } else {
-        $brand_id = intval($brand_filter);
-        $where_clauses[] = "brand_id = $brand_id";
+    // Filter by Brand
+    if (isset($_GET['brand']) && !empty($_GET['brand'])) {
+        $brand_filter = $_GET['brand'];
+        if(is_array($brand_filter)) {
+            $brand_ids = implode(',', array_map('intval', $brand_filter)); // Sanitize
+            $where_clauses[] = "brand_id IN ($brand_ids)";
+        } else {
+            $brand_id = intval($brand_filter);
+            $where_clauses[] = "brand_id = $brand_id";
+        }
     }
-}
 
-// Filter by Category
-if (isset($_GET['category']) && !empty($_GET['category'])) {
-    $cat_id = intval($_GET['category']);
-    // We need sub-categories for this category to filter products properly
-    // or link products directly to categories? Schema says products link to sub_category_id.
-    // So we must find all sub_categories for this category first.
-    
-    $get_subs = "SELECT id FROM product_sub_categories WHERE category_id = $cat_id";
-    $subs_result = $conn->query($get_subs);
-    $sub_ids = [];
-    while($s = $subs_result->fetch_assoc()) {
-        $sub_ids[] = $s['id'];
+    // Filter by Category
+    if (isset($_GET['category']) && !empty($_GET['category'])) {
+        $cat_id = intval($_GET['category']);
+        $get_subs = "SELECT id FROM product_sub_categories WHERE category_id = $cat_id";
+        $subs_result = $conn->query($get_subs);
+        $sub_ids = [];
+        if($subs_result) {
+            while($s = $subs_result->fetch_assoc()) {
+                $sub_ids[] = $s['id'];
+            }
+        }
+        
+        if(!empty($sub_ids)) {
+             $sub_ids_str = implode(',', $sub_ids);
+             $where_clauses[] = "sub_category_id IN ($sub_ids_str)";
+        } else {
+             $where_clauses[] = "1=0"; 
+        }
     }
-    
-    if(!empty($sub_ids)) {
-         $sub_ids_str = implode(',', $sub_ids);
-         $where_clauses[] = "sub_category_id IN ($sub_ids_str)";
-    } else {
-         $where_clauses[] = "1=0"; // No sub-categories so no products
+
+    // Filter by Sub-Category
+    if (isset($_GET['sub_category']) && !empty($_GET['sub_category'])) {
+        $sub_cat_id = intval($_GET['sub_category']);
+        $where_clauses[] = "sub_category_id = $sub_cat_id";
     }
+
+    // Filter by Price
+    $min_price_query = isset($_GET['min_price']) ? intval($_GET['min_price']) : 0;
+    $max_price_query = isset($_GET['max_price']) ? intval($_GET['max_price']) : 0;
+
+    if ($max_price_query > 0) {
+         $where_clauses[] = "sales_price BETWEEN $min_price_query AND $max_price_query";
+    }
+
+    // Search Query
+    if (isset($_GET['q']) && !empty($_GET['q'])) {
+        $search = $conn->real_escape_string($_GET['q']);
+        $where_clauses[] = "(title LIKE '%$search%' OR description LIKE '%$search%' OR meta_keywords LIKE '%$search%')";
+    }
+
+    // 3. Sorting
+    $sort_option = isset($_GET['sort']) ? $_GET['sort'] : 'newest';
+    $order_by = "ORDER BY created_at DESC";
+
+    switch ($sort_option) {
+        case 'price_asc': $order_by = "ORDER BY sales_price ASC"; break;
+        case 'price_desc': $order_by = "ORDER BY sales_price DESC"; break;
+        case 'name_asc': $order_by = "ORDER BY title ASC"; break;
+        default: $order_by = "ORDER BY created_at DESC"; break;
+    }
+
+    // 4. Pagination
+    $page = isset($_GET['page']) ? intval($_GET['page']) : 1;
+    $limit = 12;
+    $offset = ($page - 1) * $limit;
+
+    // Combine Where Clauses
+    $where_sql = implode(' AND ', $where_clauses);
+
+    // Count Total Products
+    $count_sql = "SELECT COUNT(*) as total FROM products WHERE $where_sql";
+    $count_res = $conn->query($count_sql);
+    if(!$count_res) throw new Exception("Count Query Failed: " . $conn->error);
+    $total_products = $count_res->fetch_assoc()['total'];
+    $total_pages = ceil($total_products / $limit);
+
+    // Fetch Products
+    $products_sql = "SELECT * FROM products WHERE $where_sql $order_by LIMIT $offset, $limit";
+    $products_res = $conn->query($products_sql);
+    if(!$products_res) throw new Exception("Products Query Failed: " . $conn->error);
+
+} catch (Exception $e) {
+    die("<div style='padding:50px; text-align:center;'><h1>Error</h1><p>" . $e->getMessage() . "</p></div>");
 }
-
-// Filter by Sub-Category
-if (isset($_GET['sub_category']) && !empty($_GET['sub_category'])) {
-    $sub_cat_id = intval($_GET['sub_category']);
-    $where_clauses[] = "sub_category_id = $sub_cat_id";
-}
-
-// Filter by Price
-$min_price_query = isset($_GET['min_price']) ? intval($_GET['min_price']) : 0;
-$max_price_query = isset($_GET['max_price']) ? intval($_GET['max_price']) : 0;
-
-if ($max_price_query > 0) {
-     $where_clauses[] = "sales_price BETWEEN $min_price_query AND $max_price_query";
-}
-
-// Search Query
-if (isset($_GET['q']) && !empty($_GET['q'])) {
-    $search = $conn->real_escape_string($_GET['q']);
-    $where_clauses[] = "(title LIKE '%$search%' OR description LIKE '%$search%' OR meta_keywords LIKE '%$search%')";
-}
-
-// 3. Sorting
-$sort_option = isset($_GET['sort']) ? $_GET['sort'] : 'newest';
-$order_by = "ORDER BY created_at DESC";
-
-switch ($sort_option) {
-    case 'price_asc':
-        $order_by = "ORDER BY sales_price ASC";
-        break;
-    case 'price_desc':
-        $order_by = "ORDER BY sales_price DESC";
-        break;
-    case 'name_asc':
-        $order_by = "ORDER BY title ASC";
-        break;
-    default: // newest
-        $order_by = "ORDER BY created_at DESC";
-        break;
-}
-
-// 4. Pagination
-$page = isset($_GET['page']) ? intval($_GET['page']) : 1;
-$limit = 12;
-$offset = ($page - 1) * $limit;
-
-// Combine Where Clauses
-$where_sql = implode(' AND ', $where_clauses);
-
-// Count Total Products
-$count_sql = "SELECT COUNT(*) as total FROM products WHERE $where_sql";
-$count_res = $conn->query($count_sql);
-$total_products = $count_res->fetch_assoc()['total'];
-$total_pages = ceil($total_products / $limit);
-
-// Fetch Products
-$products_sql = "SELECT * FROM products WHERE $where_sql $order_by LIMIT $offset, $limit";
-$products_res = $conn->query($products_sql);
 
 ?>
 <!DOCTYPE html>
