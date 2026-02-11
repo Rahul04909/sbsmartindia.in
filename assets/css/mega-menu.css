@@ -9,24 +9,42 @@
     position: absolute;
     top: 100%;
     left: 0;
-    width: 100%;
+    width: 100vw;
+    /* Use viewport width */
+    margin-left: calc(-50vw + 50%);
+    /* Center it if parent is centered */
     background: #fff;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    z-index: 1000;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    z-index: 9999;
     padding: 30px 0;
-    border-top: 2px solid #004aad;
+    border-top: 3px solid #004aad;
+    margin-top: 0px;
+    /* Adjust if there is a gap */
 }
 
 .nav-item:hover .mega-menu {
-    display: block;
+    display: block !important;
     animation: fadeIn 0.3s ease-in-out;
+    visibility: visible;
+    opacity: 1;
+}
+
+/* Ensure container allows overflow */
+header,
+.header,
+nav,
+.nav-menu {
+    overflow: visible !important;
 }
 
 .mega-menu-content {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    /* 4 Columns */
     gap: 30px;
+    max-width: 1200px;
+    /* Standard container width */
+    margin: 0 auto;
+    padding: 0 20px;
 }
 
 .mega-menu-category {
