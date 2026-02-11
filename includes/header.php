@@ -46,12 +46,12 @@
                 <div class="icon-item">
                     <?php if (isset($_SESSION['user_id'])): ?>
                         <?php $url_prefix = isset($url_prefix) ? $url_prefix : ''; ?>
-                        <a href="<?php echo $url_prefix; ?>user/index.php" class="auth-btn">
-                            <i class="fa-regular fa-user"></i> My Account
+                        <a href="<?php echo $url_prefix; ?>user/index.php" title="My Account">
+                            <i class="fa-regular fa-user"></i>
                         </a>
                     <?php else: ?>
-                        <a href="#" id="login-btn-trigger" class="auth-btn">
-                            <i class="fa-regular fa-user"></i> Account
+                        <a href="#" id="login-btn-trigger" title="Login / Register">
+                            <i class="fa-regular fa-user"></i>
                         </a>
                     <?php endif; ?>
                 </div>
