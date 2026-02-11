@@ -130,4 +130,4 @@
     </div>
 </div>
 
-<link rel="stylesheet" href="assets/css/auth-modal.css">
+
