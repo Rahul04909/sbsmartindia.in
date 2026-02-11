@@ -97,9 +97,16 @@
                             </li>
                 <?php
                         }
+                        }
                     }
-                }
+
                 ?>
+                <!-- Others Item -->
+                <li class="nav-item">
+                    <a href="brands/index.php" class="nav-link brand-nav-btn">
+                        <span>OTHERS</span>
+                    </a>
+                </li>
             </ul>
         </div>
     </nav>
