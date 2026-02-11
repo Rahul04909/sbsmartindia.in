@@ -91,9 +91,62 @@
                             $nb_name = $nav_brand['name'];
                 ?>
                             <li class="nav-item">
-                                <a href="#" class="nav-link brand-nav-btn">
+                                <a href="products.php?brand=<?php echo urlencode($nav_brand['id']); ?>" class="nav-link brand-nav-btn">
                                     <span><?php echo htmlspecialchars($nb_name); ?></span>
                                 </a>
+                                
+                                <!-- Mega Menu -->
+                                <div class="mega-menu">
+                                    <div class="container">
+                                        <div class="mega-menu-content">
+                                            <?php
+                                            // Fetch Categories for this Brand
+                                            $brand_id = $nav_brand['id'];
+                                            $cat_sql = "SELECT * FROM product_categories WHERE brand_id = $brand_id AND status = 1 ORDER BY name ASC";
+                                            $cat_res = $conn->query($cat_sql);
+                                            
+                                            if ($cat_res && $cat_res->num_rows > 0) {
+                                                while ($cat = $cat_res->fetch_assoc()) {
+                                                    $cat_id = $cat['id'];
+                                            ?>
+                                                    <div class="mega-menu-category">
+                                                        <a href="products.php?category=<?php echo urlencode($cat_id); ?>" class="category-title">
+                                                            <?php echo htmlspecialchars($cat['name']); ?>
+                                                        </a>
+                                                        <ul class="sub-category-list">
+                                                            <?php
+                                                            // Fetch Sub Categories
+                                                            $sub_sql = "SELECT * FROM product_sub_categories WHERE category_id = $cat_id AND status = 1 ORDER BY name ASC LIMIT 5";
+                                                            $sub_res = $conn->query($sub_sql);
+                                                            
+                                                            if ($sub_res && $sub_res->num_rows > 0) {
+                                                                while ($sub = $sub_res->fetch_assoc()) {
+                                                            ?>
+                                                                    <li>
+                                                                        <a href="products.php?sub_category=<?php echo urlencode($sub['id']); ?>">
+                                                                            <?php echo htmlspecialchars($sub['name']); ?>
+                                                                        </a>
+                                                                    </li>
+                                                            <?php
+                                                                }
+                                                            }
+                                                            ?>
+                                                            <li>
+                                                                <a href="products.php?category=<?php echo urlencode($cat_id); ?>" style="font-weight: 600; color: #004aad; margin-top: 5px;">
+                                                                    View All <i class="fas fa-arrow-right" style="font-size: 10px;"></i>
+                                                                </a>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                            <?php
+                                                }
+                                            } else {
+                                                echo '<div class="col-12"><p>No categories found for this brand.</p></div>';
+                                            }
+                                            ?>
+                                        </div>
+                                    </div>
+                                </div>
                             </li>
                 <?php
                         }
@@ -113,6 +166,7 @@
 </header>
 <link rel="stylesheet" href="<?php echo isset($url_prefix) ? $url_prefix : ''; ?>assets/css/header-auth.css">
 <link rel="stylesheet" href="<?php echo isset($url_prefix) ? $url_prefix : ''; ?>assets/css/brand-menu-text.css">
+<link rel="stylesheet" href="<?php echo isset($url_prefix) ? $url_prefix : ''; ?>assets/css/mega-menu.css">
 <?php include_once dirname(__DIR__) . '/components/auth-modal.php'; ?>
 <script>
     var isLoggedIn = <?php echo isset($_SESSION['user_id']) ? 'true' : 'false'; ?>;
