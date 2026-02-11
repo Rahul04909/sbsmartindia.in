@@ -28,7 +28,7 @@
                     <li><a href="#">Products</a></li>
                     <li><a href="#">Assisted Orders</a></li>
                     <li><a href="#">About Us</a></li>
-                    <li><a href="#">Contact</a></li>
+                    <li><a href="../pages/contact.php">Contact</a></li>
                     <li><a href="#">Blog</a></li>
                 </ul>
             </div>
