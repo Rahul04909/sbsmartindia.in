@@ -59,8 +59,11 @@ if (isset($_POST['add_product'])) {
         $featured_image = uploadImage($_FILES['featured_image'], 'products');
     }
 
-    $sql = "INSERT INTO products (brand_id, sub_category_id, title, description, specifications, mrp, sales_price, discount_percentage, stock, is_price_request, featured_image, meta_title, meta_description, meta_keywords) 
-            VALUES ('$brand_id', '$sub_category_id', '$title', '$description', '$specifications', '$mrp', '$sales_price', '$discount_percentage', '$stock', '$is_price_request', '$featured_image', '$meta_title', '$meta_description', '$meta_keywords')";
+    $sku = $conn->real_escape_string($_POST['sku']);
+    $hsn_code = $conn->real_escape_string($_POST['hsn_code']);
+
+    $sql = "INSERT INTO products (brand_id, sub_category_id, title, sku, hsn_code, description, specifications, mrp, sales_price, discount_percentage, stock, is_price_request, featured_image, meta_title, meta_description, meta_keywords) 
+            VALUES ('$brand_id', '$sub_category_id', '$title', '$sku', '$hsn_code', '$description', '$specifications', '$mrp', '$sales_price', '$discount_percentage', '$stock', '$is_price_request', '$featured_image', '$meta_title', '$meta_description', '$meta_keywords')";
 
     if ($conn->query($sql) === TRUE) {
         $product_id = $conn->insert_id;
@@ -117,10 +120,15 @@ if (isset($_POST['update_product'])) {
         $discount_percentage = 0;
     }
 
+    $sku = $conn->real_escape_string($_POST['sku']);
+    $hsn_code = $conn->real_escape_string($_POST['hsn_code']);
+
     $sql = "UPDATE products SET 
             brand_id='$brand_id',
             sub_category_id='$sub_category_id', 
             title='$title', 
+            sku='$sku',
+            hsn_code='$hsn_code',
             description='$description', 
             specifications='$specifications',
             mrp='$mrp', 
