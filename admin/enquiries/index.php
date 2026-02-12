@@ -16,18 +16,64 @@ if (isset($_GET['delete'])) {
     }
 }
 
+// Ensure Table Exists (Safety Check)
+$table_check_sql = "CREATE TABLE IF NOT EXISTS product_enquiries (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    product_id INT NOT NULL,
+    user_id INT DEFAULT NULL,
+    name VARCHAR(100) NOT NULL,
+    email VARCHAR(100) NOT NULL,
+    mobile VARCHAR(20) NOT NULL,
+    message TEXT NOT NULL,
+    status VARCHAR(50) DEFAULT 'Pending',
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (product_id) REFERENCES products(id) ON DELETE CASCADE
+)";
+$conn->query($table_check_sql);
+
+// Handle Generate Test Data
+if (isset($_GET['action']) && $_GET['action'] == 'generate_test') {
+    $prod_res = $conn->query("SELECT id FROM products LIMIT 1");
+    if ($prod_res && $prod_res->num_rows > 0) {
+        $p_id = $prod_res->fetch_assoc()['id'];
+        $stmt = $conn->prepare("INSERT INTO product_enquiries (product_id, name, email, mobile, message) VALUES (?, ?, ?, ?, ?)");
+        $t_name = "Test User"; 
+        $t_email = "test@example.com"; 
+        $t_mobile = "9876543210"; 
+        $t_msg = "This is a test enquiry generated from Admin.";
+        $stmt->bind_param("issss", $p_id, $t_name, $t_email, $t_mobile, $t_msg);
+        if ($stmt->execute()) {
+            header("Location: index.php?msg=generated");
+            exit();
+        } else {
+            $error = "Failed to generate test data: " . $stmt->error;
+        }
+    } else {
+        $error = "Cannot generate test data: No products found in database.";
+    }
+}
+
+
 include '../includes/header.php';
 ?>
 
 <div class="admin-content">
-    <div class="page-header">
+    <div class="page-header" style="display: flex; justify-content: space-between; align-items: center;">
         <h1 class="page-title">Product Enquiries</h1>
+        <a href="index.php?action=generate_test" class="btn-primary" style="background: #004aad; color: #fff; padding: 8px 15px; text-decoration: none; border-radius: 4px; font-size: 14px;">
+            <i class="fas fa-plus"></i> Generate Test Enquiry
+        </a>
     </div>
 
     <!-- Feedback Messages -->
     <?php if (isset($_GET['msg']) && $_GET['msg'] == 'deleted'): ?>
         <div class="alert alert-success" style="background: #edfaef; color: #00a32a; padding: 10px; border-radius: 4px; margin-bottom: 20px;">
             Enquiry deleted successfully.
+        </div>
+    <?php endif; ?>
+    <?php if (isset($_GET['msg']) && $_GET['msg'] == 'generated'): ?>
+        <div class="alert alert-success" style="background: #e6f7ff; color: #0050b3; padding: 10px; border-radius: 4px; margin-bottom: 20px; border: 1px solid #91d5ff;">
+            Test enquiry generated successfully!
         </div>
     <?php endif; ?>
     <?php if (isset($error)): ?>
