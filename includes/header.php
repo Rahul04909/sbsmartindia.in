@@ -64,6 +64,10 @@
         <div class="container">
             <ul class="nav-menu">
                 <?php
+                // DEBUG
+                echo "<!-- Header Start Debug: -->";
+                var_dump(isset($conn) ? $conn : 'NULL');
+                
                 // Ensure DB connection
                 if (!isset($conn)) {
                     // Adjust path based on location
@@ -75,6 +79,8 @@
                     } elseif (file_exists('../database/db_config.php')) { // Fallback
                          require_once '../database/db_config.php';
                     }
+                    echo "After include attempt: ";
+                    var_dump(isset($conn) ? $conn : 'NULL');
                 }
 
                 if (isset($conn)) {
