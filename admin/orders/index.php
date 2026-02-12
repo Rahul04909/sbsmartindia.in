@@ -1,8 +1,8 @@
 <?php
 $page = 'orders';
 $url_prefix = '../'; // Admin subfolder depth
+include '../includes/auth_session.php'; // Ensure session is started and user is admin
 require_once '../../database/db_config.php';
-include '../includes/header.php';
 
 // Handle Dispatch Action
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['action'] === 'dispatch_order') {
@@ -20,6 +20,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
     header("Location: index.php");
     exit();
 }
+
+include '../includes/header.php';
 
 // Pagination Setup
 $limit = 10;
