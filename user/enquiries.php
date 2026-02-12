@@ -1,8 +1,4 @@
 <?php
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
-
 session_start();
 if (!isset($_SESSION['user_id'])) {
     header("Location: ../index.php");
@@ -19,7 +15,7 @@ if ($conn->connect_error) {
 
 $user_id = $_SESSION['user_id'];
 // Fetch Enquiries with Product Details
-$sql = "SELECT e.*, p.title as product_name, p.featured_image as product_image, p.slug 
+$sql = "SELECT e.*, p.title as product_name, p.featured_image as product_image 
         FROM product_enquiries e 
         LEFT JOIN products p ON e.product_id = p.id 
         WHERE e.user_id = $user_id 
