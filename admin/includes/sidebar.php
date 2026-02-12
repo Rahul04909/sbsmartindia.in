@@ -74,7 +74,7 @@
                 <i class="fas fa-chevron-right arrow"></i>
             </a>
             <ul class="submenu">
-                <li><a href="#">All Orders</a></li>
+                <li><a href="<?php echo $url_prefix; ?>orders/index.php">All Orders</a></li>
                 <li><a href="#">Add New Order</a></li>
             </ul>
         </li>
