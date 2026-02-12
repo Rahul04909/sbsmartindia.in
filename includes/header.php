@@ -8,11 +8,11 @@
             </div>
             <nav class="top-right-menu">
                 <ul>
-                    <li><a href="#">About</a></li>
-                    <li><a href="#">Contact</a></li>
-                    <li><a href="#">Blog</a></li>
-                    <li><a href="#">FAQ</a></li>
-                    <li><a href="#">Assisted Orders</a></li>
+                    <li><a href="<?php echo $url_prefix; ?>about.php">About</a></li>
+                    <li><a href="<?php echo $url_prefix; ?>contact.php">Contact</a></li>
+                    <li><a href="<?php echo $url_prefix; ?>blogs.php">Blog</a></li>
+                    <li><a href="<?php echo $url_prefix; ?>faqs.php">FAQ</a></li>
+                    <li><a href="<?php echo $url_prefix; ?>assisted-orders.php">Assisted Orders</a></li>
                 </ul>
             </nav>
         </div>
