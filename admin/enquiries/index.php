@@ -109,7 +109,7 @@ include '../includes/header.php';
                     $total_pages = ceil($total_rows / $limit);
 
                     // Fetch Data with Product Name
-                    $sql = "SELECT e.*, p.name as product_name, p.image as product_image 
+                    $sql = "SELECT e.*, p.title as product_name, p.featured_image as product_image 
                             FROM product_enquiries e 
                             LEFT JOIN products p ON e.product_id = p.id 
                             ORDER BY e.created_at DESC 
