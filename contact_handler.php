@@ -57,15 +57,31 @@ try {
                 // Delete used OTPs
                 $conn->query("DELETE FROM email_otps WHERE email='$email'");
                 
-                // Send Admin Notification (Optional but good practice)
-                // sendEmail('admin@sbsmart.in', 'Admin', 'New Contact Request', "Name: $name<br>Email: $email<br>Phone: $phone<br>Message: $message");
-
                 echo json_encode(['status' => 'success', 'message' => 'Thank you! Your message has been sent successfully.']);
             } else {
                 echo json_encode(['status' => 'error', 'message' => 'Error saving request: ' . $conn->error]);
             }
         } else {
             echo json_encode(['status' => 'error', 'message' => 'Invalid or expired OTP.']);
+        }
+    }
+
+    elseif ($action === 'submit_assisted_order') {
+        $name = $conn->real_escape_string($_POST['name']);
+        $company = isset($_POST['company']) ? $conn->real_escape_string($_POST['company']) : '';
+        $email = $conn->real_escape_string($_POST['email']);
+        $phone = $conn->real_escape_string($_POST['phone']);
+        $message = $conn->real_escape_string($_POST['message']);
+
+        // Insert directly into assisted_orders table (No OTP for now)
+        $sql = "INSERT INTO assisted_orders (name, company, email, phone, message) VALUES ('$name', '$company', '$email', '$phone', '$message')";
+
+        if ($conn->query($sql) === TRUE) {
+            // Optional: Send notification email to admin here
+            
+            echo json_encode(['status' => 'success', 'message' => 'Request received successfully! Our team will contact you shortly.']);
+        } else {
+            echo json_encode(['status' => 'error', 'message' => 'Error saving request: ' . $conn->error]);
         }
     }
     }
