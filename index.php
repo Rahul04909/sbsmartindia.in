@@ -21,6 +21,7 @@ session_start();
     <link rel="stylesheet" href="assets/css/header-menu.css">
     <link rel="stylesheet" href="assets/css/mega-menu.css">
     <link rel="stylesheet" href="assets/css/faqs.css">
+    <link rel="stylesheet" href="assets/css/newsletter.css">
 </head>
 <body>
 
@@ -33,6 +34,7 @@ session_start();
     
     <?php include 'includes/stats.php'; ?>
     <?php include 'includes/faqs.php'; ?>
+    <?php include 'includes/newsletter.php'; ?>
     <?php include 'includes/services.php'; ?>
     <?php include 'includes/footer.php'; ?>
 

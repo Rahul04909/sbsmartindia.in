@@ -1,0 +1,103 @@
+/* Newsletter Section */
+.newsletter-section {
+    background-color: #004aad;
+    /* Brand Primary Color */
+    padding: 60px 0;
+    width: 100%;
+    color: #fff;
+    text-align: center;
+}
+
+.newsletter-container {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.newsletter-header h2 {
+    font-size: 32px;
+    font-weight: 700;
+    margin-bottom: 10px;
+}
+
+.newsletter-header p {
+    font-size: 16px;
+    margin-bottom: 35px;
+    opacity: 0.9;
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Form Layout */
+.newsletter-form {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.input-group {
+    flex: 1;
+    min-width: 200px;
+}
+
+.newsletter-input {
+    width: 100%;
+    padding: 15px 20px;
+    border: none;
+    border-radius: 6px;
+    font-size: 15px;
+    outline: none;
+    transition: box-shadow 0.3s;
+}
+
+.newsletter-input:focus {
+    box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.3);
+}
+
+.newsletter-btn {
+    padding: 15px 35px;
+    background-color: #fff;
+    color: #004aad;
+    border: none;
+    border-radius: 6px;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: transform 0.2s, background-color 0.2s;
+    min-width: 150px;
+}
+
+.newsletter-btn:hover {
+    transform: translateY(-2px);
+    background-color: #f0f0f0;
+}
+
+/* Placeholder Color */
+.newsletter-input::placeholder {
+    color: #999;
+}
+
+/* Responsiveness */
+@media (max-width: 768px) {
+    .newsletter-form {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .input-group {
+        width: 100%;
+        max-width: 400px;
+        flex: none;
+    }
+
+    .newsletter-btn {
+        width: 100%;
+        max-width: 400px;
+    }
+
+    .newsletter-header h2 {
+        font-size: 26px;
+    }
+}
