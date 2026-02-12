@@ -1,6 +1,6 @@
 <?php
 $page = 'orders';
-$url_prefix = '../../';
+$url_prefix = '../'; // Admin subfolder depth
 require_once '../../database/db_config.php';
 include '../includes/header.php';
 
