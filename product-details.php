@@ -167,7 +167,7 @@ if ($product_id > 0) {
                             <?php else: ?>
                                 <button type="button" class="btn-cart" onclick="addToCart(<?php echo $product['id']; ?>)">Add to Cart</button>
                                 <a href="checkout.php?product_id=<?php echo $product['id']; ?>" class="btn-primary">Buy Now</a>
-                                <a href="contact-us.php?product=<?php echo urlencode($product['title']); ?>" class="btn-secondary">Enquire Now</a>
+                                <button type="button" class="btn-secondary" onclick="openEnquiryModal(<?php echo $product['id']; ?>, '<?php echo addslashes($product['title']); ?>')">Enquire Now</button>
                             <?php endif; ?>
                         </div>
 
@@ -382,6 +382,8 @@ if ($product_id > 0) {
 
 <!-- Include Quote Modal -->
 <?php include 'components/quote-modal.php'; ?>
+<!-- Include Enquiry Modal -->
+<?php include 'components/enquiry-modal.php'; ?>
 
 <?php require_once 'includes/footer.php'; ?>
 </body>

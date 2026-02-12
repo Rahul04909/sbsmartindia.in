@@ -97,6 +97,49 @@ try {
         }
     }
     }
+
+    elseif ($action === 'verify_otp_only') {
+        $email = $conn->real_escape_string($_POST['email']);
+        $otp = $conn->real_escape_string($_POST['otp']);
+
+        $otp_sql = "SELECT * FROM email_otps WHERE email='$email' AND otp='$otp' AND expires_at > NOW() ORDER BY id DESC LIMIT 1";
+        $otp_res = $conn->query($otp_sql);
+
+        if ($otp_res->num_rows > 0) {
+            echo json_encode(['status' => 'success', 'message' => 'OTP Verified.']);
+        } else {
+            echo json_encode(['status' => 'error', 'message' => 'Invalid or expired OTP.']);
+        }
+    }
+
+    elseif ($action === 'submit_product_enquiry') {
+        $product_id = intval($_POST['product_id']);
+        $name = $conn->real_escape_string($_POST['name']);
+        $email = $conn->real_escape_string($_POST['email']);
+        $mobile = $conn->real_escape_string($_POST['mobile']);
+        $message = $conn->real_escape_string($_POST['message']);
+        $otp = $conn->real_escape_string($_POST['otp']);
+        
+        // Check OTP again for security
+        $otp_sql = "SELECT * FROM email_otps WHERE email='$email' AND otp='$otp' AND expires_at > NOW() ORDER BY id DESC LIMIT 1";
+        $otp_res = $conn->query($otp_sql);
+
+        if ($otp_res->num_rows > 0) {
+            // Valid OTP -> Save Enquiry
+            $sql = "INSERT INTO product_enquiries (product_id, name, email, mobile, message) VALUES ($product_id, '$name', '$email', '$mobile', '$message')";
+
+            if ($conn->query($sql) === TRUE) {
+                // Delete used OTPs
+                $conn->query("DELETE FROM email_otps WHERE email='$email'");
+                
+                echo json_encode(['status' => 'success', 'message' => 'Enquiry submitted successfully.']);
+            } else {
+                echo json_encode(['status' => 'error', 'message' => 'Error saving enquiry: ' . $conn->error]);
+            }
+        } else {
+             echo json_encode(['status' => 'error', 'message' => 'Invalid or expired OTP.']);
+        }
+    }
 } catch (Exception $e) {
     echo json_encode(['status' => 'error', 'message' => 'Server Error: ' . $e->getMessage()]);
 }
