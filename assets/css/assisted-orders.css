@@ -1,0 +1,489 @@
+/* Assisted Orders Page Styles */
+
+/* General */
+.assisted-orders-page {
+    font-family: 'Inter', sans-serif;
+    color: #333;
+    overflow-x: hidden;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 15px;
+}
+
+.section-padding {
+    padding: 60px 0;
+}
+
+/* Hero Section */
+.hero-section {
+    background-color: #f8faff; /* Light blue tint */
+    padding: 80px 0;
+    position: relative;
+}
+
+.hero-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 50px;
+}
+
+.hero-text {
+    flex: 1;
+    max-width: 600px;
+}
+
+.hero-tag {
+    display: inline-block;
+    background: #e6f0ff;
+    color: #004aad;
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 20px;
+}
+
+.hero-title {
+    font-size: 48px;
+    font-weight: 800;
+    color: #1a1a1a;
+    line-height: 1.2;
+    margin-bottom: 20px;
+}
+
+.hero-desc {
+    font-size: 18px;
+    color: #666;
+    line-height: 1.6;
+    margin-bottom: 30px;
+}
+
+.hero-buttons {
+    display: flex;
+    gap: 15px;
+}
+
+.btn-primary-hero {
+    background-color: #0066ff;
+    color: #fff;
+    padding: 12px 30px;
+    border-radius: 30px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: background 0.3s;
+    border: none;
+    cursor: pointer;
+}
+
+.btn-primary-hero:hover {
+    background-color: #0052cc;
+}
+
+.btn-outline-hero {
+    background-color: transparent;
+    color: #333;
+    padding: 12px 30px;
+    border-radius: 30px;
+    text-decoration: none;
+    font-weight: 600;
+    border: 1px solid #ccc;
+    transition: all 0.3s;
+}
+
+.btn-outline-hero:hover {
+    border-color: #0066ff;
+    color: #0066ff;
+}
+
+.hero-image {
+    flex: 1;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.hero-image img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 12px;
+    /* optional shadow if image is card-like */
+    /* box-shadow: 0 10px 30px rgba(0,0,0,0.1); */ 
+}
+
+
+/* Process Section */
+.process-section {
+    background: #fff;
+}
+
+.process-layout {
+    display: flex;
+    gap: 60px;
+    align-items: flex-start;
+}
+
+.process-intro {
+    flex: 0 0 35%;
+}
+
+.process-intro h2 {
+    font-size: 36px;
+    font-weight: 700;
+    margin-bottom: 20px;
+    color: #1a1a1a;
+    line-height: 1.3;
+}
+
+.process-intro p {
+    color: #666;
+    line-height: 1.6;
+    margin-bottom: 30px;
+}
+
+.feature-list {
+    list-style: none;
+    padding: 0;
+}
+
+.feature-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    margin-bottom: 15px;
+    font-size: 15px;
+    color: #444;
+}
+
+.feature-list li i {
+    color: #00b894; /* Green check */
+    margin-top: 4px;
+}
+
+.feature-list li strong {
+    display: block;
+    color: #222;
+    margin-bottom: 2px;
+}
+
+.process-grid-container {
+    flex: 1;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 30px;
+}
+
+.process-card {
+    background: #fff;
+    padding: 30px;
+    border-radius: 12px;
+    border: 1px solid #eee;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.process-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+    border-color: transparent;
+}
+
+.process-icon {
+    width: 50px;
+    height: 50px;
+    background: #f0f7ff;
+    color: #0066ff;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+.process-card h3 {
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 10px;
+    color: #222;
+}
+
+.process-card p {
+    font-size: 14px;
+    color: #666;
+    line-height: 1.5;
+}
+
+
+/* Connect/Contact Section */
+.connect-section {
+    background: #fcfcfc;
+}
+
+.section-title-center {
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+.section-title-center h2 {
+    font-size: 32px;
+    font-weight: 700;
+    margin-bottom: 10px;
+    color: #222;
+}
+
+.section-title-center p {
+    color: #666;
+}
+
+.connect-wrapper {
+    display: flex;
+    gap: 30px;
+}
+
+.contact-card-left {
+    flex: 0 0 35%;
+    background: #fff;
+    padding: 40px;
+    border-radius: 12px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.03);
+    border: 1px solid #eee;
+}
+
+.contact-card-left h3 {
+    font-size: 22px;
+    margin-bottom: 20px;
+    color: #222;
+}
+
+.contact-info-block {
+    display: flex;
+    align-items: flex-start;
+    gap: 15px;
+    margin-bottom: 25px;
+    padding: 20px;
+    background: #f8f9fa;
+    border-radius: 8px;
+}
+
+.contact-icon {
+    font-size: 24px;
+    color: #0066ff;
+    margin-top: 5px;
+}
+
+.contact-text h5 {
+    font-size: 14px;
+    color: #888;
+    text-transform: uppercase;
+    margin-bottom: 5px;
+    letter-spacing: 0.5px;
+}
+
+.contact-text p {
+    font-size: 16px;
+    font-weight: 600;
+    color: #333;
+    margin: 0;
+}
+
+.contact-text small {
+    display: block;
+    color: #666;
+    font-size: 13px;
+    margin-top: 5px;
+}
+
+.info-note {
+    background: #e6f7ff;
+    padding: 15px;
+    border-radius: 6px;
+    border-left: 4px solid #0066ff;
+    font-size: 13px;
+    color: #0056b3;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+
+.form-card-right {
+    flex: 1;
+    background: #fff;
+    padding: 40px;
+    border-radius: 12px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.03);
+    border: 1px solid #eee;
+}
+
+.form-card-right h3 {
+    font-size: 22px;
+    margin-bottom: 30px;
+    color: #222;
+}
+
+
+.form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    margin-bottom: 20px;
+}
+
+.form-group-full {
+    margin-bottom: 20px;
+}
+
+.form-control {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-size: 14px;
+    transition: border 0.3s;
+}
+
+.form-control:focus {
+    outline: none;
+    border-color: #0066ff;
+}
+
+textarea.form-control {
+    resize: vertical;
+    min-height: 120px;
+}
+
+.btn-submit-req {
+    background: #1a1a1a;
+    color: #fff;
+    padding: 14px 30px;
+    border: none;
+    border-radius: 30px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    width: 100%;
+    transition: background 0.3s;
+}
+
+.btn-submit-req:hover {
+    background: #333;
+}
+
+
+/* CTA Banner */
+.cta-banner {
+    background: linear-gradient(135deg, #0066ff, #004aad); /* Blue Gradient */
+    padding: 60px 0;
+    text-align: center;
+    color: #fff;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Decorative circles */
+.cta-banner::before, .cta-banner::after {
+    content: '';
+    position: absolute;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.1);
+}
+
+.cta-banner::before {
+    width: 300px;
+    height: 300px;
+    top: -100px;
+    left: -100px;
+}
+.cta-banner::after {
+    width: 200px;
+    height: 200px;
+    bottom: -50px;
+    right: -50px;
+}
+
+
+.cta-content h2 {
+    font-size: 32px;
+    font-weight: 700;
+    margin-bottom: 10px;
+    position: relative;
+    z-index: 1;
+}
+
+.cta-content p {
+    font-size: 16px;
+    opacity: 0.9;
+    margin-bottom: 30px;
+    position: relative;
+    z-index: 1;
+}
+
+.btn-white {
+    background: #fff;
+    color: #004aad;
+    padding: 12px 35px;
+    border-radius: 30px;
+    text-decoration: none;
+    font-weight: 700;
+    display: inline-block;
+    transition: transform 0.3s, box-shadow 0.3s;
+    position: relative;
+    z-index: 1;
+}
+
+.btn-white:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+}
+
+
+/* Responsive */
+@media (max-width: 992px) {
+    .process-layout {
+        flex-direction: column;
+    }
+    
+    .process-intro {
+        flex: auto;
+        width: 100%;
+    }
+    
+    .connect-wrapper {
+        flex-direction: column;
+    }
+    
+    .contact-card-left, .form-card-right {
+        flex: auto;
+        width: 100%;
+    }
+}
+
+@media (max-width: 768px) {
+    .hero-content {
+        flex-direction: column-reverse; /* Text below image on mobile? Or standard stack */
+        /* Let's keep typical stack: Text first, image second but responsive */
+        flex-direction: column;
+    }
+
+    .hero-text {
+        text-align: center;
+    }
+    
+    .hero-buttons {
+        justify-content: center;
+    }
+    
+    .process-grid-container {
+        grid-template-columns: 1fr; /* Stack cards */
+    }
+    
+    .form-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .hero-title {
+        font-size: 32px;
+    }
+}
