@@ -125,7 +125,9 @@ try {
 
         if ($otp_res->num_rows > 0) {
             // Valid OTP -> Save Enquiry
-            $sql = "INSERT INTO product_enquiries (product_id, name, email, mobile, message) VALUES ($product_id, '$name', '$email', '$mobile', '$message')";
+            $user_id = isset($_SESSION['user_id']) ? intval($_SESSION['user_id']) : 'NULL';
+            
+            $sql = "INSERT INTO product_enquiries (product_id, user_id, name, email, mobile, message) VALUES ($product_id, $user_id, '$name', '$email', '$mobile', '$message')";
 
             if ($conn->query($sql) === TRUE) {
                 // Delete used OTPs
