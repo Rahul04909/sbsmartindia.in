@@ -87,6 +87,14 @@
             </a>
         </li>
 
+        <li class="menu-item <?php echo ($page == 'assisted-orders') ? 'active' : ''; ?>">
+            <a href="<?php echo $url_prefix; ?>assisted-orders/index.php" class="menu-link">
+                <div class="menu-text">
+                    <i class="fas fa-hand-holding-heart"></i> <span>Assisted Orders</span>
+                </div>
+            </a>
+        </li>
+
         <li class="menu-item <?php echo ($page == 'users') ? 'active' : ''; ?>">
             <a href="<?php echo $url_prefix; ?>users/index.php" class="menu-link">
                 <div class="menu-text">
