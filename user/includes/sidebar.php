@@ -31,7 +31,7 @@
             </a>
         </li>
         <li>
-            <a href="#" class="<?php echo ($page == 'enquiries') ? 'active' : ''; ?>">
+            <a href="enquiries.php" class="<?php echo ($page == 'enquiries') ? 'active' : ''; ?>">
                 <i class="fa-solid fa-envelope-open-text"></i> Enquiries
             </a>
         </li>
