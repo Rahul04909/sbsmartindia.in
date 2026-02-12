@@ -31,6 +31,14 @@ $table_check_sql = "CREATE TABLE IF NOT EXISTS product_enquiries (
 )";
 $conn->query($table_check_sql);
 
+// Ensure user_id column exists (Schema Update)
+$col_check = $conn->query("SHOW COLUMNS FROM product_enquiries LIKE 'user_id'");
+if ($col_check->num_rows == 0) {
+    if ($conn->query("ALTER TABLE product_enquiries ADD COLUMN user_id INT DEFAULT NULL AFTER product_id")) {
+         // Column added
+    }
+}
+
 // Handle Generate Test Data
 if (isset($_GET['action']) && $_GET['action'] == 'generate_test') {
     $prod_res = $conn->query("SELECT id FROM products LIMIT 1");
