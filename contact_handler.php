@@ -72,16 +72,28 @@ try {
         $email = $conn->real_escape_string($_POST['email']);
         $phone = $conn->real_escape_string($_POST['phone']);
         $message = $conn->real_escape_string($_POST['message']);
+        $otp = $conn->real_escape_string($_POST['otp']);
 
-        // Insert directly into assisted_orders table (No OTP for now)
-        $sql = "INSERT INTO assisted_orders (name, company, email, phone, message) VALUES ('$name', '$company', '$email', '$phone', '$message')";
+        // Verify OTP
+        $otp_sql = "SELECT * FROM email_otps WHERE email='$email' AND otp='$otp' AND expires_at > NOW() ORDER BY id DESC LIMIT 1";
+        $otp_res = $conn->query($otp_sql);
 
-        if ($conn->query($sql) === TRUE) {
-            // Optional: Send notification email to admin here
-            
-            echo json_encode(['status' => 'success', 'message' => 'Request received successfully! Our team will contact you shortly.']);
+        if ($otp_res->num_rows > 0) {
+            // Valid OTP -> Save Order Request
+            $sql = "INSERT INTO assisted_orders (name, company, email, phone, message) VALUES ('$name', '$company', '$email', '$phone', '$message')";
+
+            if ($conn->query($sql) === TRUE) {
+                // Delete used OTPs
+                $conn->query("DELETE FROM email_otps WHERE email='$email'");
+                
+                // Optional: Send notification email to admin here
+                
+                echo json_encode(['status' => 'success', 'message' => 'Request received successfully! Our team will contact you shortly.']);
+            } else {
+                echo json_encode(['status' => 'error', 'message' => 'Error saving request: ' . $conn->error]);
+            }
         } else {
-            echo json_encode(['status' => 'error', 'message' => 'Error saving request: ' . $conn->error]);
+            echo json_encode(['status' => 'error', 'message' => 'Invalid or expired OTP.']);
         }
     }
     }

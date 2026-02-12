@@ -158,7 +158,7 @@ $page_title = "Assisted Orders - SB Smart India";
                 <div class="form-card-right">
                     <h3>Submit a Requirement</h3>
                     <form id="requirementForm">
-                        <input type="hidden" name="action" value="submit_contact"> <!-- Reusing contact handler -->
+                        <input type="hidden" name="action" value="submit_assisted_order">
                         <div class="form-grid">
                             <div class="form-group">
                                 <label style="display:block; margin-bottom:5px; font-weight:600;">Full Name</label>
@@ -170,23 +170,36 @@ $page_title = "Assisted Orders - SB Smart India";
                             </div>
                         </div>
 
-                        <div class="form-grid">
-                            <div class="form-group">
-                                <label style="display:block; margin-bottom:5px; font-weight:600;">Email Address</label>
-                                <input type="email" name="email" class="form-control" placeholder="john@example.com" required>
+                        <div class="form-group-full">
+                            <label style="display:block; margin-bottom:5px; font-weight:600;">Email Address</label>
+                            <div style="display: flex; gap: 10px;">
+                                <input type="email" name="email" id="contactEmail" class="form-control" placeholder="john@example.com" required>
+                                <button type="button" id="sendOtpBtn" class="btn-primary-hero" style="white-space: nowrap; padding: 12px 20px; font-size: 14px; background-color: #004aad; border:none; color:white; border-radius: 6px;">Verify Email</button>
                             </div>
+                            <small class="text-muted" id="emailHelp" style="display:block; margin-top:5px; font-size:12px; color:#666;">Click "Verify Email" to receive an OTP.</small>
+                        </div>
+                        
+                        <div id="otpSection" style="display: none; margin-bottom: 20px; background: #f9f9f9; padding: 15px; border-radius: 6px; border: 1px solid #eee;">
                             <div class="form-group">
-                                <label style="display:block; margin-bottom:5px; font-weight:600;">Phone Number</label>
-                                <input type="tel" name="phone" class="form-control" placeholder="+91 98765 43210" required>
+                                <label style="display:block; margin-bottom:5px; font-weight:600;">Enter OTP</label>
+                                <div style="display: flex; gap: 10px; align-items: center;">
+                                    <input type="text" name="otp" id="otpInput" class="form-control" placeholder="6-digit OTP" maxlength="6">
+                                    <span id="resendOtp" style="font-size: 13px; color: #004aad; cursor: pointer; white-space: nowrap;">Resend OTP</span>
+                                </div>
                             </div>
                         </div>
 
                         <div class="form-group-full">
-                            <label style="display:block; margin-bottom:5px; font-weight:600;">Requirement Details</label>
-                            <textarea name="message" class="form-control" placeholder="Please describe your project, required products, or specific SKUs..."></textarea>
+                            <label style="display:block; margin-bottom:5px; font-weight:600;">Phone Number</label>
+                            <input type="tel" name="phone" class="form-control" placeholder="+91 98765 43210" required>
                         </div>
 
-                        <button type="submit" class="btn-submit-req" id="submitBtn">Submit Request &rarr;</button>
+                        <div class="form-group-full">
+                            <label style="display:block; margin-bottom:5px; font-weight:600;">Requirement Details</label>
+                            <textarea name="message" class="form-control" placeholder="Please describe your project, required products, or specific SKUs..." required></textarea>
+                        </div>
+
+                        <button type="submit" class="btn-submit-req" id="submitBtn" disabled>Submit Request &rarr;</button>
                     </form>
                 </div>
             </div>
@@ -209,13 +222,87 @@ $page_title = "Assisted Orders - SB Smart India";
 <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
 <script>
 $(document).ready(function() {
+    
+    function validateEmail(email) {
+        var re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return re.test(email);
+    }
+
+    // Send OTP Logic
+    $('#sendOtpBtn').click(function() {
+        var email = $('#contactEmail').val();
+        var btn = $(this);
+
+        if(!email) {
+            alert('Please enter your email first.');
+            return;
+        }
+        if(!validateEmail(email)) {
+            alert('Please enter a valid email address.');
+                return;
+        }
+
+        btn.prop('disabled', true).text('Sending...');
+
+        $.ajax({
+            url: '../contact_handler.php',
+            type: 'POST',
+            data: { action: 'send_otp', email: email },
+            dataType: 'json',
+            success: function(response) {
+                if(response.status === 'success') {
+                    alert(response.message);
+                    $('#otpSection').slideDown();
+                    // btn.hide(); // Keep button visible but disabled? Or hide. Let's disable.
+                    $('#contactEmail').prop('readonly', true);
+                    $('#emailHelp').text('OTP sent to ' + email);
+                    $('#submitBtn').prop('disabled', false); // Enable submit
+                    btn.text('Sent');
+                } else {
+                    alert(response.message);
+                    btn.prop('disabled', false).text('Verify Email');
+                }
+            },
+            error: function() {
+                alert('Error sending OTP. Please try again.');
+                btn.prop('disabled', false).text('Verify Email');
+            }
+        });
+    });
+
+    // Resend OTP
+    $('#resendOtp').click(function() {
+        var email = $('#contactEmail').val();
+        var btn = $(this);
+        
+        btn.text('Sending...');
+            $.ajax({
+            url: '../contact_handler.php',
+            type: 'POST',
+            data: { action: 'send_otp', email: email },
+            dataType: 'json',
+            success: function(response) {
+                alert(response.message);
+                btn.text('Resend OTP');
+            }
+        });
+    });
+
+    // Submit Form
     $('#requirementForm').submit(function(e) {
         e.preventDefault();
+        
+        var otp = $('#otpInput').val();
+        if(!otp) {
+            alert('Please enter the OTP received on your email.');
+            return;
+        }
+
         var form = $(this);
         var btn = $('#submitBtn');
         var originalText = btn.html();
 
-        btn.prop('disabled', true).html('<i class="fa-solid fa-spinner fa-spin"></i> Sending...');
+        btn.prop('disabled', true).html('<i class="fa-solid fa-spinner fa-spin"></i> Processing...');
 
         $.ajax({
             url: '../contact_handler.php',
