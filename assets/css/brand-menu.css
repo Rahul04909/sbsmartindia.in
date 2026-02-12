@@ -3,6 +3,8 @@
     padding: 40px 0;
     background-color: #fff;
     border-bottom: 1px solid #f0f0f0;
+    overflow: hidden;
+    /* Hide overflow from ticker */
 }
 
 .brand-menu-header {
@@ -15,50 +17,60 @@
 .brand-menu-header h2 {
     font-size: 24px;
     font-weight: 700;
-    color: var(--text-dark);
+    color: #333;
     margin: 0;
 }
 
 .brand-menu-header .view-all-link {
     font-size: 14px;
     font-weight: 600;
-    color: var(--primary-color);
+    color: #004aad;
     text-decoration: none;
     transition: color 0.3s;
 }
 
 .brand-menu-header .view-all-link:hover {
-    color: var(--secondary-color);
+    color: #ff3b30;
 }
 
-/* Brand Slider Container */
+/* Brand Ticker Container */
 .brand-menu-container {
     position: relative;
-    padding: 0 20px;
+    width: 100%;
+    overflow: hidden;
+    /* Create a fade effect on sides (optional but looks pro) */
+    mask-image: linear-gradient(to right, transparent, black 5%, black 95%, transparent);
+    -webkit-mask-image: linear-gradient(to right, transparent, black 5%, black 95%, transparent);
 }
 
-.brand-menu-wrapper {
+.brand-ticker-track {
     display: flex;
-    gap: 20px;
-    overflow-x: auto;
-    scroll-behavior: smooth;
-    padding: 10px 5px;
-    scrollbar-width: none;
-    /* Firefox */
-    -ms-overflow-style: none;
-    /* IE 10+ */
+    gap: 30px;
+    width: max-content;
+    animation: scrollTicker 30s linear infinite;
+    /* Medium speed */
 }
 
-.brand-menu-wrapper::-webkit-scrollbar {
-    display: none;
-    /* Chrome/Safari */
+.brand-ticker-track:hover {
+    animation-play-state: paused;
+}
+
+@keyframes scrollTicker {
+    0% {
+        transform: translateX(0);
+    }
+
+    100% {
+        transform: translateX(-50%);
+        /* Move by half since we doubled the content */
+    }
 }
 
 /* Brand Card */
 .brand-menu-item {
     flex: 0 0 auto;
     width: 140px;
-    height: 100px;
+    height: 90px;
     background: #fff;
     border: 1px solid #eee;
     border-radius: 8px;
@@ -66,62 +78,31 @@
     align-items: center;
     justify-content: center;
     transition: all 0.3s ease;
-    padding: 15px;
+    padding: 10px;
     text-decoration: none;
+    /* Shadow for better look */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.03);
 }
 
 .brand-menu-item:hover {
     transform: translateY(-5px);
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
-    border-color: var(--primary-color);
+    border-color: #004aad;
 }
 
 .brand-menu-item img {
     max-width: 100%;
     max-height: 100%;
     object-fit: contain;
-    filter: grayscale(100%);
-    opacity: 0.7;
-    transition: all 0.3s ease;
+    /* Removed Grayscale */
+    filter: none;
+    opacity: 1;
+    /* Full visibility */
+    transition: transform 0.3s ease;
 }
 
 .brand-menu-item:hover img {
-    filter: grayscale(0%);
-    opacity: 1;
-}
-
-/* Navigation Buttons */
-.brand-slider-btn {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 36px;
-    height: 36px;
-    background: #fff;
-    border: 1px solid #ddd;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    z-index: 2;
-    color: var(--text-dark);
-    transition: all 0.2s;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-}
-
-.brand-slider-btn:hover {
-    background: var(--primary-color);
-    color: #fff;
-    border-color: var(--primary-color);
-}
-
-.brand-slider-prev {
-    left: -10px;
-}
-
-.brand-slider-next {
-    right: -10px;
+    transform: scale(1.05);
 }
 
 /* Mobile Responsiveness */
@@ -137,5 +118,11 @@
     .brand-menu-item {
         width: 110px;
         height: 80px;
+    }
+
+    .brand-ticker-track {
+        gap: 15px;
+        animation-duration: 20s;
+        /* Faster on mobile/smaller screens usually feels better or keep consistent */
     }
 }
