@@ -1,4 +1,8 @@
 <?php
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
 session_start();
 if (!isset($_SESSION['user_id'])) {
     header("Location: ../index.php");
@@ -7,6 +11,11 @@ if (!isset($_SESSION['user_id'])) {
 $page = 'enquiries';
 $url_prefix = '../';
 require_once '../database/db_config.php';
+
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+
 
 $user_id = $_SESSION['user_id'];
 // Fetch Enquiries with Product Details
