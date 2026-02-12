@@ -1,6 +1,6 @@
 <?php
 $page = 'assisted-orders';
-$url_prefix = '../../'; // Admin subfolder depth
+$url_prefix = '../'; // Admin subfolder depth
 require_once '../../database/db_config.php';
 include '../includes/header.php'; // Adjust path if header is in root/includes or admin/includes. 
 // Wait, admin/brands/index.php used `../includes/header.php`.
