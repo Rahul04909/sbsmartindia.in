@@ -95,6 +95,20 @@
             </a>
         </li>
 
+        <li class="menu-item has-submenu">
+            <a href="#" class="menu-link">
+                <div class="menu-text">
+                    <i class="fas fa-blog"></i> <span>Blogs</span>
+                </div>
+                <i class="fas fa-chevron-right arrow"></i>
+            </a>
+            <ul class="submenu">
+                <li><a href="<?php echo $url_prefix; ?>blogs/index.php">All Blogs</a></li>
+                <li><a href="<?php echo $url_prefix; ?>blogs/add-blog.php">Add New Blog</a></li>
+                <li><a href="<?php echo $url_prefix; ?>blog-categories/index.php">Categories</a></li>
+            </ul>
+        </li>
+
         <li class="menu-item <?php echo ($page == 'users') ? 'active' : ''; ?>">
             <a href="<?php echo $url_prefix; ?>users/index.php" class="menu-link">
                 <div class="menu-text">
