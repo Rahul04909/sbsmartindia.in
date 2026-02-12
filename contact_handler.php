@@ -96,7 +96,6 @@ try {
             echo json_encode(['status' => 'error', 'message' => 'Invalid or expired OTP.']);
         }
     }
-    }
 
     elseif ($action === 'verify_otp_only') {
         $email = $conn->real_escape_string($_POST['email']);
@@ -139,6 +138,7 @@ try {
         } else {
              echo json_encode(['status' => 'error', 'message' => 'Invalid or expired OTP.']);
         }
+    }
     }
 } catch (Exception $e) {
     echo json_encode(['status' => 'error', 'message' => 'Server Error: ' . $e->getMessage()]);
