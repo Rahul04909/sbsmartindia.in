@@ -20,6 +20,7 @@ session_start();
     <link rel="stylesheet" href="assets/css/latest-products.css">
     <link rel="stylesheet" href="assets/css/header-menu.css">
     <link rel="stylesheet" href="assets/css/mega-menu.css">
+    <link rel="stylesheet" href="assets/css/faqs.css">
 </head>
 <body>
 
@@ -31,6 +32,7 @@ session_start();
     <?php include 'includes/latest-products.php'; ?>
     
     <?php include 'includes/stats.php'; ?>
+    <?php include 'includes/faqs.php'; ?>
     <?php include 'includes/services.php'; ?>
     <?php include 'includes/footer.php'; ?>
 

@@ -1,0 +1,135 @@
+/* FAQ Section */
+.faq-section {
+    padding: 60px 0;
+    background-color: #f9f9f9;
+}
+
+.faq-container {
+    max-width: 1200px;
+    /* Consistent with other sections usually, services was 1300 but 1200 is safer */
+    margin: 0 auto;
+    padding: 0 15px;
+}
+
+.section-header {
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+.section-title {
+    font-size: 32px;
+    font-weight: 800;
+    color: #333;
+    position: relative;
+    display: inline-block;
+    margin-bottom: 15px;
+}
+
+.section-title::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 3px;
+    background-color: #004aad;
+    /* Brand Color */
+}
+
+.section-subtitle {
+    color: #666;
+    font-size: 16px;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+/* FAQ Layout */
+.faq-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 30px;
+}
+
+.faq-item {
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    overflow: hidden;
+    transition: box-shadow 0.3s;
+}
+
+.faq-item:hover {
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.faq-question {
+    padding: 20px 25px;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #fff;
+    border: none;
+    width: 100%;
+    text-align: left;
+    outline: none;
+}
+
+.faq-question h3 {
+    margin: 0;
+    font-size: 16px;
+    font-weight: 600;
+    color: #333;
+    transition: color 0.3s;
+}
+
+.faq-toggle {
+    font-size: 14px;
+    color: #999;
+    transition: transform 0.3s;
+}
+
+.faq-item.active .faq-question h3 {
+    color: #004aad;
+}
+
+.faq-item.active .faq-toggle {
+    transform: rotate(180deg);
+    color: #004aad;
+}
+
+.faq-answer {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease-out;
+    background: #fff;
+    border-top: 1px solid transparent;
+}
+
+.faq-item.active .faq-answer {
+    border-top-color: #f1f1f1;
+}
+
+.faq-answer p {
+    padding: 20px 25px;
+    margin: 0;
+    color: #666;
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .faq-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .section-title {
+        font-size: 28px;
+    }
+
+    .faq-question {
+        padding: 15px 20px;
+    }
+}
