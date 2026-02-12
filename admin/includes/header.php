@@ -42,8 +42,8 @@ if (!isset($url_prefix)) $url_prefix = '';
             
             <div class="header-right">
                 <div class="header-icon">
-                    <i class="fas fa-bell"></i>
-                    <span class="badge-dot"></span>
+                    <!-- <i class="fas fa-bell"></i>
+                    <span class="badge-dot"></span> -->
                 </div>
                 
                 <div class="user-profile">

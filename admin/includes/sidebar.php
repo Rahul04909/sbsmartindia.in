@@ -95,6 +95,14 @@
             </a>
         </li>
 
+        <li class="menu-item <?php echo ($page == 'enquiries') ? 'active' : ''; ?>">
+            <a href="<?php echo $url_prefix; ?>enquiries/index.php" class="menu-link">
+                <div class="menu-text">
+                    <i class="fas fa-question-circle"></i> <span>Enquiries</span>
+                </div>
+            </a>
+        </li>
+
         <li class="menu-item has-submenu">
             <a href="#" class="menu-link">
                 <div class="menu-text">
