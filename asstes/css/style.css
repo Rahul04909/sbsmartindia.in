@@ -58,7 +58,8 @@ ul {
 }
 
 .top-left-info i {
-    color: #f9ce34; /* Gold-ish color from image */
+    color: #f9ce34;
+    /* Gold-ish color from image */
 }
 
 .top-right-menu ul {
@@ -79,7 +80,7 @@ ul {
 .main-header {
     background-color: #ffffff;
     padding: 15px 0;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
 }
 
 .main-header .container {
@@ -91,7 +92,8 @@ ul {
 
 /* Logo */
 .logo img {
-    height: 40px; /* Adjust as per actual logo aspect ratio */
+    height: 40px;
+    /* Adjust as per actual logo aspect ratio */
     display: block;
 }
 
@@ -108,7 +110,8 @@ ul {
     padding: 10px 15px;
     padding-right: 50px;
     border: 1px solid #e1e1e1;
-    border-radius: 4px; /* Slight rounded corners */
+    border-radius: 4px;
+    /* Slight rounded corners */
     background-color: #f8f9fa;
     font-size: 14px;
     border-top-right-radius: 0;
@@ -127,7 +130,8 @@ ul {
     top: 0;
     height: 100%;
     width: 45px;
-    background-color: #0d6efd; /* Blue color */
+    background-color: #0d6efd;
+    /* Blue color */
     border: none;
     color: #fff;
     cursor: pointer;
@@ -159,36 +163,268 @@ ul {
 /* Mobile Menu Toggle */
 .mobile-menu-toggle {
     display: none;
-    font-size: 24px;
-    cursor: pointer;
     background: none;
     border: none;
+    font-size: 24px;
+    color: #333;
+    cursor: pointer;
+    margin-left: 10px;
+}
+
+/* Mobile Sidebar Styling */
+.mobile-sidebar {
+    position: fixed;
+    top: 0;
+    left: -280px;
+    width: 280px;
+    height: 100vh;
+    background: #fff;
+    z-index: 2000;
+    transition: left 0.3s ease;
+    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+}
+
+.mobile-sidebar.active {
+    left: 0;
+}
+
+.mobile-sidebar-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 1999;
+    display: none;
+}
+
+.mobile-sidebar-overlay.active {
+    display: block;
+}
+
+.mobile-sidebar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 20px;
+    border-bottom: 1px solid #eee;
+}
+
+.mobile-logo img {
+    height: 35px;
+}
+
+.mobile-menu-close {
+    background: none;
+    border: none;
+    font-size: 24px;
+    color: #333;
+    cursor: pointer;
+}
+
+.mobile-sidebar-content {
+    flex: 1;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+}
+
+.mobile-user-info {
+    padding: 20px;
+    background: #f8f9fa;
+    border-bottom: 1px solid #eee;
+}
+
+.mobile-user-profile {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.mobile-avatar {
+    width: 45px;
+    height: 45px;
+    background: #e9ecef;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    color: #555;
+}
+
+.mobile-user-details span {
+    font-size: 12px;
+    color: #666;
+    display: block;
+}
+
+.mobile-user-details h4 {
+    margin: 0;
+    font-size: 16px;
     color: #333;
 }
 
-/* Mobile Responsive */
+.mobile-login-btn {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: #004aad;
+    font-weight: 600;
+    font-size: 16px;
+}
+
+.mobile-nav-menu {
+    padding: 10px 0;
+}
+
+.mobile-nav-menu ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.mobile-nav-menu li a {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 12px 20px;
+    color: #333;
+    font-size: 15px;
+    border-bottom: 1px solid #f5f5f5;
+    transition: background 0.2s;
+}
+
+.mobile-nav-menu li a:hover {
+    background: #f9f9f9;
+    color: #004aad;
+}
+
+.mobile-nav-menu li a i {
+    width: 20px;
+    text-align: center;
+    color: #777;
+}
+
+.mobile-sidebar-footer {
+    padding: 20px;
+    border-top: 1px solid #eee;
+    background: #fcfcfc;
+}
+
+.mobile-sidebar-footer a {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: #666;
+    font-size: 13px;
+    margin-bottom: 10px;
+}
+
+.mobile-sidebar-footer a i {
+    color: #004aad;
+}
+
+/* Updated Mobile Responsive */
 @media (max-width: 991px) {
     .top-bar {
-        display: none; /* Often hidden on mobile to save space, or can be stacked */
+        display: none;
+    }
+
+    .main-navigation {
+        display: none;
     }
 
     .main-header .container {
         flex-wrap: wrap;
+        gap: 15px;
+    }
+
+    .logo {
+        flex-grow: 1;
+        order: 1;
+    }
+
+    .header-icons {
+        order: 2;
+        gap: 15px;
     }
 
     .search-bar {
         order: 3;
         width: 100%;
         max-width: 100%;
-        margin-top: 15px;
+        margin-top: 10px;
+        display: flex;
+        align-items: center;
     }
 
-    .logo {
-        flex-grow: 1;
+    .search-bar input {
+        border-radius: 4px 0 0 4px;
+        /* Fix radius for button attachment */
     }
 
-    .header-icons {
-        gap: 15px;
+    /* Show Mobile Menu Toggle */
+    .mobile-menu-toggle {
+        display: block;
+        background: #004aad;
+        /* Match search button */
+        color: white;
+        height: 100%;
+        /* Match search input height if possible, or set explicit */
+        height: 38px;
+        /* Assuming input padding results in approx this */
+        width: 45px;
+        border-radius: 4px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-left: 10px;
+    }
+
+    /* Adjust search button radius since we have a separate menu button now? 
+       Actually user asked "search bar ka jo width h usko kam kro & search bar k right side me menu button lagana h"
+       So search input + search button + menu button.
+    */
+
+    .search-bar {
+        position: relative;
+    }
+
+    .search-bar input {
+        width: calc(100% - 100px);
+        /* Space for search btn + menu btn */
+        border-radius: 4px 0 0 4px;
+    }
+
+    .search-bar button[type="button"]:first-of-type {
+        /* Search Icon Button */
+        position: absolute;
+        right: 55px;
+        /* Space for menu button + gap */
+        width: 45px;
+        border-radius: 0 4px 4px 0;
+    }
+
+    .mobile-menu-toggle {
+        position: absolute;
+        right: 0;
+        top: 0;
+        height: 100%;
+        width: 45px;
+        margin: 0;
+        background: #333;
+        /* Darker color for distinction or user pref */
+        border-radius: 4px;
+    }
+}
+
+@media (max-width: 600px) {
+    .container {
+        padding: 0 15px;
     }
 }
 
