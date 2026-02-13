@@ -71,7 +71,6 @@ $result = $conn->query($sql);
                                 <th>Message</th>
                                 <th>Uploaded File</th>
                                 <th>Date</th>
-                                <th>Status</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -93,19 +92,6 @@ $result = $conn->query($sql);
                                         <?php endif; ?>
                                     </td>
                                     <td><?php echo date('d M Y', strtotime($row['created_at'])); ?></td>
-                                    <td>
-                                        <?php 
-                                        $status = ucfirst($row['status']);
-                                        $badge_bg = '#e9ecef'; $badge_color = '#495057';
-                                        
-                                        if($status == 'Pending') { $badge_bg = '#fff3cd'; $badge_color = '#856404'; }
-                                        if($status == 'Approved' || $status == 'Completed') { $badge_bg = '#d4edda'; $badge_color = '#155724'; }
-                                        if($status == 'Rejected') { $badge_bg = '#f8d7da'; $badge_color = '#721c24'; }
-                                        ?>
-                                        <span class="status-badge" style="background-color: <?php echo $badge_bg; ?>; color: <?php echo $badge_color; ?>;">
-                                            <?php echo $status; ?>
-                                        </span>
-                                    </td>
                                 </tr>
                             <?php endwhile; ?>
                         </tbody>
