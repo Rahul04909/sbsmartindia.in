@@ -25,26 +25,14 @@
                 <i class="fa-solid fa-id-card"></i> Profile & Address
             </a>
         </li>
-        <li>
-            <a href="#" class="<?php echo ($page == 'quotes') ? 'active' : ''; ?>">
-                <i class="fa-solid fa-file-invoice-dollar"></i> My Quotes
-            </a>
+        <li class="<?php echo ($current_page == 'my-quotes.php') ? 'active' : ''; ?>">
+            <a href="my-quotes.php"><i class="fa-solid fa-file-invoice-dollar"></i> My Quotes</a>
         </li>
         <li class="<?php echo ($current_page == 'enquiries.php') ? 'active' : ''; ?>">
             <a href="enquiries.php"><i class="fa-solid fa-clipboard-question"></i> Enquiries</a>
         </li>
         <li class="<?php echo ($current_page == 'request-quote.php') ? 'active' : ''; ?>">
             <a href="request-quote.php"><i class="fa-solid fa-file-invoice-dollar"></i> Request a Quote</a>
-        </li>
-        <li>
-            <a href="#" class="<?php echo ($page == 'get_quote') ? 'active' : ''; ?>">
-                <i class="fa-solid fa-plus-circle"></i> Request Quote
-            </a>
-        </li>
-        <li>
-            <a href="#" class="<?php echo ($page == 'support') ? 'active' : ''; ?>">
-                <i class="fa-solid fa-headset"></i> Connect with Team
-            </a>
         </li>
         <li>
             <a href="../logout.php" style="color: #dc3545;">
