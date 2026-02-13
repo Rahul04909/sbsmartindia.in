@@ -91,7 +91,7 @@ include '../includes/header.php';
                     $total_pages = ceil($total_rows / $limit);
 
                     // Fetch Data
-                    $sql = "SELECT b.*, u.name as user_name, u.email as user_email, u.mobile as user_mobile 
+                    $sql = "SELECT b.*, u.name as user_name, u.email as user_email 
                             FROM bulk_quotes b 
                             LEFT JOIN users u ON b.user_id = u.id 
                             ORDER BY b.id DESC LIMIT $limit OFFSET $offset";
@@ -106,10 +106,6 @@ include '../includes/header.php';
                                     <div style='display:flex; align-items:center; gap:5px; margin-top:3px;'>
                                         <i class='fas fa-envelope' style='width:15px; color:#555;'></i>
                                         <small>" . htmlspecialchars($row['user_email']) . "</small>
-                                    </div>
-                                    <div style='display:flex; align-items:center; gap:5px; margin-top:3px;'>
-                                        <i class='fas fa-phone' style='width:15px; color:#555;'></i>
-                                        <small>" . htmlspecialchars($row['user_mobile']) . "</small>
                                     </div>
                                   </td>";
                             echo "<td>
