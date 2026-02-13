@@ -93,7 +93,7 @@ include '../includes/header.php';
                     // Fetch Data
                     $sql = "SELECT b.*, u.name as user_name, u.email as user_email, u.mobile as user_mobile 
                             FROM bulk_quotes b 
-                            JOIN users u ON b.user_id = u.id 
+                            LEFT JOIN users u ON b.user_id = u.id 
                             ORDER BY b.id DESC LIMIT $limit OFFSET $offset";
                     $result = $conn->query($sql);
 
