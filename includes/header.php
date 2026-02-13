@@ -35,7 +35,7 @@
                 <button type="button">
                     <i class="fa-solid fa-magnifying-glass"></i>
                 </button>
-                <button type="button" class="mobile-menu-toggle" id="mobileMenuToggle">
+                <button type="button" class="mobile-menu-toggle" id="mobileMenuToggle" onclick="toggleMobileSidebar()">
                     <i class="fa-solid fa-bars"></i>
                 </button>
             </div>
@@ -177,7 +177,7 @@
         <div class="mobile-logo">
             <img src="<?php echo isset($url_prefix) ? $url_prefix : ''; ?>asstes/logo/logo.png" alt="SB Smart India">
         </div>
-        <button class="mobile-menu-close" id="mobileMenuClose">
+        <button class="mobile-menu-close" id="mobileMenuClose" onclick="closeMobileSidebar()">
             <i class="fa-solid fa-xmark"></i>
         </button>
     </div>
@@ -224,33 +224,36 @@
 </aside>
 
 <script>
+    function toggleMobileSidebar() {
+        const sidebar = document.getElementById('mobileSidebar');
+        const overlay = document.getElementById('mobileSidebarOverlay');
+        
+        if (sidebar && overlay) {
+            sidebar.classList.toggle('active');
+            overlay.classList.toggle('active');
+            document.body.style.overflow = sidebar.classList.contains('active') ? 'hidden' : '';
+        }
+    }
+
+    function closeMobileSidebar() {
+        const sidebar = document.getElementById('mobileSidebar');
+        const overlay = document.getElementById('mobileSidebarOverlay');
+        
+        if (sidebar && overlay) {
+            sidebar.classList.remove('active');
+            overlay.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+    }
+
+    // Close on overlay click
     document.addEventListener('DOMContentLoaded', function() {
-        const mobileMenuToggle = document.getElementById('mobileMenuToggle');
-        const mobileSidebar = document.getElementById('mobileSidebar');
-        const mobileSidebarOverlay = document.getElementById('mobileSidebarOverlay');
-        const mobileMenuClose = document.getElementById('mobileMenuClose');
-
-        function toggleSidebar() {
-            mobileSidebar.classList.toggle('active');
-            mobileSidebarOverlay.classList.toggle('active');
-            document.body.style.overflow = mobileSidebar.classList.contains('active') ? 'hidden' : '';
-        }
-
-        if(mobileMenuToggle) {
-            mobileMenuToggle.addEventListener('click', function(e) {
-                e.preventDefault();
-                toggleSidebar();
-            });
-        }
-
-        if(mobileMenuClose) {
-            mobileMenuClose.addEventListener('click', toggleSidebar);
-        }
-
-        if(mobileSidebarOverlay) {
-            mobileSidebarOverlay.addEventListener('click', toggleSidebar);
+        const overlay = document.getElementById('mobileSidebarOverlay');
+        if(overlay) {
+             overlay.addEventListener('click', closeMobileSidebar);
         }
     });
+</script>
 <script>
     function updateCartCount() {
         $.ajax({
