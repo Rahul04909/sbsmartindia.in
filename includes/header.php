@@ -40,7 +40,7 @@
             <!-- Icons -->
             <div class="header-icons">
                 <div class="icon-item" style="position: relative;">
-                    <a href="cart.php" title="Bag"><i class="fa-solid fa-bag-shopping"></i></a>
+                    <a href="<?php echo isset($url_prefix) ? $url_prefix : ''; ?>cart.php" title="Bag"><i class="fa-solid fa-bag-shopping"></i></a>
                     <span id="cart-count-badge" class="cart-badge" style="display:none;">0</span>
                 </div>
                 <div class="icon-item">
@@ -91,7 +91,7 @@
                             $nb_name = $nav_brand['name'];
                 ?>
                             <li class="nav-item">
-                                <a href="products.php?brand=<?php echo urlencode($nav_brand['id']); ?>" class="nav-link brand-nav-btn">
+                                <a href="<?php echo isset($url_prefix) ? $url_prefix : ''; ?>products.php?brand=<?php echo urlencode($nav_brand['id']); ?>" class="nav-link brand-nav-btn">
                                     <span><?php echo htmlspecialchars($nb_name); ?></span>
                                 </a>
                                 
@@ -113,7 +113,7 @@
                                             $has_sub = ($sub_count_res->fetch_assoc()['count'] > 0);
                                     ?>
                                             <li class="<?php echo $has_sub ? 'has-submenu' : ''; ?>">
-                                                <a href="products.php?category=<?php echo urlencode($cat_id); ?>">
+                                                <a href="<?php echo isset($url_prefix) ? $url_prefix : ''; ?>products.php?category=<?php echo urlencode($cat_id); ?>">
                                                     <?php echo htmlspecialchars($cat['name']); ?>
                                                 </a>
                                                 
@@ -125,7 +125,7 @@
                                                     while ($sub = $sub_res->fetch_assoc()) {
                                                     ?>
                                                         <li>
-                                                            <a href="products.php?sub_category=<?php echo urlencode($sub['id']); ?>">
+                                                            <a href="<?php echo isset($url_prefix) ? $url_prefix : ''; ?>products.php?sub_category=<?php echo urlencode($sub['id']); ?>">
                                                                 <?php echo htmlspecialchars($sub['name']); ?>
                                                             </a>
                                                         </li>
@@ -149,7 +149,7 @@
                 ?>
                 <!-- Others Item -->
                 <li class="nav-item">
-                    <a href="brands/index.php" class="nav-link brand-nav-btn">
+                    <a href="<?php echo isset($url_prefix) ? $url_prefix : ''; ?>brands/index.php" class="nav-link brand-nav-btn">
                         <span>OTHERS</span>
                     </a>
                 </li>
