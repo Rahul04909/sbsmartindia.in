@@ -80,9 +80,7 @@ $url_prefix = '../';
 
 <?php require_once '../includes/header.php'; ?>
 
-<div class="user-dashboard-wrapper">
-    <div class="container">
-        <div class="dashboard-layout">
+<div class="dashboard-container">
             
             <!-- Sidebar -->
             <?php require_once 'includes/sidebar.php'; ?>
@@ -122,8 +120,6 @@ $url_prefix = '../';
                 </div>
             </div>
 
-        </div>
-    </div>
 </div>
 
 <?php require_once '../includes/footer.php'; ?>
