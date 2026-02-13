@@ -79,12 +79,17 @@
             </ul>
         </li>
 
-        <li class="menu-item <?php echo ($page == 'quotes') ? 'active' : ''; ?>">
-            <a href="<?php echo $url_prefix; ?>quotes/index.php" class="menu-link">
+        <li class="menu-item has-submenu">
+            <a href="#" class="menu-link">
                 <div class="menu-text">
-                    <i class="fas fa-file-invoice-dollar"></i> <span>Quote Requests</span>
+                    <i class="fas fa-file-invoice-dollar"></i> <span>Quotes</span>
                 </div>
+                <i class="fas fa-chevron-right arrow"></i>
             </a>
+            <ul class="submenu">
+                <li><a href="<?php echo $url_prefix; ?>quotes/index.php">All Quotes</a></li>
+                <li><a href="<?php echo $url_prefix; ?>quotes/bulk-quotes.php">Bulk Quotes</a></li>
+            </ul>
         </li>
 
         <li class="menu-item <?php echo ($page == 'assisted-orders') ? 'active' : ''; ?>">
