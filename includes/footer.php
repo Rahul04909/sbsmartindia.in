@@ -24,12 +24,12 @@
             <div class="footer-col footer-links">
                 <h3 class="footer-heading">Quick Links</h3>
                 <ul>
-                    <li><a href="index.php">Home</a></li>
-                    <li><a href="../products.php">Products</a></li>
-                    <li><a href="<?php echo $url_prefix; ?>pages/assisted-orders.php">Assisted Orders</a></li>
-                    <li><a href="#">About Us</a></li>
-                    <li><a href="../pages/contact-us.php">Contact</a></li>
-                    <li><a href="#">Blog</a></li>
+                    <li><a href="<?php echo isset($url_prefix) ? $url_prefix : ''; ?>index.php">Home</a></li>
+                    <li><a href="<?php echo isset($url_prefix) ? $url_prefix : ''; ?>products.php">Products</a></li>
+                    <li><a href="<?php echo isset($url_prefix) ? $url_prefix : ''; ?>pages/assisted-orders.php">Assisted Orders</a></li>
+                    <li><a href="<?php echo isset($url_prefix) ? $url_prefix : ''; ?>pages/about-us.php">About Us</a></li>
+                    <li><a href="<?php echo isset($url_prefix) ? $url_prefix : ''; ?>pages/contact-us.php">Contact</a></li>
+                    <li><a href="<?php echo isset($url_prefix) ? $url_prefix : ''; ?>blogs.php">Blog</a></li>
                 </ul>
             </div>
 
@@ -37,11 +37,11 @@
             <div class="footer-col footer-links">
                 <h3 class="footer-heading">Customer Service</h3>
                 <ul>
-                    <li><a href="#">FAQs</a></li>
-                    <li><a href="../pages/shipping-and-delivery-policy.php">Shipping Policy</a></li>
-                    <li><a href="../pages/refund-and-cancellation-policy.php">Return & Refund</a></li>
-                    <li><a href="../pages/terms-and-conditions.php">Terms & Conditions</a></li>
-                    <li><a href="../pages/privacy-policy.php">Privacy Policy</a></li>
+                    <li><a href="<?php echo isset($url_prefix) ? $url_prefix : ''; ?>pages/faqs.php">FAQs</a></li>
+                    <li><a href="<?php echo isset($url_prefix) ? $url_prefix : ''; ?>pages/shipping-and-delivery-policy.php">Shipping Policy</a></li>
+                    <li><a href="<?php echo isset($url_prefix) ? $url_prefix : ''; ?>pages/refund-and-cancellation-policy.php">Return & Refund</a></li>
+                    <li><a href="<?php echo isset($url_prefix) ? $url_prefix : ''; ?>pages/terms-and-conditions.php">Terms & Conditions</a></li>
+                    <li><a href="<?php echo isset($url_prefix) ? $url_prefix : ''; ?>pages/privacy-policy.php">Privacy Policy</a></li>
                 </ul>
             </div>
 
@@ -84,4 +84,4 @@
 
 <!-- Scripts -->
 <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
-<script src="assets/js/auth-modal.js"></script>
+<script src="<?php echo isset($url_prefix) ? $url_prefix : ''; ?>assets/js/auth-modal.js"></script>

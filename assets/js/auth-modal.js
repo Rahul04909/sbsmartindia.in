@@ -7,7 +7,7 @@ $(document).ready(function () {
         // Check login status via global var set by session
         if (typeof isLoggedIn !== 'undefined' && isLoggedIn) {
             if (confirm('Logout from ' + (typeof userName !== 'undefined' ? userName : "Account") + '?')) {
-                window.location.href = 'logout.php';
+                window.location.href = (typeof urlPrefix !== 'undefined' ? urlPrefix : '') + 'logout.php';
             }
         } else {
             $('#authModal').css('display', 'flex').hide().fadeIn();
@@ -58,7 +58,7 @@ $(document).ready(function () {
         var email = $('#regEmail').val();
 
         $.ajax({
-            url: 'auth_handler.php',
+            url: (typeof urlPrefix !== 'undefined' ? urlPrefix : '') + 'auth_handler.php',
             type: 'POST',
             data: formData,
             dataType: 'json',
@@ -100,7 +100,7 @@ $(document).ready(function () {
         var formData = $(this).serialize();
 
         $.ajax({
-            url: 'auth_handler.php',
+            url: (typeof urlPrefix !== 'undefined' ? urlPrefix : '') + 'auth_handler.php',
             type: 'POST',
             data: formData,
             dataType: 'json',
@@ -128,7 +128,7 @@ $(document).ready(function () {
         var formData = $(this).serialize();
 
         $.ajax({
-            url: 'auth_handler.php',
+            url: (typeof urlPrefix !== 'undefined' ? urlPrefix : '') + 'auth_handler.php',
             type: 'POST',
             data: formData,
             dataType: 'json',

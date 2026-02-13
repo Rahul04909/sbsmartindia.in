@@ -163,6 +163,7 @@
 <link rel="stylesheet" href="<?php echo isset($url_prefix) ? $url_prefix : ''; ?>assets/css/auth-modal.css">
 <?php include_once dirname(__DIR__) . '/components/auth-modal.php'; ?>
 <script>
+    var urlPrefix = "<?php echo isset($url_prefix) ? $url_prefix : ''; ?>";
     var isLoggedIn = <?php echo isset($_SESSION['user_id']) ? 'true' : 'false'; ?>;
     var userName = "<?php echo isset($_SESSION['user_name']) ? htmlspecialchars($_SESSION['user_name']) : ''; ?>";
 </script>
