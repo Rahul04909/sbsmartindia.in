@@ -30,10 +30,11 @@
                 <i class="fa-solid fa-file-invoice-dollar"></i> My Quotes
             </a>
         </li>
-        <li>
-            <a href="enquiries.php" class="<?php echo ($page == 'enquiries') ? 'active' : ''; ?>">
-                <i class="fa-solid fa-envelope-open-text"></i> Enquiries
-            </a>
+        <li class="<?php echo ($current_page == 'enquiries.php') ? 'active' : ''; ?>">
+            <a href="enquiries.php"><i class="fa-solid fa-clipboard-question"></i> Enquiries</a>
+        </li>
+        <li class="<?php echo ($current_page == 'request-quote.php') ? 'active' : ''; ?>">
+            <a href="request-quote.php"><i class="fa-solid fa-file-invoice-dollar"></i> Request a Quote</a>
         </li>
         <li>
             <a href="#" class="<?php echo ($page == 'get_quote') ? 'active' : ''; ?>">
