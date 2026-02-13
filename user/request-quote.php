@@ -8,6 +8,8 @@ if (!isset($_SESSION['user_id'])) {
 }
 
 $page_title = "Request a Quote - SB Smart";
+$current_page = 'request-quote.php';
+$url_prefix = '../';
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -22,11 +24,11 @@ $page_title = "Request a Quote - SB Smart";
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     
     <!-- Custom CSS -->
-    <link rel="stylesheet" href="../asstes/css/style.css">
-    <link rel="stylesheet" href="../assets/css/user-dashboard.css">
-    <link rel="stylesheet" href="../asstes/css/footer.css">
-    <link rel="stylesheet" href="../assets/css/brand-menu.css">
-    <link rel="stylesheet" href="../assets/css/header-menu.css">
+    <link rel="stylesheet" href="<?php echo $url_prefix; ?>asstes/css/style.css">
+    <link rel="stylesheet" href="<?php echo $url_prefix; ?>assets/css/user-dashboard.css">
+    <link rel="stylesheet" href="<?php echo $url_prefix; ?>asstes/css/footer.css">
+    <link rel="stylesheet" href="<?php echo $url_prefix; ?>assets/css/brand-menu.css">
+    <link rel="stylesheet" href="<?php echo $url_prefix; ?>assets/css/header-menu.css">
     
     <style>
         .quote-form-container {
@@ -96,7 +98,7 @@ $page_title = "Request a Quote - SB Smart";
                         Have bulk requirements? Upload your list or describe your needs below.
                     </p>
                     
-                    <a href="../assets/downloads/bulk_quote_template.csv" class="download-link" download>
+                    <a href="<?php echo $url_prefix; ?>assets/downloads/bulk_quote_template.csv" class="download-link" download>
                         <i class="fa-solid fa-file-csv"></i> Download Template (CSV)
                     </a>
 
@@ -135,7 +137,7 @@ $page_title = "Request a Quote - SB Smart";
         btn.prop('disabled', true).text('Submitting...');
 
         $.ajax({
-            url: '../quote_handler.php',
+            url: '<?php echo $url_prefix; ?>quote_handler.php',
             type: 'POST',
             data: formData,
             contentType: false,
