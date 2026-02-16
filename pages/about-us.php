@@ -55,7 +55,7 @@ $page_title = "About Us - S.B. Syscon Pvt. Ltd.";
                 <p>Today, with a proud legacy spanning more than three decades, we continue to empower industries across India and around the world.</p>
             </div>
             <div class="legacy-image">
-                <img src="../asstes/hero/slider_lapp.jpg" alt="S.B. Syscon Legacy">
+                <img src="../asstes/frontend/industry .png" alt="S.B. Syscon Legacy">
             </div>
         </div>
     </div>
