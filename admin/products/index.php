@@ -74,7 +74,7 @@ require_once '../../database/db_config.php';
                     $sql = "SELECT p.*, sc.name as sub_category_name, c.name as category_name, b.name as brand_name 
                             FROM products p 
                             LEFT JOIN product_sub_categories sc ON p.sub_category_id = sc.id 
-                            LEFT JOIN product_categories c ON sc.category_id = c.id 
+                            LEFT JOIN product_categories c ON p.category_id = c.id 
                             LEFT JOIN brands b ON p.brand_id = b.id
                             ORDER BY p.id DESC";
                     $result = $conn->query($sql);
@@ -101,7 +101,9 @@ require_once '../../database/db_config.php';
                                 <td>
                                     <?php echo htmlspecialchars($row['category_name']); ?>
                                     <br>
-                                    <small style="color: #777;">&rarr; <?php echo htmlspecialchars($row['sub_category_name']); ?></small>
+                                    <?php if(!empty($row['sub_category_name'])): ?>
+                                        <small style="color: #777;">&rarr; <?php echo htmlspecialchars($row['sub_category_name']); ?></small>
+                                    <?php endif; ?>
                                 </td>
                                 <td>
                                     <?php if($row['is_price_request']): ?>

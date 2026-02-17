@@ -88,8 +88,8 @@ $product = $result->fetch_assoc();
                         </select>
                     </div>
                     <div style="flex: 1;">
-                        <label style="display: block; margin-bottom: 8px; font-weight: 500;">Sub Category <span style="color: red;">*</span></label>
-                        <select name="sub_category_id" id="sub_category_id" required style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px;">
+                        <label style="display: block; margin-bottom: 8px; font-weight: 500;">Sub Category <span style="color: #999; font-weight: normal;">(Optional)</span></label>
+                        <select name="sub_category_id" id="sub_category_id" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px;">
                             <option value="">Select Sub Category</option>
                             <?php
                             if($current_category_id) {
@@ -331,7 +331,7 @@ $(document).ready(function() {
                 }
             });
         } else {
-            $('#sub_category_id').html('<option value="">Select Sub Category</option>');
+            $('#sub_category_id').html('<option value="">Select Sub Category (Optional)</option>');
         }
     });
 });

@@ -34,7 +34,8 @@ function uploadImage($file, $folder) {
 // Handle Add Product
 if (isset($_POST['add_product'])) {
     $brand_id = (int)$_POST['brand_id'];
-    $sub_category_id = (int)$_POST['sub_category_id'];
+    $category_id = (int)$_POST['category_id'];
+    $sub_category_id = !empty($_POST['sub_category_id']) ? (int)$_POST['sub_category_id'] : 'NULL';
     $title = $conn->real_escape_string($_POST['title']);
     $description = $conn->real_escape_string($_POST['description']);
     $specifications = $conn->real_escape_string($_POST['specifications']);
@@ -62,8 +63,8 @@ if (isset($_POST['add_product'])) {
     $sku = $conn->real_escape_string($_POST['sku']);
     $hsn_code = $conn->real_escape_string($_POST['hsn_code']);
 
-    $sql = "INSERT INTO products (brand_id, sub_category_id, title, sku, hsn_code, description, specifications, mrp, sales_price, discount_percentage, stock, is_price_request, featured_image, meta_title, meta_description, meta_keywords) 
-            VALUES ('$brand_id', '$sub_category_id', '$title', '$sku', '$hsn_code', '$description', '$specifications', '$mrp', '$sales_price', '$discount_percentage', '$stock', '$is_price_request', '$featured_image', '$meta_title', '$meta_description', '$meta_keywords')";
+    $sql = "INSERT INTO products (brand_id, category_id, sub_category_id, title, sku, hsn_code, description, specifications, mrp, sales_price, discount_percentage, stock, is_price_request, featured_image, meta_title, meta_description, meta_keywords) 
+            VALUES ('$brand_id', '$category_id', $sub_category_id, '$title', '$sku', '$hsn_code', '$description', '$specifications', '$mrp', '$sales_price', '$discount_percentage', '$stock', '$is_price_request', '$featured_image', '$meta_title', '$meta_description', '$meta_keywords')";
 
     if ($conn->query($sql) === TRUE) {
         $product_id = $conn->insert_id;
@@ -100,7 +101,8 @@ if (isset($_POST['add_product'])) {
 if (isset($_POST['update_product'])) {
     $id = (int)$_POST['product_id'];
     $brand_id = (int)$_POST['brand_id'];
-    $sub_category_id = (int)$_POST['sub_category_id'];
+    $category_id = (int)$_POST['category_id'];
+    $sub_category_id = !empty($_POST['sub_category_id']) ? (int)$_POST['sub_category_id'] : 'NULL';
     $title = $conn->real_escape_string($_POST['title']);
     $description = $conn->real_escape_string($_POST['description']);
     $specifications = $conn->real_escape_string($_POST['specifications']);
@@ -125,7 +127,8 @@ if (isset($_POST['update_product'])) {
 
     $sql = "UPDATE products SET 
             brand_id='$brand_id',
-            sub_category_id='$sub_category_id', 
+            category_id='$category_id',
+            sub_category_id=$sub_category_id, 
             title='$title', 
             sku='$sku',
             hsn_code='$hsn_code',

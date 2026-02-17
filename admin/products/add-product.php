@@ -58,8 +58,8 @@ require_once '../../database/db_config.php';
                         </select>
                     </div>
                     <div style="flex: 1;">
-                        <label style="display: block; margin-bottom: 8px; font-weight: 500;">Sub Category <span style="color: red;">*</span></label>
-                        <select name="sub_category_id" id="sub_category_id" required style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px;">
+                        <label style="display: block; margin-bottom: 8px; font-weight: 500;">Sub Category <span style="color: #999; font-weight: normal;">(Optional)</span></label>
+                        <select name="sub_category_id" id="sub_category_id" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px;">
                             <option value="">Select Sub Category</option>
                         </select>
                     </div>
@@ -255,7 +255,7 @@ $(document).ready(function() {
                  catSelect.append(`<option value="${c.id}">${c.name}</option>`);
              });
         }
-         $('#sub_category_id').empty().append('<option value="">Select Sub Category</option>');
+         $('#sub_category_id').empty().append('<option value="">Select Sub Category (Optional)</option>');
     });
 
     $('#category_id').change(function() {
@@ -267,10 +267,13 @@ $(document).ready(function() {
                 data: {category_id: category_id},
                 success: function(response) {
                     $('#sub_category_id').html(response);
+                    // Add optional text if not present in response, assuming response is just options
+                    // If response starts with <option value="">Select Sub Category</option>, replace it
+                    // Or just let it be, but make sure the label says optional
                 }
             });
         } else {
-            $('#sub_category_id').html('<option value="">Select Sub Category</option>');
+            $('#sub_category_id').html('<option value="">Select Sub Category (Optional)</option>');
         }
     });
 });
