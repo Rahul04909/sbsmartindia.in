@@ -442,7 +442,7 @@ ul {
     right: 0;
     background: #ffffff;
     border-radius: 8px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
     z-index: 9999;
     display: none;
     max-height: 480px;
@@ -457,11 +457,11 @@ ul {
 .search-result-item {
     display: flex;
     align-items: center;
-    padding: 12px 16px;
+    padding: 10px 16px;
     text-decoration: none;
-    color: #24292e;
+    color: #333;
     transition: all 0.2s ease;
-    border-bottom: 1px solid #f6f8fa;
+    border-bottom: 1px solid #f1f1f1;
 }
 
 .search-result-item:last-of-type {
@@ -469,64 +469,63 @@ ul {
 }
 
 .search-result-item:hover {
-    background-color: #f6f8fa;
+    background-color: #f9f9f9;
     text-decoration: none;
 }
 
 .search-result-image {
-    width: 48px;
-    height: 48px;
+    width: 38px;
+    height: 38px;
     object-fit: contain;
     background: #fff;
-    border-radius: 4px;
+    border-radius: 2px;
     margin-right: 14px;
-    border: 1px solid #eaecef;
 }
 
 .search-result-info {
     flex: 1;
     min-width: 0;
+    display: flex;
+    flex-direction: column;
 }
 
 .search-result-title {
     display: block;
     font-size: 14px;
-    font-weight: 600;
-    margin-bottom: 2px;
+    font-weight: 400;
+    color: #212121;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    color: #0366d6;
+    margin-bottom: 2px;
 }
 
-.search-result-price {
+.search-result-category {
     font-size: 13px;
-    font-weight: 700;
-    color: #28a745;
+    color: #2874f0;
+    /* Flipkart blue */
+    font-weight: 400;
 }
 
 .search-view-all {
     display: block;
-    padding: 14px;
+    padding: 12px;
     text-align: center;
-    background-color: #f6f8fa;
-    color: #0366d6;
+    background-color: #fff;
+    color: #2874f0;
     font-size: 13px;
-    font-weight: 600;
+    font-weight: 500;
     text-decoration: none;
-    border-top: 1px solid #e1e4e8;
-    transition: background-color 0.2s;
+    border-top: 1px solid #f1f1f1;
 }
 
 .search-view-all:hover {
-    background-color: #eff3f6;
-    text-decoration: underline;
+    background-color: #f9f9f9;
 }
 
 .search-no-results {
-    padding: 24px;
+    padding: 20px;
     text-align: center;
-    color: #586069;
+    color: #757575;
     font-size: 14px;
-    background: #fff;
 }
