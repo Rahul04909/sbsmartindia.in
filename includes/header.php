@@ -306,7 +306,7 @@
                                         <img src="<?php echo isset($url_prefix) ? $url_prefix : ""; ?>${item.image}" alt="${item.title}" class="search-result-image">
                                         <div class="search-result-info">
                                             <span class="search-result-title">${item.title}</span>
-                                            <span class="search-result-price">${priceText}</span>
+                                            ${item.category ? `<span class="search-result-category">in ${item.category}</span>` : ''}
                                         </div>
                                     </a>`;
                             });
