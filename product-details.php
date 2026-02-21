@@ -159,7 +159,7 @@ if ($product_id > 0) {
                             <?php elseif ($product['stock'] > 0): ?>
                                 <span class="stock-status in-stock"><i class="fa-solid fa-check-circle"></i> Ready to Dispatch</span>
                             <?php else: ?>
-                                <span class="stock-status out-stock"><i class="fa-solid fa-clock"></i> Available as per Lead Time</span>
+                                <span class="stock-status out-stock"><i class="fa-solid fa-clock"></i> Available as per OEM Lead Time</span>
                             <?php endif; ?>
                         </div>
                         
