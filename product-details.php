@@ -154,10 +154,12 @@ if ($product_id > 0) {
                         </div>
 
                         <div class="stock-dispatch-row">
-                             <?php if ($product['stock'] > 0): ?>
+                             <?php if ($product['is_price_request']): ?>
+                                <span class="stock-status in-stock"><i class="fa-solid fa-clock"></i> Available as per OEM Lead Time</span>
+                            <?php elseif ($product['stock'] > 0): ?>
                                 <span class="stock-status in-stock"><i class="fa-solid fa-check-circle"></i> Ready to Dispatch</span>
                             <?php else: ?>
-                                <span class="stock-status out-stock"><i class="fa-solid fa-clock"></i> Ships in 3-5 Weeks</span>
+                                <span class="stock-status out-stock"><i class="fa-solid fa-clock"></i> Available as per Lead Time</span>
                             <?php endif; ?>
                         </div>
                         
