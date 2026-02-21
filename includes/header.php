@@ -31,10 +31,13 @@
 
             <!-- Search Bar -->
             <div class="search-bar">
-                <input type="text" placeholder="Search...">
-                <button type="button">
-                    <i class="fa-solid fa-magnifying-glass"></i>
-                </button>
+                <form action="<?php echo $url_prefix; ?>products.php" method="GET" id="headerSearchForm" style="flex: 1; display: flex; position: relative;">
+                    <input type="text" name="q" id="headerSearchInput" placeholder="Search..." autocomplete="off" value="<?php echo isset($_GET['q']) ? htmlspecialchars($_GET['q']) : ''; ?>">
+                    <button type="submit">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                    </button>
+                    <div id="searchResultsDropdown" class="search-results-dropdown"></div>
+                </form>
                 <button type="button" class="mobile-menu-toggle" id="mobileMenuToggle" onclick="toggleMobileSidebar()">
                     <i class="fa-solid fa-bars"></i>
                 </button>
@@ -272,5 +275,63 @@
     }
     $(document).ready(function() {
         updateCartCount();
+
+        // Live Search Logic
+        let searchTimer;
+        const searchInput = $('#headerSearchInput');
+        const searchResults = $('#searchResultsDropdown');
+
+        searchInput.on('input', function() {
+            clearTimeout(searchTimer);
+            const query = $(this).val().trim();
+
+            if (query.length < 2) {
+                searchResults.removeClass('active').empty();
+                return;
+            }
+
+            searchTimer = setTimeout(function() {
+                $.ajax({
+                    url: '<?php echo isset($url_prefix) ? $url_prefix : ""; ?>search_suggestions.php',
+                    type: 'GET',
+                    data: { q: query },
+                    dataType: 'json',
+                    success: function(response) {
+                        if (response.status === 'success' && response.data.length > 0) {
+                            let html = '';
+                            response.data.forEach(function(item) {
+                                const priceText = item.is_price_request ? 'Price on Request' : '₹' + item.price.toLocaleString('en-IN');
+                                html += `
+                                    <a href="<?php echo isset($url_prefix) ? $url_prefix : ""; ?>product-details.php?id=${item.id}" class="search-result-item">
+                                        <img src="<?php echo isset($url_prefix) ? $url_prefix : ""; ?>${item.image}" alt="${item.title}" class="search-result-image">
+                                        <div class="search-result-info">
+                                            <span class="search-result-title">${item.title}</span>
+                                            <span class="search-result-price">${priceText}</span>
+                                        </div>
+                                    </a>`;
+                            });
+                            html += `<a href="<?php echo isset($url_prefix) ? $url_prefix : ""; ?>products.php?q=${encodeURIComponent(query)}" class="search-view-all">See All Results</a>`;
+                            searchResults.html(html).addClass('active');
+                        } else {
+                            searchResults.html('<div class="search-no-results">No products found for "'+query+'"</div>').addClass('active');
+                        }
+                    }
+                });
+            }, 300);
+        });
+
+        // Hide results when clicking outside
+        $(document).on('click', function(e) {
+            if (!$(e.target).closest('.search-bar').length) {
+                searchResults.removeClass('active');
+            }
+        });
+
+        // Show results when focusing back if not empty
+        searchInput.on('focus', function() {
+            if ($(this).val().trim().length >= 2 && searchResults.children().length > 0) {
+                searchResults.addClass('active');
+            }
+        });
     });
 </script>
