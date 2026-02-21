@@ -83,5 +83,4 @@
 </footer>
 
 <!-- Scripts -->
-<script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
 <script src="<?php echo isset($url_prefix) ? $url_prefix : ''; ?>assets/js/auth-modal.js"></script>

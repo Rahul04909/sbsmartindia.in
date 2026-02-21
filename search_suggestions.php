@@ -19,7 +19,7 @@ if (isset($_GET['q']) && !empty(trim($_GET['q']))) {
     
     if ($result && $result->num_rows > 0) {
         while ($row = $result->fetch_assoc()) {
-            $image = !empty($row['featured_image']) ? $row['featured_image'] : 'asstes/images/placeholder.jpg';
+            $image = !empty($row['featured_image']) && file_exists($row['featured_image']) ? $row['featured_image'] : 'asstes/logo/logo.png';
             $products[] = [
                 'id' => $row['id'],
                 'title' => $row['title'],

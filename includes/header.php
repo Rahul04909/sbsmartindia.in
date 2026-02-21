@@ -1,3 +1,4 @@
+<script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
 <header>
     <!-- Top Bar -->
     <div class="top-bar">
@@ -31,11 +32,9 @@
 
             <!-- Search Bar -->
             <div class="search-bar">
-                <form action="<?php echo $url_prefix; ?>products.php" method="GET" id="headerSearchForm" style="flex: 1; display: flex; position: relative;">
-                    <input type="text" name="q" id="headerSearchInput" placeholder="Search..." autocomplete="off" value="<?php echo isset($_GET['q']) ? htmlspecialchars($_GET['q']) : ''; ?>">
-                    <button type="submit">
-                        <i class="fa-solid fa-magnifying-glass"></i>
-                    </button>
+                <form action="<?php echo $url_prefix; ?>products.php" method="GET" id="headerSearchForm" style="flex: 1; display: flex; position: relative; align-items: center;">
+                    <i class="fa-solid fa-magnifying-glass" style="position: absolute; left: 15px; color: #2874f0; pointer-events: none; z-index: 10;"></i>
+                    <input type="text" name="q" id="headerSearchInput" placeholder="Search for products..." autocomplete="off" style="padding-left: 45px !important;" value="<?php echo isset($_GET['q']) ? htmlspecialchars($_GET['q']) : ''; ?>">
                     <div id="searchResultsDropdown" class="search-results-dropdown"></div>
                 </form>
                 <button type="button" class="mobile-menu-toggle" id="mobileMenuToggle" onclick="toggleMobileSidebar()">
