@@ -38,17 +38,17 @@ require_once 'database/db_config.php';
                                         $cat_name = $cat['name'];
                                         $cat_img = $cat['image'] ? $cat['image'] : 'assets/images/no-image.png'; // Fallback image if needed
                                         ?>
-                                        <div class="cat-item">
+                                        <a href="products.php?category=<?php echo $cat['id']; ?>" class="cat-item">
                                             <div class="cat-item-img-box">
                                                 <img src="<?php echo htmlspecialchars($cat_img); ?>" alt="<?php echo htmlspecialchars($cat_name); ?>">
                                             </div>
                                             <div class="cat-item-name"><?php echo htmlspecialchars($cat_name); ?></div>
-                                        </div>
+                                        </a>
                                         <?php
                                     }
                                     ?>
                                 </div>
-                                <a href="#" class="see-all-brand">See all <?php echo htmlspecialchars($brand_name); ?></a>
+                                <a href="products.php?brand=<?php echo $brand_id; ?>" class="see-all-brand">See all <?php echo htmlspecialchars($brand_name); ?></a>
                             </div>
                             <?php
                         }

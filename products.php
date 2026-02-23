@@ -49,21 +49,7 @@ try {
     // Filter by Category
     if (isset($_GET['category']) && !empty($_GET['category'])) {
         $cat_id = intval($_GET['category']);
-        $get_subs = "SELECT id FROM product_sub_categories WHERE category_id = $cat_id";
-        $subs_result = $conn->query($get_subs);
-        $sub_ids = [];
-        if($subs_result) {
-            while($s = $subs_result->fetch_assoc()) {
-                $sub_ids[] = $s['id'];
-            }
-        }
-        
-        if(!empty($sub_ids)) {
-             $sub_ids_str = implode(',', $sub_ids);
-             $where_clauses[] = "sub_category_id IN ($sub_ids_str)";
-        } else {
-             $where_clauses[] = "1=0"; 
-        }
+        $where_clauses[] = "category_id = $cat_id";
     }
 
     // Filter by Sub-Category
