@@ -3,6 +3,18 @@ $page = 'products';
 $url_prefix = '../';
 include '../includes/header.php';
 require_once '../../database/db_config.php';
+
+// Pagination setup
+$items_per_page = 20;
+$current_page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
+if ($current_page < 1) $current_page = 1;
+$offset = ($current_page - 1) * $items_per_page;
+
+// Get total count for pagination
+$total_sql = "SELECT COUNT(*) as total FROM products";
+$total_result = $conn->query($total_sql);
+$total_rows = $total_result->fetch_assoc()['total'];
+$total_pages = ceil($total_rows / $items_per_page);
 ?>
 
 <div class="admin-content">
@@ -76,7 +88,8 @@ require_once '../../database/db_config.php';
                             LEFT JOIN product_sub_categories sc ON p.sub_category_id = sc.id 
                             LEFT JOIN product_categories c ON p.category_id = c.id 
                             LEFT JOIN brands b ON p.brand_id = b.id
-                            ORDER BY p.id DESC";
+                            ORDER BY p.id DESC
+                            LIMIT $items_per_page OFFSET $offset";
                     $result = $conn->query($sql);
 
                     if ($result->num_rows > 0) {
@@ -145,6 +158,43 @@ require_once '../../database/db_config.php';
                 </tbody>
             </table>
         </div>
+        
+        <?php if ($total_pages > 1): ?>
+        <div class="pagination-container">
+            <div class="pagination-info">
+                Showing <?php echo min($offset + 1, $total_rows); ?> to <?php echo min($offset + $items_per_page, $total_rows); ?> of <?php echo $total_rows; ?> products
+            </div>
+            <ul class="pagination">
+                <?php if ($current_page > 1): ?>
+                    <li><a href="?page=<?php echo $current_page - 1; ?>" class="pagination-link"><i class="fas fa-chevron-left"></i></a></li>
+                <?php endif; ?>
+
+                <?php
+                $start_page = max(1, $current_page - 2);
+                $end_page = min($total_pages, $current_page + 2);
+
+                if ($start_page > 1) {
+                    echo '<li><a href="?page=1" class="pagination-link">1</a></li>';
+                    if ($start_page > 2) echo '<li><span class="pagination-link disabled">...</span></li>';
+                }
+
+                for ($i = $start_page; $i <= $end_page; $i++) {
+                    $active = ($i == $current_page) ? 'active' : '';
+                    echo '<li><a href="?page=' . $i . '" class="pagination-link ' . $active . '">' . $i . '</a></li>';
+                }
+
+                if ($end_page < $total_pages) {
+                    if ($end_page < $total_pages - 1) echo '<li><span class="pagination-link disabled">...</span></li>';
+                    echo '<li><a href="?page=' . $total_pages . '" class="pagination-link">' . $total_pages . '</a></li>';
+                }
+                ?>
+
+                <?php if ($current_page < $total_pages): ?>
+                    <li><a href="?page=<?php echo $current_page + 1; ?>" class="pagination-link"><i class="fas fa-chevron-right"></i></a></li>
+                <?php endif; ?>
+            </ul>
+        </div>
+        <?php endif; ?>
     </div>
 </div>
 
