@@ -1,0 +1,139 @@
+[11-Feb-2026 08:49:38 UTC] PHP Warning:  include(/home4/invest13/public_html/pages../includes/header.php): Failed to open stream: No such file or directory in /home4/invest13/public_html/pages/terms-and-conditions.php on line 3
+[11-Feb-2026 08:49:38 UTC] PHP Warning:  include(): Failed opening '/home4/invest13/public_html/pages../includes/header.php' for inclusion (include_path='.:/opt/cpanel/ea-php83/root/usr/share/pear') in /home4/invest13/public_html/pages/terms-and-conditions.php on line 3
+[11-Feb-2026 08:49:38 UTC] PHP Warning:  include(/home4/invest13/public_html/pages../includes/footer.php): Failed to open stream: No such file or directory in /home4/invest13/public_html/pages/terms-and-conditions.php on line 66
+[11-Feb-2026 08:49:38 UTC] PHP Warning:  include(): Failed opening '/home4/invest13/public_html/pages../includes/footer.php' for inclusion (include_path='.:/opt/cpanel/ea-php83/root/usr/share/pear') in /home4/invest13/public_html/pages/terms-and-conditions.php on line 66
+[11-Feb-2026 08:59:20 UTC] PHP Warning:  include(/home4/invest13/public_html/pages../includes/header.php): Failed to open stream: No such file or directory in /home4/invest13/public_html/pages/terms-and-conditions.php on line 3
+[11-Feb-2026 08:59:20 UTC] PHP Warning:  include(): Failed opening '/home4/invest13/public_html/pages../includes/header.php' for inclusion (include_path='.:/opt/cpanel/ea-php83/root/usr/share/pear') in /home4/invest13/public_html/pages/terms-and-conditions.php on line 3
+[11-Feb-2026 08:59:20 UTC] PHP Warning:  include(/home4/invest13/public_html/pages../includes/footer.php): Failed to open stream: No such file or directory in /home4/invest13/public_html/pages/terms-and-conditions.php on line 66
+[11-Feb-2026 08:59:20 UTC] PHP Warning:  include(): Failed opening '/home4/invest13/public_html/pages../includes/footer.php' for inclusion (include_path='.:/opt/cpanel/ea-php83/root/usr/share/pear') in /home4/invest13/public_html/pages/terms-and-conditions.php on line 66
+[11-Feb-2026 08:59:21 UTC] PHP Warning:  include(/home4/invest13/public_html/pages../includes/header.php): Failed to open stream: No such file or directory in /home4/invest13/public_html/pages/terms-and-conditions.php on line 3
+[11-Feb-2026 08:59:21 UTC] PHP Warning:  include(): Failed opening '/home4/invest13/public_html/pages../includes/header.php' for inclusion (include_path='.:/opt/cpanel/ea-php83/root/usr/share/pear') in /home4/invest13/public_html/pages/terms-and-conditions.php on line 3
+[11-Feb-2026 08:59:21 UTC] PHP Warning:  include(/home4/invest13/public_html/pages../includes/footer.php): Failed to open stream: No such file or directory in /home4/invest13/public_html/pages/terms-and-conditions.php on line 66
+[11-Feb-2026 08:59:21 UTC] PHP Warning:  include(): Failed opening '/home4/invest13/public_html/pages../includes/footer.php' for inclusion (include_path='.:/opt/cpanel/ea-php83/root/usr/share/pear') in /home4/invest13/public_html/pages/terms-and-conditions.php on line 66
+[11-Feb-2026 08:59:22 UTC] PHP Warning:  include(/home4/invest13/public_html/pages../includes/header.php): Failed to open stream: No such file or directory in /home4/invest13/public_html/pages/terms-and-conditions.php on line 3
+[11-Feb-2026 08:59:22 UTC] PHP Warning:  include(): Failed opening '/home4/invest13/public_html/pages../includes/header.php' for inclusion (include_path='.:/opt/cpanel/ea-php83/root/usr/share/pear') in /home4/invest13/public_html/pages/terms-and-conditions.php on line 3
+[11-Feb-2026 08:59:22 UTC] PHP Warning:  include(/home4/invest13/public_html/pages../includes/footer.php): Failed to open stream: No such file or directory in /home4/invest13/public_html/pages/terms-and-conditions.php on line 66
+[11-Feb-2026 08:59:22 UTC] PHP Warning:  include(): Failed opening '/home4/invest13/public_html/pages../includes/footer.php' for inclusion (include_path='.:/opt/cpanel/ea-php83/root/usr/share/pear') in /home4/invest13/public_html/pages/terms-and-conditions.php on line 66
+[11-Feb-2026 08:59:23 UTC] PHP Warning:  include(/home4/invest13/public_html/pages../includes/header.php): Failed to open stream: No such file or directory in /home4/invest13/public_html/pages/terms-and-conditions.php on line 3
+[11-Feb-2026 08:59:23 UTC] PHP Warning:  include(): Failed opening '/home4/invest13/public_html/pages../includes/header.php' for inclusion (include_path='.:/opt/cpanel/ea-php83/root/usr/share/pear') in /home4/invest13/public_html/pages/terms-and-conditions.php on line 3
+[11-Feb-2026 08:59:23 UTC] PHP Warning:  include(/home4/invest13/public_html/pages../includes/footer.php): Failed to open stream: No such file or directory in /home4/invest13/public_html/pages/terms-and-conditions.php on line 66
+[11-Feb-2026 08:59:23 UTC] PHP Warning:  include(): Failed opening '/home4/invest13/public_html/pages../includes/footer.php' for inclusion (include_path='.:/opt/cpanel/ea-php83/root/usr/share/pear') in /home4/invest13/public_html/pages/terms-and-conditions.php on line 66
+[11-Feb-2026 08:59:23 UTC] PHP Warning:  include(/home4/invest13/public_html/pages../includes/header.php): Failed to open stream: No such file or directory in /home4/invest13/public_html/pages/terms-and-conditions.php on line 3
+[11-Feb-2026 08:59:23 UTC] PHP Warning:  include(): Failed opening '/home4/invest13/public_html/pages../includes/header.php' for inclusion (include_path='.:/opt/cpanel/ea-php83/root/usr/share/pear') in /home4/invest13/public_html/pages/terms-and-conditions.php on line 3
+[11-Feb-2026 08:59:23 UTC] PHP Warning:  include(/home4/invest13/public_html/pages../includes/footer.php): Failed to open stream: No such file or directory in /home4/invest13/public_html/pages/terms-and-conditions.php on line 66
+[11-Feb-2026 08:59:23 UTC] PHP Warning:  include(): Failed opening '/home4/invest13/public_html/pages../includes/footer.php' for inclusion (include_path='.:/opt/cpanel/ea-php83/root/usr/share/pear') in /home4/invest13/public_html/pages/terms-and-conditions.php on line 66
+[11-Feb-2026 08:59:24 UTC] PHP Warning:  include(/home4/invest13/public_html/pages../includes/header.php): Failed to open stream: No such file or directory in /home4/invest13/public_html/pages/terms-and-conditions.php on line 3
+[11-Feb-2026 08:59:24 UTC] PHP Warning:  include(): Failed opening '/home4/invest13/public_html/pages../includes/header.php' for inclusion (include_path='.:/opt/cpanel/ea-php83/root/usr/share/pear') in /home4/invest13/public_html/pages/terms-and-conditions.php on line 3
+[11-Feb-2026 08:59:24 UTC] PHP Warning:  include(/home4/invest13/public_html/pages../includes/footer.php): Failed to open stream: No such file or directory in /home4/invest13/public_html/pages/terms-and-conditions.php on line 66
+[11-Feb-2026 08:59:24 UTC] PHP Warning:  include(): Failed opening '/home4/invest13/public_html/pages../includes/footer.php' for inclusion (include_path='.:/opt/cpanel/ea-php83/root/usr/share/pear') in /home4/invest13/public_html/pages/terms-and-conditions.php on line 66
+[11-Feb-2026 08:59:24 UTC] PHP Warning:  include(/home4/invest13/public_html/pages../includes/header.php): Failed to open stream: No such file or directory in /home4/invest13/public_html/pages/terms-and-conditions.php on line 3
+[11-Feb-2026 08:59:24 UTC] PHP Warning:  include(): Failed opening '/home4/invest13/public_html/pages../includes/header.php' for inclusion (include_path='.:/opt/cpanel/ea-php83/root/usr/share/pear') in /home4/invest13/public_html/pages/terms-and-conditions.php on line 3
+[11-Feb-2026 08:59:24 UTC] PHP Warning:  include(/home4/invest13/public_html/pages../includes/footer.php): Failed to open stream: No such file or directory in /home4/invest13/public_html/pages/terms-and-conditions.php on line 66
+[11-Feb-2026 08:59:24 UTC] PHP Warning:  include(): Failed opening '/home4/invest13/public_html/pages../includes/footer.php' for inclusion (include_path='.:/opt/cpanel/ea-php83/root/usr/share/pear') in /home4/invest13/public_html/pages/terms-and-conditions.php on line 66
+[11-Feb-2026 08:59:25 UTC] PHP Warning:  include(/home4/invest13/public_html/pages../includes/header.php): Failed to open stream: No such file or directory in /home4/invest13/public_html/pages/terms-and-conditions.php on line 3
+[11-Feb-2026 08:59:25 UTC] PHP Warning:  include(): Failed opening '/home4/invest13/public_html/pages../includes/header.php' for inclusion (include_path='.:/opt/cpanel/ea-php83/root/usr/share/pear') in /home4/invest13/public_html/pages/terms-and-conditions.php on line 3
+[11-Feb-2026 08:59:25 UTC] PHP Warning:  include(/home4/invest13/public_html/pages../includes/footer.php): Failed to open stream: No such file or directory in /home4/invest13/public_html/pages/terms-and-conditions.php on line 66
+[11-Feb-2026 08:59:25 UTC] PHP Warning:  include(): Failed opening '/home4/invest13/public_html/pages../includes/footer.php' for inclusion (include_path='.:/opt/cpanel/ea-php83/root/usr/share/pear') in /home4/invest13/public_html/pages/terms-and-conditions.php on line 66
+[11-Feb-2026 08:59:26 UTC] PHP Warning:  include(/home4/invest13/public_html/pages../includes/header.php): Failed to open stream: No such file or directory in /home4/invest13/public_html/pages/terms-and-conditions.php on line 3
+[11-Feb-2026 08:59:26 UTC] PHP Warning:  include(): Failed opening '/home4/invest13/public_html/pages../includes/header.php' for inclusion (include_path='.:/opt/cpanel/ea-php83/root/usr/share/pear') in /home4/invest13/public_html/pages/terms-and-conditions.php on line 3
+[11-Feb-2026 08:59:26 UTC] PHP Warning:  include(/home4/invest13/public_html/pages../includes/footer.php): Failed to open stream: No such file or directory in /home4/invest13/public_html/pages/terms-and-conditions.php on line 66
+[11-Feb-2026 08:59:26 UTC] PHP Warning:  include(): Failed opening '/home4/invest13/public_html/pages../includes/footer.php' for inclusion (include_path='.:/opt/cpanel/ea-php83/root/usr/share/pear') in /home4/invest13/public_html/pages/terms-and-conditions.php on line 66
+[11-Feb-2026 09:08:43 UTC] PHP Warning:  require_once(/home4/invest13/public_html/pages../database/db_config.php): Failed to open stream: No such file or directory in /home4/invest13/public_html/pages/contact-us.php on line 3
+[11-Feb-2026 09:08:43 UTC] PHP Fatal error:  Uncaught Error: Failed opening required '/home4/invest13/public_html/pages../database/db_config.php' (include_path='.:/opt/cpanel/ea-php83/root/usr/share/pear') in /home4/invest13/public_html/pages/contact-us.php:3
+Stack trace:
+#0 {main}
+  thrown in /home4/invest13/public_html/pages/contact-us.php on line 3
+[11-Feb-2026 09:10:56 UTC] PHP Warning:  require_once(/home4/invest13/public_html/pages../database/db_config.php): Failed to open stream: No such file or directory in /home4/invest13/public_html/pages/contact-us.php on line 3
+[11-Feb-2026 09:10:56 UTC] PHP Fatal error:  Uncaught Error: Failed opening required '/home4/invest13/public_html/pages../database/db_config.php' (include_path='.:/opt/cpanel/ea-php83/root/usr/share/pear') in /home4/invest13/public_html/pages/contact-us.php:3
+Stack trace:
+#0 {main}
+  thrown in /home4/invest13/public_html/pages/contact-us.php on line 3
+[11-Feb-2026 09:10:57 UTC] PHP Warning:  require_once(/home4/invest13/public_html/pages../database/db_config.php): Failed to open stream: No such file or directory in /home4/invest13/public_html/pages/contact-us.php on line 3
+[11-Feb-2026 09:10:57 UTC] PHP Fatal error:  Uncaught Error: Failed opening required '/home4/invest13/public_html/pages../database/db_config.php' (include_path='.:/opt/cpanel/ea-php83/root/usr/share/pear') in /home4/invest13/public_html/pages/contact-us.php:3
+Stack trace:
+#0 {main}
+  thrown in /home4/invest13/public_html/pages/contact-us.php on line 3
+[11-Feb-2026 09:18:12 UTC] PHP Warning:  require_once(/home4/invest13/public_html/pages../database/db_config.php): Failed to open stream: No such file or directory in /home4/invest13/public_html/pages/contact-us.php on line 3
+[11-Feb-2026 09:18:12 UTC] PHP Fatal error:  Uncaught Error: Failed opening required '/home4/invest13/public_html/pages../database/db_config.php' (include_path='.:/opt/cpanel/ea-php83/root/usr/share/pear') in /home4/invest13/public_html/pages/contact-us.php:3
+Stack trace:
+#0 {main}
+  thrown in /home4/invest13/public_html/pages/contact-us.php on line 3
+[11-Feb-2026 09:18:14 UTC] PHP Warning:  require_once(/home4/invest13/public_html/pages../database/db_config.php): Failed to open stream: No such file or directory in /home4/invest13/public_html/pages/contact-us.php on line 3
+[11-Feb-2026 09:18:14 UTC] PHP Fatal error:  Uncaught Error: Failed opening required '/home4/invest13/public_html/pages../database/db_config.php' (include_path='.:/opt/cpanel/ea-php83/root/usr/share/pear') in /home4/invest13/public_html/pages/contact-us.php:3
+Stack trace:
+#0 {main}
+  thrown in /home4/invest13/public_html/pages/contact-us.php on line 3
+[11-Feb-2026 09:18:42 UTC] PHP Warning:  require_once(/home4/invest13/public_html/pages../database/db_config.php): Failed to open stream: No such file or directory in /home4/invest13/public_html/pages/contact-us.php on line 3
+[11-Feb-2026 09:18:42 UTC] PHP Fatal error:  Uncaught Error: Failed opening required '/home4/invest13/public_html/pages../database/db_config.php' (include_path='.:/opt/cpanel/ea-php83/root/usr/share/pear') in /home4/invest13/public_html/pages/contact-us.php:3
+Stack trace:
+#0 {main}
+  thrown in /home4/invest13/public_html/pages/contact-us.php on line 3
+[11-Feb-2026 09:26:02 UTC] PHP Warning:  require_once(/home4/invest13/public_html/pages../database/db_config.php): Failed to open stream: No such file or directory in /home4/invest13/public_html/pages/contact-us.php on line 3
+[11-Feb-2026 09:26:02 UTC] PHP Fatal error:  Uncaught Error: Failed opening required '/home4/invest13/public_html/pages../database/db_config.php' (include_path='.:/opt/cpanel/ea-php83/root/usr/share/pear') in /home4/invest13/public_html/pages/contact-us.php:3
+Stack trace:
+#0 {main}
+  thrown in /home4/invest13/public_html/pages/contact-us.php on line 3
+[11-Feb-2026 09:26:04 UTC] PHP Warning:  require_once(/home4/invest13/public_html/pages../database/db_config.php): Failed to open stream: No such file or directory in /home4/invest13/public_html/pages/contact-us.php on line 3
+[11-Feb-2026 09:26:04 UTC] PHP Fatal error:  Uncaught Error: Failed opening required '/home4/invest13/public_html/pages../database/db_config.php' (include_path='.:/opt/cpanel/ea-php83/root/usr/share/pear') in /home4/invest13/public_html/pages/contact-us.php:3
+Stack trace:
+#0 {main}
+  thrown in /home4/invest13/public_html/pages/contact-us.php on line 3
+[11-Feb-2026 09:27:27 UTC] PHP Warning:  require_once(/home4/invest13/public_html/pages../database/db_config.php): Failed to open stream: No such file or directory in /home4/invest13/public_html/pages/contact-us.php on line 3
+[11-Feb-2026 09:27:27 UTC] PHP Fatal error:  Uncaught Error: Failed opening required '/home4/invest13/public_html/pages../database/db_config.php' (include_path='.:/opt/cpanel/ea-php83/root/usr/share/pear') in /home4/invest13/public_html/pages/contact-us.php:3
+Stack trace:
+#0 {main}
+  thrown in /home4/invest13/public_html/pages/contact-us.php on line 3
+[11-Feb-2026 09:28:27 UTC] PHP Warning:  require_once(/home4/invest13/public_html/pages../database/db_config.php): Failed to open stream: No such file or directory in /home4/invest13/public_html/pages/contact-us.php on line 3
+[11-Feb-2026 09:28:27 UTC] PHP Fatal error:  Uncaught Error: Failed opening required '/home4/invest13/public_html/pages../database/db_config.php' (include_path='.:/opt/cpanel/ea-php83/root/usr/share/pear') in /home4/invest13/public_html/pages/contact-us.php:3
+Stack trace:
+#0 {main}
+  thrown in /home4/invest13/public_html/pages/contact-us.php on line 3
+[11-Feb-2026 09:28:28 UTC] PHP Warning:  require_once(/home4/invest13/public_html/pages../database/db_config.php): Failed to open stream: No such file or directory in /home4/invest13/public_html/pages/contact-us.php on line 3
+[11-Feb-2026 09:28:28 UTC] PHP Fatal error:  Uncaught Error: Failed opening required '/home4/invest13/public_html/pages../database/db_config.php' (include_path='.:/opt/cpanel/ea-php83/root/usr/share/pear') in /home4/invest13/public_html/pages/contact-us.php:3
+Stack trace:
+#0 {main}
+  thrown in /home4/invest13/public_html/pages/contact-us.php on line 3
+[11-Feb-2026 09:28:29 UTC] PHP Warning:  require_once(/home4/invest13/public_html/pages../database/db_config.php): Failed to open stream: No such file or directory in /home4/invest13/public_html/pages/contact-us.php on line 3
+[11-Feb-2026 09:28:29 UTC] PHP Fatal error:  Uncaught Error: Failed opening required '/home4/invest13/public_html/pages../database/db_config.php' (include_path='.:/opt/cpanel/ea-php83/root/usr/share/pear') in /home4/invest13/public_html/pages/contact-us.php:3
+Stack trace:
+#0 {main}
+  thrown in /home4/invest13/public_html/pages/contact-us.php on line 3
+[11-Feb-2026 09:28:29 UTC] PHP Warning:  require_once(/home4/invest13/public_html/pages../database/db_config.php): Failed to open stream: No such file or directory in /home4/invest13/public_html/pages/contact-us.php on line 3
+[11-Feb-2026 09:28:29 UTC] PHP Fatal error:  Uncaught Error: Failed opening required '/home4/invest13/public_html/pages../database/db_config.php' (include_path='.:/opt/cpanel/ea-php83/root/usr/share/pear') in /home4/invest13/public_html/pages/contact-us.php:3
+Stack trace:
+#0 {main}
+  thrown in /home4/invest13/public_html/pages/contact-us.php on line 3
+[11-Feb-2026 09:28:30 UTC] PHP Warning:  require_once(/home4/invest13/public_html/pages../database/db_config.php): Failed to open stream: No such file or directory in /home4/invest13/public_html/pages/contact-us.php on line 3
+[11-Feb-2026 09:28:30 UTC] PHP Fatal error:  Uncaught Error: Failed opening required '/home4/invest13/public_html/pages../database/db_config.php' (include_path='.:/opt/cpanel/ea-php83/root/usr/share/pear') in /home4/invest13/public_html/pages/contact-us.php:3
+Stack trace:
+#0 {main}
+  thrown in /home4/invest13/public_html/pages/contact-us.php on line 3
+[11-Feb-2026 09:28:38 UTC] PHP Warning:  require_once(/home4/invest13/public_html/pages../database/db_config.php): Failed to open stream: No such file or directory in /home4/invest13/public_html/pages/contact-us.php on line 3
+[11-Feb-2026 09:28:38 UTC] PHP Fatal error:  Uncaught Error: Failed opening required '/home4/invest13/public_html/pages../database/db_config.php' (include_path='.:/opt/cpanel/ea-php83/root/usr/share/pear') in /home4/invest13/public_html/pages/contact-us.php:3
+Stack trace:
+#0 {main}
+  thrown in /home4/invest13/public_html/pages/contact-us.php on line 3
+[11-Feb-2026 09:28:39 UTC] PHP Warning:  require_once(/home4/invest13/public_html/pages../database/db_config.php): Failed to open stream: No such file or directory in /home4/invest13/public_html/pages/contact-us.php on line 3
+[11-Feb-2026 09:28:39 UTC] PHP Fatal error:  Uncaught Error: Failed opening required '/home4/invest13/public_html/pages../database/db_config.php' (include_path='.:/opt/cpanel/ea-php83/root/usr/share/pear') in /home4/invest13/public_html/pages/contact-us.php:3
+Stack trace:
+#0 {main}
+  thrown in /home4/invest13/public_html/pages/contact-us.php on line 3
+[11-Feb-2026 09:28:40 UTC] PHP Warning:  require_once(/home4/invest13/public_html/pages../database/db_config.php): Failed to open stream: No such file or directory in /home4/invest13/public_html/pages/contact-us.php on line 3
+[11-Feb-2026 09:28:40 UTC] PHP Fatal error:  Uncaught Error: Failed opening required '/home4/invest13/public_html/pages../database/db_config.php' (include_path='.:/opt/cpanel/ea-php83/root/usr/share/pear') in /home4/invest13/public_html/pages/contact-us.php:3
+Stack trace:
+#0 {main}
+  thrown in /home4/invest13/public_html/pages/contact-us.php on line 3
+[11-Feb-2026 09:28:57 UTC] PHP Warning:  require_once(/home4/invest13/public_html/pages/includes/header.php): Failed to open stream: No such file or directory in /home4/invest13/public_html/pages/about.php on line 7
+[11-Feb-2026 09:28:57 UTC] PHP Fatal error:  Uncaught Error: Failed opening required '/home4/invest13/public_html/pages/includes/header.php' (include_path='.:/opt/cpanel/ea-php83/root/usr/share/pear') in /home4/invest13/public_html/pages/about.php:7
+Stack trace:
+#0 {main}
+  thrown in /home4/invest13/public_html/pages/about.php on line 7
+[11-Feb-2026 09:28:59 UTC] PHP Warning:  require_once(/home4/invest13/public_html/pages/includes/header.php): Failed to open stream: No such file or directory in /home4/invest13/public_html/pages/about.php on line 7
+[11-Feb-2026 09:28:59 UTC] PHP Fatal error:  Uncaught Error: Failed opening required '/home4/invest13/public_html/pages/includes/header.php' (include_path='.:/opt/cpanel/ea-php83/root/usr/share/pear') in /home4/invest13/public_html/pages/about.php:7
+Stack trace:
+#0 {main}
+  thrown in /home4/invest13/public_html/pages/about.php on line 7
+[11-Feb-2026 09:29:27 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function flash_get() in /home4/invest13/public_html/pages/contact-us.php:47
+Stack trace:
+#0 {main}
+  thrown in /home4/invest13/public_html/pages/contact-us.php on line 47

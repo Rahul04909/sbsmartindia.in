@@ -1,0 +1,9 @@
+[10-Feb-2026 15:03:40 UTC] PHP Warning:  Undefined variable $servername in /home4/invest13/public_html/database/sql/setup_otp.php on line 5
+[10-Feb-2026 15:03:40 UTC] PHP Warning:  Undefined variable $username in /home4/invest13/public_html/database/sql/setup_otp.php on line 5
+[10-Feb-2026 15:03:40 UTC] PHP Warning:  Undefined variable $password in /home4/invest13/public_html/database/sql/setup_otp.php on line 5
+[10-Feb-2026 15:03:40 UTC] PHP Warning:  Undefined variable $dbname in /home4/invest13/public_html/database/sql/setup_otp.php on line 5
+[10-Feb-2026 15:03:40 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Access denied for user ''@'localhost' (using password: NO) in /home4/invest13/public_html/database/sql/setup_otp.php:5
+Stack trace:
+#0 /home4/invest13/public_html/database/sql/setup_otp.php(5): mysqli->__construct(NULL, NULL, Object(SensitiveParameterValue), NULL)
+#1 {main}
+  thrown in /home4/invest13/public_html/database/sql/setup_otp.php on line 5

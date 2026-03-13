@@ -1,8 +1,8 @@
 <?php
 $host = 'localhost';
-$db_user = 'invest13_sbsindia';
-$db_pass = 'Rahul@2026';
-$db_name = 'invest13_sbsindia';
+$db_user = 'sbsmarti_sbsindia';
+$db_pass = 'Sbs@2026';
+$db_name = 'sbsmarti_sbsindia';
 
 $conn = new mysqli($host, $db_user, $db_pass, $db_name);
 

@@ -327,26 +327,52 @@ try {
 
         <!-- Pagination -->
         <?php if ($total_pages > 1): ?>
-        <div class="pagination">
-            <?php 
-            // Reuse GET params for pagination links
-            $query_params = $_GET;
-            unset($query_params['page']);
-            $base_url = 'products.php?' . http_build_query($query_params);
-            $conn_char = !empty($query_params) ? '&' : '';
-            ?>
+        <div class="pagination-wrapper">
+            <div class="pagination">
+                <?php 
+                // Reuse GET params for pagination links
+                $query_params = $_GET;
+                unset($query_params['page']);
+                $base_url = 'products.php?' . http_build_query($query_params);
+                $conn_char = !empty($query_params) ? '&' : '';
+                
+                // Pagination Range logic
+                $range = 2; // Number of pages either side of current
+                $show_first_last = true;
+                ?>
 
-            <?php if($page > 1): ?>
-                <a href="<?php echo $base_url . $conn_char . 'page=' . ($page - 1); ?>" class="page-link prev"><i class="fa-solid fa-angle-left"></i></a>
-            <?php endif; ?>
+                <!-- Prev Button -->
+                <a href="<?php echo ($page > 1) ? $base_url . $conn_char . 'page=' . ($page - 1) : 'javascript:void(0)'; ?>" 
+                   class="page-link prev <?php echo ($page <= 1) ? 'disabled' : ''; ?>" aria-label="Previous Page">
+                    <i class="fa-solid fa-angle-left"></i>
+                </a>
 
-            <?php for($i = 1; $i <= $total_pages; $i++): ?>
-                <a href="<?php echo $base_url . $conn_char . 'page=' . $i; ?>" class="page-link <?php echo $i == $page ? 'active' : ''; ?>"><?php echo $i; ?></a>
-            <?php endfor; ?>
+                <?php 
+                // First Page
+                if ($show_first_last && $page > ($range + 1)) {
+                    echo '<a href="'.$base_url . $conn_char . 'page=1" class="page-link">1</a>';
+                    if ($page > ($range + 2)) echo '<span class="page-dots">...</span>';
+                }
 
-            <?php if($page < $total_pages): ?>
-                <a href="<?php echo $base_url . $conn_char . 'page=' . ($page + 1); ?>" class="page-link next"><i class="fa-solid fa-angle-right"></i></a>
-            <?php endif; ?>
+                // Page numbers
+                for ($i = max(1, $page - $range); $i <= min($total_pages, $page + $range); $i++) {
+                    $active = ($i == $page) ? 'active' : '';
+                    echo '<a href="'.$base_url . $conn_char . 'page=' . $i . '" class="page-link ' . $active . '">' . $i . '</a>';
+                }
+
+                // Last Page
+                if ($show_first_last && $page < ($total_pages - $range)) {
+                    if ($page < ($total_pages - $range - 1)) echo '<span class="page-dots">...</span>';
+                    echo '<a href="'.$base_url . $conn_char . 'page='.$total_pages.'" class="page-link">'.$total_pages.'</a>';
+                }
+                ?>
+
+                <!-- Next Button -->
+                <a href="<?php echo ($page < $total_pages) ? $base_url . $conn_char . 'page=' . ($page + 1) : 'javascript:void(0)'; ?>" 
+                   class="page-link next <?php echo ($page >= $total_pages) ? 'disabled' : ''; ?>" aria-label="Next Page">
+                    <i class="fa-solid fa-angle-right"></i>
+                </a>
+            </div>
         </div>
         <?php endif; ?>
 
