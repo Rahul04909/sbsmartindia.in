@@ -48,7 +48,7 @@ require_once 'database/db_config.php';
                                     }
                                     ?>
                                 </div>
-                                <a href="products.php?brand=<?php echo $brand_id; ?>" class="see-all-brand">See all <?php echo htmlspecialchars($brand_name); ?></a>
+                                <a href="products.php?brand=<?php echo $brand_id; ?>" class="see-all-brand">See all <?php echo htmlspecialchars($brand_name); ?> <i class="fa-solid fa-chevron-right" style="font-size: 10px; margin-left: 5px;"></i></a>
                             </div>
                             <?php
                         }
