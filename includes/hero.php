@@ -1,3 +1,7 @@
+<?php
+// Function to count slides
+$slide_count = 7; // We can see there are 7 slides manually, or we could count if it was dynamic
+?>
 <section class="hero-slider-container">
     <div class="hero-slider-wrapper">
         <!-- Slide 1 -->
@@ -52,18 +56,18 @@
         <i class="fa-solid fa-chevron-right"></i>
     </button>
 
-    <!-- Dots -->
+    <!-- Dots (Dynamically Generated) -->
     <div class="slider-dots">
-        <span class="slider-dot active" onclick="currentSlide(0)"></span>
-        <span class="slider-dot" onclick="currentSlide(1)"></span>
-        <span class="slider-dot" onclick="currentSlide(2)"></span>
+        <?php for($i = 0; $i < $slide_count; $i++): ?>
+            <span class="slider-dot <?php echo $i === 0 ? 'active' : ''; ?>" onclick="currentSlide(<?php echo $i; ?>)"></span>
+        <?php endfor; ?>
     </div>
 </section>
 
 <script>
     let slideIndex = 0;
     const slidesWrapper = document.querySelector('.hero-slider-wrapper');
-    const dots = document.querySelectorAll('.slider-dot');
+    // We select dots inside showSlide to ensure we always have the current list
     const totalSlides = document.querySelectorAll('.hero-slide').length;
     let autoSlideInterval;
 
@@ -79,9 +83,12 @@
         const offset = -slideIndex * 100;
         slidesWrapper.style.transform = `translateX(${offset}%)`;
 
-        // Update dots
+        // Update dots dynamically
+        const dots = document.querySelectorAll('.slider-dot');
         dots.forEach(dot => dot.classList.remove('active'));
-        dots[slideIndex].classList.add('active');
+        if(dots[slideIndex]) {
+            dots[slideIndex].classList.add('active');
+        }
     }
 
     function moveSlide(step) {
