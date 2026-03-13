@@ -73,5 +73,59 @@ $result = $conn->query($sql);
             }
             ?>
         </div>
+
+        <div class="load-more-container">
+            <button id="loadMoreBtn" class="btn-load-more" onclick="loadMoreProducts()">
+                <span>Load More Products</span>
+                <i class="fas fa-spinner fa-spin" style="display: none;"></i>
+            </button>
+        </div>
     </div>
 </section>
+
+<script>
+    let currentOffset = 8;
+    const itemsPerPage = 8;
+    const loadMoreBtn = document.getElementById('loadMoreBtn');
+    const productsGrid = document.querySelector('.products-grid');
+
+    async function loadMoreProducts() {
+        const spinner = loadMoreBtn.querySelector('.fa-spinner');
+        const btnText = loadMoreBtn.querySelector('span');
+
+        // Show loading state
+        loadMoreBtn.disabled = true;
+        spinner.style.display = 'inline-block';
+        btnText.style.opacity = '0.7';
+
+        try {
+            const response = await fetch(`ajax/load-more-products.php?offset=${currentOffset}`);
+            const html = await response.text();
+
+            if (html.trim() !== '') {
+                // Append new products
+                productsGrid.insertAdjacentHTML('beforeend', html);
+                currentOffset += itemsPerPage;
+
+                // Check if we should hide the button (simplistic check: if less than itemsPerPage were returned)
+                // Better check would be a separate count, but this is usually enough for the first pass
+                const tempDiv = document.createElement('div');
+                tempDiv.innerHTML = html;
+                if (tempDiv.querySelectorAll('.product-card').length < itemsPerPage) {
+                    loadMoreBtn.style.display = 'none';
+                }
+            } else {
+                // No more products
+                loadMoreBtn.style.display = 'none';
+            }
+        } catch (error) {
+            console.error('Error loading more products:', error);
+            alert('Failed to load more products. Please try again.');
+        } finally {
+            // Restore button state
+            loadMoreBtn.disabled = false;
+            spinner.style.display = 'none';
+            btnText.style.opacity = '1';
+        }
+    }
+</script>
