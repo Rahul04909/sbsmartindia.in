@@ -51,6 +51,8 @@ $canonical_url = 'https://' . $_SERVER['HTTP_HOST'] . '/blog-details.php?slug=' 
     <meta name="description" content="<?php echo htmlspecialchars($meta_desc); ?>">
     <meta name="keywords" content="<?php echo htmlspecialchars($meta_keywords); ?>">
     <link rel="canonical" href="<?php echo htmlspecialchars($canonical_url); ?>">
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="favicon.png">
     
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="article">
