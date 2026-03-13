@@ -10,11 +10,30 @@ $current_page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
 if ($current_page < 1) $current_page = 1;
 $offset = ($current_page - 1) * $items_per_page;
 
+// Filter setup
+$brand_id = isset($_GET['brand_id']) ? (int)$_GET['brand_id'] : 0;
+$category_id = isset($_GET['category_id']) ? (int)$_GET['category_id'] : 0;
+$sub_category_id = isset($_GET['sub_category_id']) ? (int)$_GET['sub_category_id'] : 0;
+
+$where_clauses = [];
+if ($brand_id > 0) $where_clauses[] = "p.brand_id = $brand_id";
+if ($category_id > 0) $where_clauses[] = "p.category_id = $category_id";
+if ($sub_category_id > 0) $where_clauses[] = "p.sub_category_id = $sub_category_id";
+
+$where_sql = count($where_clauses) > 0 ? "WHERE " . implode(" AND ", $where_clauses) : "";
+
 // Get total count for pagination
-$total_sql = "SELECT COUNT(*) as total FROM products";
+$total_sql = "SELECT COUNT(*) as total FROM products p $where_sql";
 $total_result = $conn->query($total_sql);
 $total_rows = $total_result->fetch_assoc()['total'];
 $total_pages = ceil($total_rows / $items_per_page);
+
+// Current URL for pagination persistence
+$query_string = $_GET;
+unset($query_string['page']);
+$base_pagination_url = '?' . http_build_query($query_string);
+if (count($query_string) > 0) $base_pagination_url .= '&';
+else $base_pagination_url = '?';
 ?>
 
 <div class="admin-content">
@@ -66,6 +85,62 @@ $total_pages = ceil($total_rows / $items_per_page);
         </div>
     </div>
 
+    <!-- Filters Section -->
+    <div class="table-card" style="margin-bottom: 20px; padding: 20px;">
+        <form action="" method="GET" style="display: flex; gap: 15px; align-items: flex-end; flex-wrap: wrap;" id="filterForm">
+            <div style="flex: 1; min-width: 180px;">
+                <label style="display: block; margin-bottom: 8px; font-weight: 500;">Brand</label>
+                <select name="brand_id" id="brand_id" style="width: 100%; padding: 8px; border: 1px solid #ddd; border-radius: 4px;">
+                    <option value="">All Brands</option>
+                    <?php
+                    $brands_res = $conn->query("SELECT id, name FROM brands ORDER BY name ASC");
+                    while($b = $brands_res->fetch_assoc()) {
+                        $selected = ($brand_id == $b['id']) ? 'selected' : '';
+                        echo "<option value='{$b['id']}' $selected>".htmlspecialchars($b['name'])."</option>";
+                    }
+                    ?>
+                </select>
+            </div>
+            <div style="flex: 1; min-width: 180px;">
+                <label style="display: block; margin-bottom: 8px; font-weight: 500;">Category</label>
+                <select name="category_id" id="category_id" style="width: 100%; padding: 8px; border: 1px solid #ddd; border-radius: 4px;">
+                    <option value="">All Categories</option>
+                    <?php
+                    $cat_where = $brand_id > 0 ? "WHERE brand_id = $brand_id" : "";
+                    $cats_res = $conn->query("SELECT id, name FROM product_categories $cat_where ORDER BY name ASC");
+                    while($c = $cats_res->fetch_assoc()) {
+                        $selected = ($category_id == $c['id']) ? 'selected' : '';
+                        echo "<option value='{$c['id']}' $selected>".htmlspecialchars($c['name'])."</option>";
+                    }
+                    ?>
+                </select>
+            </div>
+            <div style="flex: 1; min-width: 180px;">
+                <label style="display: block; margin-bottom: 8px; font-weight: 500;">Sub Category</label>
+                <select name="sub_category_id" id="sub_category_id" style="width: 100%; padding: 8px; border: 1px solid #ddd; border-radius: 4px;">
+                    <option value="">All Sub Categories</option>
+                    <?php
+                    if ($category_id > 0) {
+                        $scs_res = $conn->query("SELECT id, name FROM product_sub_categories WHERE category_id = $category_id ORDER BY name ASC");
+                        while($sc = $scs_res->fetch_assoc()) {
+                            $selected = ($sub_category_id == $sc['id']) ? 'selected' : '';
+                            echo "<option value='{$sc['id']}' $selected>".htmlspecialchars($sc['name'])."</option>";
+                        }
+                    }
+                    ?>
+                </select>
+            </div>
+            <div style="display: flex; gap: 10px;">
+                <button type="submit" class="btn-admin" style="padding: 8px 15px;">
+                    <i class="fas fa-filter"></i> Filter
+                </button>
+                <a href="index.php" class="btn-admin" style="padding: 8px 15px; background: #f8f9fa; color: #333; border: 1px solid #ddd; text-decoration: none;">
+                    <i class="fas fa-undo"></i> Reset
+                </a>
+            </div>
+        </form>
+    </div>
+
     <div class="table-card">
         <div class="table-responsive">
             <table class="wp-list-table">
@@ -88,6 +163,7 @@ $total_pages = ceil($total_rows / $items_per_page);
                             LEFT JOIN product_sub_categories sc ON p.sub_category_id = sc.id 
                             LEFT JOIN product_categories c ON p.category_id = c.id 
                             LEFT JOIN brands b ON p.brand_id = b.id
+                            $where_sql
                             ORDER BY p.id DESC
                             LIMIT $items_per_page OFFSET $offset";
                     $result = $conn->query($sql);
@@ -166,7 +242,7 @@ $total_pages = ceil($total_rows / $items_per_page);
             </div>
             <ul class="pagination">
                 <?php if ($current_page > 1): ?>
-                    <li><a href="?page=<?php echo $current_page - 1; ?>" class="pagination-link"><i class="fas fa-chevron-left"></i></a></li>
+                    <li><a href="<?php echo $base_pagination_url; ?>page=<?php echo $current_page - 1; ?>" class="pagination-link"><i class="fas fa-chevron-left"></i></a></li>
                 <?php endif; ?>
 
                 <?php
@@ -174,23 +250,23 @@ $total_pages = ceil($total_rows / $items_per_page);
                 $end_page = min($total_pages, $current_page + 2);
 
                 if ($start_page > 1) {
-                    echo '<li><a href="?page=1" class="pagination-link">1</a></li>';
+                    echo '<li><a href="'.$base_pagination_url.'page=1" class="pagination-link">1</a></li>';
                     if ($start_page > 2) echo '<li><span class="pagination-link disabled">...</span></li>';
                 }
 
                 for ($i = $start_page; $i <= $end_page; $i++) {
                     $active = ($i == $current_page) ? 'active' : '';
-                    echo '<li><a href="?page=' . $i . '" class="pagination-link ' . $active . '">' . $i . '</a></li>';
+                    echo '<li><a href="'.$base_pagination_url.'page=' . $i . '" class="pagination-link ' . $active . '">' . $i . '</a></li>';
                 }
 
                 if ($end_page < $total_pages) {
                     if ($end_page < $total_pages - 1) echo '<li><span class="pagination-link disabled">...</span></li>';
-                    echo '<li><a href="?page=' . $total_pages . '" class="pagination-link">' . $total_pages . '</a></li>';
+                    echo '<li><a href="'.$base_pagination_url.'page=' . $total_pages . '" class="pagination-link">' . $total_pages . '</a></li>';
                 }
                 ?>
 
                 <?php if ($current_page < $total_pages): ?>
-                    <li><a href="?page=<?php echo $current_page + 1; ?>" class="pagination-link"><i class="fas fa-chevron-right"></i></a></li>
+                    <li><a href="<?php echo $base_pagination_url; ?>page=<?php echo $current_page + 1; ?>" class="pagination-link"><i class="fas fa-chevron-right"></i></a></li>
                 <?php endif; ?>
             </ul>
         </div>
@@ -199,3 +275,30 @@ $total_pages = ceil($total_rows / $items_per_page);
 </div>
 
 <?php include '../includes/footer.php'; ?>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+$(document).ready(function() {
+    // Brand change -> Filter categories (Optional refinement, but let's keep it simple for now as requested)
+    // For now, let's just implement category change -> subcategory loading which is already working in add-product.php
+
+    $('#category_id').change(function() {
+        var category_id = $(this).val();
+        if(category_id) {
+            $.ajax({
+                url: 'get_sub_categories.php',
+                type: 'POST',
+                data: {category_id: category_id},
+                success: function(response) {
+                    $('#sub_category_id').html(response.replace('Select Sub Category', 'All Sub Categories'));
+                }
+            });
+        } else {
+            $('#sub_category_id').html('<option value="">All Sub Categories</option>');
+        }
+    });
+
+    // Optional: On Brand change, we could filter categories, but it requires categories to be brand-linked correctly.
+    // Given the complexity of dynamic dropdowns, let's ensure subcategory is at least dynamic.
+});
+</script>
