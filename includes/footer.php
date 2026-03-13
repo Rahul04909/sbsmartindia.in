@@ -55,11 +55,11 @@
                     </li>
                     <li>
                         <i class="fa-solid fa-phone"></i>
-                        <span>(+91) 129 4150 555</span>
+                        <span>+91 98995 98955</span>
                     </li>
                     <li>
                         <i class="fa-solid fa-envelope"></i>
-                        <span>marcom.sbsyscon@gmail.com</span>
+                        <span>info@sbsyscon.in</span>
                     </li>
                     <li>
                         <i class="fa-solid fa-clock highlight-icon"></i>

@@ -4,8 +4,8 @@
     <div class="top-bar">
         <div class="container">
             <div class="top-left-info">
-                <span><i class="fa-regular fa-envelope"></i> marcom.sbsyscon@gmail.com</span>
-                <span><i class="fa-solid fa-phone"></i> (+91) 129 4150 555</span>
+                <span><i class="fa-regular fa-envelope"></i> info@sbsyscon.in</span>
+                <span><i class="fa-solid fa-phone"></i> +91 98995 98955</span>
             </div>
             <nav class="top-right-menu">
                 <ul>
