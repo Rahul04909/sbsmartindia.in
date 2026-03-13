@@ -18,6 +18,30 @@
                 <img src="asstes/hero/slider_siemens (1).png" alt="Siemens Automation">
             </a>
         </div>
+        <!-- Slide 4 -->
+        <div class="hero-slide">
+            <a href="#">
+                <img src="asstes/hero/slider_asco.jpg" alt="Siemens Automation">
+            </a>
+        </div>
+        <!-- Slide 5 -->
+        <div class="hero-slide">
+            <a href="#">
+                <img src="asstes/hero/slider_default.jpg" alt="Siemens Automation">
+            </a>
+        </div>
+        <!-- Slide 6 -->
+        <div class="hero-slide">
+            <a href="#">
+                <img src="asstes/hero/slider_flender.jpg" alt="Siemens Automation">
+            </a>
+        </div>
+        <!-- Slide 7 -->
+        <div class="hero-slide">
+            <a href="#">
+                <img src="asstes/hero/slider_innomotics.jpg" alt="Siemens Automation">
+            </a>
+        </div>
     </div>
 
     <!-- Navigation Arrows -->
