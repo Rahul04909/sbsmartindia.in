@@ -12,7 +12,8 @@ if ($filterType === 'cat') $filterType = 'brand'; // redirect cat -> brand logic
 $filterType = in_array($filterType, ['brand', 'sub'], true) ? $filterType : 'brand';
 
 if ($filterId <= 0) {
-    die("<div style='padding:50px; text-align:center;'><h1>Invalid ID</h1><p>Invalid brand or subcategory ID.</p></div>");
+    header("Location: products.php");
+    exit();
 }
 
 // --- Configuration ---

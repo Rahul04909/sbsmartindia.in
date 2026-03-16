@@ -96,7 +96,7 @@
                             $nb_name = $nav_brand['name'];
                 ?>
                             <li class="nav-item">
-                                <a href="<?php echo isset($url_prefix) ? $url_prefix : ''; ?>products.php?brand=<?php echo urlencode($nav_brand['id']); ?>" class="nav-link brand-nav-btn">
+                                <a href="<?php echo isset($url_prefix) ? $url_prefix : ''; ?>brand.php?id=<?php echo urlencode($nav_brand['id']); ?>&type=brand" class="nav-link brand-nav-btn">
                                     <span><?php echo htmlspecialchars($nb_name); ?></span>
                                 </a>
                                 
