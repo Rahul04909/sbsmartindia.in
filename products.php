@@ -128,6 +128,16 @@ try {
     <link rel="stylesheet" href="assets/css/brand-menu.css">
     <link rel="stylesheet" href="assets/css/header-menu.css">
     <link rel="stylesheet" href="assets/css/shop.css">
+    <style>
+        .filter-header-content {
+            margin-bottom: 40px;
+            padding: 30px;
+            background: #fff;
+            border-radius: 8px;
+            border: 1px solid #eee;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+    </style>
 </head>
 <body>
 
@@ -261,6 +271,70 @@ try {
                 </form>
             </div>
         </div>
+
+        <?php 
+        // Special content for Flender (Brand ID 3)
+        $show_flender_content = false;
+        if (isset($_GET['brand'])) {
+            if (is_array($_GET['brand'])) {
+                if (in_array(3, array_map('intval', $_GET['brand']))) {
+                    $show_flender_content = true;
+                }
+            } elseif (intval($_GET['brand']) === 3) {
+                $show_flender_content = true;
+            }
+        }
+
+        if ($show_flender_content): 
+        ?>
+            <div class="filter-header-content" style="margin-top: 20px;">
+                <div style="text-align: center; margin-bottom: 30px;">
+                    <h2 style="font-weight: 700; color: #333; margin-bottom: 15px;">Flender – Engineered Drive Technology</h2>
+                    <div style="width: 80px; height: 4px; background: #004aad; margin: 0 auto;"></div>
+                </div>
+
+                <div style="font-size: 1.1rem; line-height: 1.7; color: #555; margin-bottom: 30px;">
+                    <p style="margin-bottom: 20px;">
+                        Flender is a global leader in mechanical and electrical drive technology, known worldwide for its highly reliable, efficient, and application-engineered gearbox solutions. With decades of engineering excellence, Flender products are designed to perform in the most demanding industrial environments across sectors such as cement, steel, power, mining, oil & gas, material handling, and infrastructure.
+                    </p>
+                    <p style="margin-bottom: 20px;">
+                        <strong>Flender gearboxes are not standard off-the-shelf products.</strong>
+                        They are application-specific solutions, engineered based on load conditions, duty cycles, mounting positions, environmental factors, and lifecycle expectations — ensuring maximum uptime, efficiency, and long service life.
+                    </p>
+                </div>
+
+                <div style="background: #f1f3f6; padding: 25px; border-radius: 6px; margin-bottom: 30px; border-left: 5px solid #004aad;">
+                    <h3 style="font-size: 1.2rem; font-weight: 700; margin-bottom: 10px; color: #333;"><i class="fas fa-check-circle" style="color: #004aad; margin-right: 10px;"></i>Authorized Partner</h3>
+                    <p style="margin: 0; color: #444;">
+                        <strong>S.B. Syscon Pvt. Ltd.</strong> is an Authorized Partner for Flender Gearboxes.
+                        All Flender solutions offered through SBS are designed and validated with direct support from the Flender backend technical team, ensuring correct selection, compliance with application requirements, and long-term operational reliability.
+                    </p>
+                </div>
+
+                <div style="background: #fff3cd; border: 1px solid #ffeeba; padding: 20px; border-radius: 6px; margin-bottom: 40px; display: flex; gap: 20px; align-items: flex-start;">
+                    <i class="fas fa-info-circle" style="color: #856404; font-size: 1.5rem; margin-top: 3px;"></i>
+                    <div>
+                        <h4 style="margin: 0 0 10px 0; color: #856404; font-weight: 700;">Assisted Support Required</h4>
+                        <p style="margin: 0; color: #856404;">
+                            Due to the engineering-driven nature of Flender products, we require detailed technical inputs before recommending or quoting a solution. Hence, Flender enquiries are handled through Assisted Support rather than direct online checkout.
+                        </p>
+                    </div>
+                </div>
+
+                <div style="text-align: center; border-top: 1px solid #eee; padding-top: 30px;">
+                    <h3 style="font-weight: 700; margin-bottom: 25px;">Connect with our Flender Experts</h3>
+                    <div style="display: flex; justify-content: center; flex-wrap: wrap; gap: 20px; margin-bottom: 25px;">
+                        <a href="mailto:marcom.sbsyscon@gmail.com" class="btn-view" style="padding: 12px 25px; background: #333; color: #fff; width: auto; display: inline-block;">
+                            <i class="fas fa-envelope" style="margin-right: 8px;"></i> marcom.sbsyscon@gmail.com
+                        </a>
+                        <a href="tel:+917506943307" class="btn-view" style="padding: 12px 25px; background: #004aad; color: #fff; width: auto; display: inline-block;">
+                            <i class="fas fa-phone" style="margin-right: 8px;"></i> +91-75069-43307
+                        </a>
+                    </div>
+                    <p style="color: #777; font-size: 0.9rem;">Our team will work closely with Flender’s technical experts to study your application and deliver the most optimized, reliable, and future-ready drive solution.</p>
+                </div>
+            </div>
+        <?php endif; ?>
 
         <!-- Products -->
         <div class="products-grid">

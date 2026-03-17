@@ -33,13 +33,13 @@
                         
                         if ($brand_logo) {
                             ?>
-                            <a href="brand.php?id=<?php echo $brand_item['id']; ?>&type=brand" class="brand-menu-item" title="<?php echo htmlspecialchars($brand_name); ?>">
+                            <a href="products.php?brand=<?php echo $brand_item['id']; ?>" class="brand-menu-item" title="<?php echo htmlspecialchars($brand_name); ?>">
                                 <img src="<?php echo htmlspecialchars($brand_logo); ?>" alt="<?php echo htmlspecialchars($brand_name); ?>">
                             </a>
                             <?php
                         } else {
                              ?>
-                            <a href="brand.php?id=<?php echo $brand_item['id']; ?>&type=brand" class="brand-menu-item" title="<?php echo htmlspecialchars($brand_name); ?>">
+                            <a href="products.php?brand=<?php echo $brand_item['id']; ?>" class="brand-menu-item" title="<?php echo htmlspecialchars($brand_name); ?>">
                                 <span style="font-weight:bold; color:#555;"><?php echo htmlspecialchars($brand_name); ?></span>
                             </a>
                             <?php
