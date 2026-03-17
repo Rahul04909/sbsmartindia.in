@@ -52,7 +52,7 @@
             </div>
             <div class="service-title">365 Days Help Desk</div>
             <div class="service-desc">
-                <span style="color: #25d366; font-weight: 600;"><i class="fa-brands fa-whatsapp"></i> +91 9999049135</span>
+                <span style="color: #25d366; font-weight: 600;"><i class="fa-brands fa-whatsapp"></i> +91 9899598955</span>
             </div>
         </div>
 

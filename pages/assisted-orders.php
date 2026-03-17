@@ -137,7 +137,7 @@ $page_title = "Assisted Orders - SB Smart India";
                         <div class="contact-icon"><i class="fa-solid fa-envelope"></i></div>
                         <div class="contact-text">
                             <h5>EMAIL SUPPORT</h5>
-                            <p>marcom.sbsyscon@gmail.com</p>
+                            <p>info@sbsyscon.in</p>
                         </div>
                     </div>
 
@@ -146,7 +146,7 @@ $page_title = "Assisted Orders - SB Smart India";
                         <div class="contact-text">
                             <h5>PHONE SUPPORT</h5>
                             <p>+91-9899598955</p>
-                            <small>+91-9999999999 (Alt)</small>
+                            <small>+91-9899598900 (Alt)</small>
                         </div>
                     </div>
 

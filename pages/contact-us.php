@@ -116,11 +116,11 @@ $page_title = "Contact Us - S.B. Syscon Pvt. Ltd.";
         </div>
         <div class="info-item">
             <i class="fa-solid fa-phone"></i>
-            <span>(+91) 129 4150 555</span>
+            <span>+91 98995 98955</span>
         </div>
         <div class="info-item">
             <i class="fa-solid fa-envelope"></i>
-            <span>marcom.sbsyscon@gmail.com</span>
+            <span>info@sbsyscon.in</span>
         </div>
         <div class="info-item">
             <i class="fa-solid fa-clock"></i>
