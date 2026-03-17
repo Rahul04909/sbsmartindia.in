@@ -107,8 +107,20 @@ $page_title = "$filter_name - SB Smart India";
 <div class="container shop-layout" style="display: block;">
     
     <?php 
-    // Special content for Flender (Brand ID 3)
-    if ($filterId === 3 && $filterType === 'brand'): 
+    // Special content for Flender (Brand ID check by name)
+    $is_flender = false;
+    if ($filterType === 'brand' && $filterId > 0) {
+        $check_sql = "SELECT name FROM brands WHERE id = $filterId";
+        $check_res = $conn->query($check_sql);
+        if ($check_res && $check_res->num_rows > 0) {
+            $brand_data = $check_res->fetch_assoc();
+            if (stripos($brand_data['name'], 'Flender') !== false) {
+                $is_flender = true;
+            }
+        }
+    }
+
+    if ($is_flender): 
     ?>
         <div class="filter-header-content">
             <div style="text-align: center; margin-bottom: 30px;">

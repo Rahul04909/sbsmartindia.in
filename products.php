@@ -273,15 +273,21 @@ try {
         </div>
 
         <?php 
-        // Special content for Flender (Brand ID 3)
+        // Special content for Flender (Brand check by name)
         $show_flender_content = false;
         if (isset($_GET['brand'])) {
-            if (is_array($_GET['brand'])) {
-                if (in_array(3, array_map('intval', $_GET['brand']))) {
-                    $show_flender_content = true;
+            $check_brand_ids = is_array($_GET['brand']) ? array_map('intval', $_GET['brand']) : [intval($_GET['brand'])];
+            if (!empty($check_brand_ids)) {
+                $ids_str = implode(',', $check_brand_ids);
+                $b_res = $conn->query("SELECT name FROM brands WHERE id IN ($ids_str)");
+                if ($b_res) {
+                    while($b_row = $b_res->fetch_assoc()) {
+                        if (stripos($b_row['name'], 'Flender') !== false) {
+                            $show_flender_content = true;
+                            break;
+                        }
+                    }
                 }
-            } elseif (intval($_GET['brand']) === 3) {
-                $show_flender_content = true;
             }
         }
 
