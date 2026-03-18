@@ -149,7 +149,7 @@ $page_title = "Shipping & Delivery Policy - S.B. Syscon Pvt. Ltd.";
             <p>If you experience any delays or if a package appears to be lost or damaged in transit, please contact us immediately.</p>
             <div class="alert-custom">
                 <strong>Contact Support:</strong> <br>
-                Email: <a href="mailto:marcom.sbsyscon@gmail.com" style="color:#0d6efd; text-decoration:none;">marcom.sbsyscon@gmail.com</a> <br>
+                Email: <a href="mailto:info@sbsyscon.in" style="color:#0d6efd; text-decoration:none;">info@sbsyscon.in</a> <br>
                 Phone: <a href="tel:+911294150555" style="color:#0d6efd; text-decoration:none;">(+91) 129 4150 555</a>
             </div>
 

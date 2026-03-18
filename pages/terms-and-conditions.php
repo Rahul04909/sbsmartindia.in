@@ -161,7 +161,7 @@ $page_title = "Terms & Conditions - S.B. Syscon Pvt. Ltd.";
 
             <div class="alert-custom">
                 <strong>Questions?</strong> <br>
-                If you have any questions regarding these Terms, please contact us at <a href="mailto:marcom.sbsyscon@gmail.com">marcom.sbsyscon@gmail.com</a>.
+                If you have any questions regarding these Terms, please contact us at <a href="mailto:info@sbsyscon.in">info@sbsyscon.in</a>.
             </div>
         </div>
     </div>

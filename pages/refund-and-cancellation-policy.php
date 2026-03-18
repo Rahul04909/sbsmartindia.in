@@ -168,7 +168,7 @@ $page_title = "Refund & Cancellation Policy - S.B. Syscon Pvt. Ltd.";
             <div class="alert-custom">
                 <strong>Steps to follow:</strong>
                 <ol class="mb-0 mt-2" style="padding-left: 20px;">
-                    <li class="mb-2">Send an email to <a href="mailto:marcom.sbsyscon@gmail.com">marcom.sbsyscon@gmail.com</a> with your Order ID and reason for return.</li>
+                    <li class="mb-2">Send an email to <a href="mailto:info@sbsyscon.in">info@sbsyscon.in</a> with your Order ID and reason for return.</li>
                     <li class="mb-2">Attach clear photos/videos if the item is damaged.</li>
                     <li>Wait for our Return Authorization and shipping instructions.</li>
                 </ol>

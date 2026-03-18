@@ -13,10 +13,10 @@
                     SB Smart is the official e-commerce portal of <strong>S.B. Syscon Pvt. Ltd.</strong>, created to offer a seamless, transparent, and efficient digital buying experience for industrial electrical products.
                 </p>
                 <div class="footer-social">
-                    <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
-                    <a href="#"><i class="fa-brands fa-instagram"></i></a>
-                    <a href="#"><i class="fa-brands fa-linkedin-in"></i></a>
-                    <a href="#"><i class="fa-brands fa-twitter"></i></a>
+                    <a href="https://www.facebook.com/SBSyscon/"><i class="fa-brands fa-facebook-f"></i></a>
+                    <a href="https://www.instagram.com/sbsyscon/"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="https://www.linkedin.com/company/13257253/admin/dashboard/"><i class="fa-brands fa-linkedin-in"></i></a>
+                    <a href="https://twitter.com/sbsyscon"><i class="fa-brands fa-twitter"></i></a>
                 </div>
             </div>
 
