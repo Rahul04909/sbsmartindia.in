@@ -108,6 +108,14 @@
             </a>
         </li>
 
+        <li class="menu-item <?php echo ($page == 'newsletter') ? 'active' : ''; ?>">
+            <a href="<?php echo $url_prefix; ?>newsletter/index.php" class="menu-link">
+                <div class="menu-text">
+                    <i class="fas fa-envelope-open-text"></i> <span>Newsletter Subscribers</span>
+                </div>
+            </a>
+        </li>
+
         <li class="menu-item has-submenu">
             <a href="#" class="menu-link">
                 <div class="menu-text">
