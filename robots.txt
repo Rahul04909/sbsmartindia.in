@@ -36,4 +36,4 @@ Disallow: /admin/
 Disallow: /database/
 Disallow: /vendor/
 Disallow: /ajax/
-Sitemap: https://sbsmart.in
+Sitemap: https://sbsmart.in/sitemap.php
