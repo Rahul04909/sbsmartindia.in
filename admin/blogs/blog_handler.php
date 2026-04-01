@@ -49,19 +49,23 @@ if (isset($_POST['add_blog'])) {
         exit();
     }
 
-    $image_path = null;
+    $image_path = ""; // Initialize as empty string
     if (isset($_FILES['featured_image']) && $_FILES['featured_image']['error'] == 0) {
-        $image_path = uploadImage($_FILES['featured_image'], 'blogs');
+        $uploaded_path = uploadImage($_FILES['featured_image'], 'blogs');
+        if ($uploaded_path) {
+            $image_path = $uploaded_path;
+        }
     }
 
     $sql = "INSERT INTO blogs (category_id, title, slug, content, featured_image, meta_title, meta_description, meta_keywords, schema_markup, status) 
             VALUES ('$category_id', '$title', '$slug', '$content', '$image_path', '$meta_title', '$meta_description', '$meta_keywords', '$schema_markup', '$status')";
 
-    if ($conn->query($sql) === TRUE) {
+    $insert_res = $conn->query($sql);
+    if ($insert_res === TRUE) {
         $_SESSION['success'] = "Blog post added successfully!";
         header("Location: index.php");
     } else {
-        $_SESSION['error'] = "Error adding blog post: " . $conn->error;
+        $_SESSION['error'] = "Database Error: Cannot add blog post. " . $conn->error;
         header("Location: add-blog.php");
     }
     exit();
@@ -117,11 +121,12 @@ if (isset($_POST['update_blog'])) {
             $image_update_sql
             WHERE id='$id'";
 
-    if ($conn->query($sql) === TRUE) {
+    $update_res = $conn->query($sql);
+    if ($update_res === TRUE) {
         $_SESSION['success'] = "Blog post updated successfully!";
         header("Location: index.php");
     } else {
-        $_SESSION['error'] = "Error updating blog post: " . $conn->error;
+        $_SESSION['error'] = "Database Error: Cannot update blog post. " . $conn->error;
         header("Location: edit-blog.php?id=$id");
     }
     exit();
