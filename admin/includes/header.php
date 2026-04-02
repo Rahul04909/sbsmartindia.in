@@ -36,8 +36,73 @@ if (!isset($url_prefix)) $url_prefix = '';
                     <i class="fas fa-bars"></i>
                 </button>
                 <div class="header-search">
-                    <input type="text" placeholder="Search anything...">
+                    <div class="search-input-wrapper">
+                        <i class="fas fa-search search-icon"></i>
+                        <input type="text" id="admin-main-search" placeholder="Search products..." autocomplete="off">
+                        <div id="search-suggestions" class="search-suggestions-dropdown"></div>
+                    </div>
                 </div>
+
+                <script>
+                document.addEventListener('DOMContentLoaded', function() {
+                    const searchInput = document.getElementById('admin-main-search');
+                    const suggestionsContainer = document.getElementById('search-suggestions');
+                    let debounceTimer;
+
+                    searchInput.addEventListener('input', function() {
+                        clearTimeout(debounceTimer);
+                        const query = this.value.trim();
+
+                        if (query.length < 2) {
+                            suggestionsContainer.style.display = 'none';
+                            return;
+                        }
+
+                        debounceTimer = setTimeout(() => {
+                            fetch(`<?php echo $url_prefix; ?>includes/search_suggestions.php?query=${encodeURIComponent(query)}`)
+                                .then(response => response.json())
+                                .then(data => {
+                                    renderSuggestions(data);
+                                })
+                                .catch(error => console.error('Error fetching suggestions:', error));
+                        }, 300);
+                    });
+
+                    function renderSuggestions(data) {
+                        if (data.length === 0) {
+                            suggestionsContainer.innerHTML = '<div class="suggestion-item no-results">No products found</div>';
+                        } else {
+                            let html = '';
+                            data.forEach(item => {
+                                html += `
+                                    <a href="<?php echo $url_prefix; ?>products/edit-product.php?id=${item.id}" class="suggestion-item">
+                                        <img src="${item.image}" alt="${item.title}" class="suggestion-img">
+                                        <div class="suggestion-info">
+                                            <span class="suggestion-title">${item.title}</span>
+                                        </div>
+                                    </a>
+                                `;
+                            });
+                            suggestionsContainer.innerHTML = html;
+                        }
+                        suggestionsContainer.style.display = 'block';
+                    }
+
+                    // Close suggestions when clicking outside
+                    document.addEventListener('click', function(e) {
+                        if (!searchInput.contains(e.target) && !suggestionsContainer.contains(e.target)) {
+                            suggestionsContainer.style.display = 'none';
+                        }
+                    });
+
+                    // Show suggestions again when focusing if not empty
+                    searchInput.addEventListener('focus', function() {
+                        if (this.value.trim().length >= 2 && suggestionsContainer.innerHTML !== '') {
+                            suggestionsContainer.style.display = 'block';
+                        }
+                    });
+                });
+                </script>
             </div>
             
             <div class="header-right">
