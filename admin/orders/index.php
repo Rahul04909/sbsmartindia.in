@@ -35,8 +35,13 @@ $count_res = $conn->query($count_sql);
 $total_rows = $count_res->fetch_assoc()['total'];
 $total_pages = ceil($total_rows / $limit);
 
-// Fetch Orders
-$sql = "SELECT * FROM orders ORDER BY created_at DESC LIMIT $offset, $limit";
+// Fetch Orders with Products
+$sql = "SELECT o.*, GROUP_CONCAT(oi.product_name SEPARATOR ', ') as product_names 
+        FROM orders o 
+        LEFT JOIN order_items oi ON o.id = oi.order_id 
+        GROUP BY o.id 
+        ORDER BY o.created_at DESC 
+        LIMIT $offset, $limit";
 $result = $conn->query($sql);
 ?>
 
@@ -66,6 +71,7 @@ $result = $conn->query($sql);
                         <th>Order ID</th>
                         <th>Date</th>
                         <th>Customer</th>
+                        <th>Products</th>
                         <th>Amount</th>
                         <th>Payment Status</th>
                         <th>Order Status</th>
@@ -97,6 +103,8 @@ $result = $conn->query($sql);
                                     <strong>" . htmlspecialchars($row['customer_name']) . "</strong><br>
                                     <small>" . htmlspecialchars($row['customer_phone']) . "</small>
                                   </td>";
+                            $products = !empty($row['product_names']) ? $row['product_names'] : '<span class="text-muted">N/A</span>';
+                            echo "<td><small>" . htmlspecialchars($products) . "</small></td>";
                             echo "<td>₹" . number_format($row['total_amount'], 2) . "</td>";
                             echo "<td><span class='status-badge $payment_class'>" . $row['payment_status'] . "</span></td>";
                             echo "<td><span class='status-badge $order_class'>" . $row['order_status'] . "</span></td>";
@@ -122,7 +130,7 @@ $result = $conn->query($sql);
                             echo "</tr>";
                         }
                     } else {
-                        echo "<tr><td colspan='9' style='text-align: center; color: var(--text-muted); padding: 30px;'>No orders found.</td></tr>";
+                        echo "<tr><td colspan='10' style='text-align: center; color: var(--text-muted); padding: 30px;'>No orders found.</td></tr>";
                     }
                     ?>
                 </tbody>
