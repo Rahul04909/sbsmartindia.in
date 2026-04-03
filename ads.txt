@@ -1,0 +1,3 @@
+# SB Smart India - ads.txt
+# Placeholder for Google AdSense or other ad providers
+# Example: google.com, pub-0000000000000000, DIRECT, f08c47fec0942fa0

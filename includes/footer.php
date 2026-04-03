@@ -59,7 +59,7 @@
                     </li>
                     <li>
                         <i class="fa-solid fa-envelope"></i>
-                        <span>info@sbsyscon.in</span>
+                        <span>info&#64;sbsyscon&#46;in</span>
                     </li>
                     <li>
                         <i class="fa-solid fa-clock highlight-icon"></i>

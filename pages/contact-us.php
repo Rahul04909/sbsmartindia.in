@@ -120,7 +120,7 @@ $page_title = "Contact Us - S.B. Syscon Pvt. Ltd.";
         </div>
         <div class="info-item">
             <i class="fa-solid fa-envelope"></i>
-            <span>info@sbsyscon.in</span>
+            <span>info&#64;sbsyscon&#46;in</span>
         </div>
         <div class="info-item">
             <i class="fa-solid fa-clock"></i>
