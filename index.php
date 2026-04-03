@@ -6,7 +6,51 @@ session_start();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SB Smart India</title>
+    <title>Industrial Electrical Products Supplier in India | SB Smart</title>
+    <meta name="description" content="SB Smart, the e-commerce portal of S.B. Syscon Pvt. Ltd., offers industrial electrical products and automation solutions with best quality and prices.">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://sbsmart.in/">
+    <meta property="og:title" content="Industrial Electrical Products Supplier in India | SB Smart">
+    <meta property="og:description" content="SB Smart, the e-commerce portal of S.B. Syscon Pvt. Ltd., offers industrial electrical products and automation solutions with best quality and prices.">
+    <meta property="og:image" content="https://sbsmart.in/asstes/logo/logo.png">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://sbsmart.in/">
+    <meta property="twitter:title" content="Industrial Electrical Products Supplier in India | SB Smart">
+    <meta property="twitter:description" content="SB Smart, the e-commerce portal of S.B. Syscon Pvt. Ltd., offers industrial electrical products and automation solutions with best quality and prices.">
+    <meta property="twitter:image" content="https://sbsmart.in/asstes/logo/logo.png">
+
+    <!-- Schema.org Script -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "SB Smart India",
+      "alternateName": "SB Smart",
+      "url": "https://sbsmart.in/",
+      "logo": "https://sbsmart.in/asstes/logo/logo.png",
+      "parentOrganization": {
+        "@type": "Organization",
+        "name": "S.B. Syscon Pvt. Ltd."
+      },
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "telephone": "+91-98995-98955",
+        "contactType": "customer service",
+        "areaServed": "IN",
+        "availableLanguage": "en"
+      },
+      "sameAs": [
+        "https://www.facebook.com/SBSyscon/",
+        "https://www.instagram.com/sbsyscon/",
+        "https://www.linkedin.com/company/13257253/admin/dashboard/",
+        "https://twitter.com/sbsyscon"
+      ]
+    }
+    </script>
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="favicon.png">
     <!-- Font Awesome for Icons -->
