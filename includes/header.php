@@ -1,5 +1,14 @@
 <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
 <header>
+    <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-3DPDEJ23ZL"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-3DPDEJ23ZL');
+</script>
     <!-- Top Bar -->
     <div class="top-bar">
         <div class="container">
