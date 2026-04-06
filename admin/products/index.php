@@ -39,9 +39,14 @@ else $base_pagination_url = '?';
 <div class="admin-content">
     <div class="page-header">
         <h1 class="page-title">Products</h1>
-        <a href="add-product.php" class="btn-admin">
-            <i class="fas fa-plus"></i> Add New Product
-        </a>
+        <div style="display: flex; gap: 10px;">
+            <button type="button" id="bulkDeleteBtn" class="btn-admin" style="background-color: #d63638; border-color: #d63638; display: none;">
+                <i class="fas fa-trash"></i> Bulk Delete (<span id="selectedCount">0</span>)
+            </button>
+            <a href="add-product.php" class="btn-admin">
+                <i class="fas fa-plus"></i> Add New Product
+            </a>
+        </div>
     </div>
 
     <!-- Feedback Messages -->
@@ -146,6 +151,7 @@ else $base_pagination_url = '?';
             <table class="wp-list-table">
                 <thead>
                     <tr>
+                        <th width="40"><input type="checkbox" id="selectAll"></th>
                         <th width="80">Image</th>
                         <th>Product Name</th>
                         <th>Category</th>
@@ -165,8 +171,12 @@ else $base_pagination_url = '?';
                             LEFT JOIN brands b ON p.brand_id = b.id
                             $where_sql
                             ORDER BY p.id DESC
-                            LIMIT $items_per_page OFFSET $offset";
+                            LIMIT $offset, $items_per_page";
                     $result = $conn->query($sql);
+                    
+                    // Current params for persistence
+                    $current_params = http_build_query($_GET);
+                    $persistence_suffix = !empty($current_params) ? '&' . $current_params : '';
 
                     if ($result->num_rows > 0) {
                         while($row = $result->fetch_assoc()) {
@@ -216,10 +226,10 @@ else $base_pagination_url = '?';
                                 <td><span class="status-badge <?php echo $status_class; ?>"><?php echo $status_text; ?></span></td>
                                 <td>
                                     <div class="action-buttons">
-                                        <a href="edit-product.php?id=<?php echo $row['id']; ?>" class="btn-action btn-edit" title="Edit">
+                                        <a href="edit-product.php?id=<?php echo $row['id']; ?><?php echo $persistence_suffix; ?>" class="btn-action btn-edit" title="Edit">
                                             <i class="fas fa-edit"></i> Edit
                                         </a>
-                                        <a href="product_handler.php?delete=<?php echo $row['id']; ?>" class="btn-action btn-delete" title="Delete" onclick="return confirm('Are you sure you want to delete this product?');">
+                                        <a href="product_handler.php?delete=<?php echo $row['id']; ?><?php echo $persistence_suffix; ?>" class="btn-action btn-delete" title="Delete" onclick="return confirm('Are you sure you want to delete this product?');">
                                             <i class="fas fa-trash"></i> Delete
                                         </a>
                                     </div>
@@ -228,7 +238,7 @@ else $base_pagination_url = '?';
                             <?php
                         }
                     } else {
-                        echo "<tr><td colspan='8' style='text-align: center; color: var(--text-muted); padding: 20px;'>No products found.</td></tr>";
+                        echo "<tr><td colspan='9' style='text-align: center; color: var(--text-muted); padding: 20px;'>No products found.</td></tr>";
                     }
                     ?>
                 </tbody>
@@ -279,10 +289,51 @@ else $base_pagination_url = '?';
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
 $(document).ready(function() {
-    // Brand change -> Filter categories (Optional refinement, but let's keep it simple for now as requested)
-    // For now, let's just implement category change -> subcategory loading which is already working in add-product.php
+    // Bulk Delete Logic
+    $('#selectAll').change(function() {
+        $('.product-checkbox').prop('checked', $(this).is(':checked'));
+        updateBulkDeleteVisibility();
+    });
 
-    $('#category_id').change(function() {
+    $(document).on('change', '.product-checkbox', function() {
+        updateBulkDeleteVisibility();
+    });
+
+    function updateBulkDeleteVisibility() {
+        const selectedCount = $('.product-checkbox:checked').length;
+        $('#selectedCount').text(selectedCount);
+        if (selectedCount > 0) {
+            $('#bulkDeleteBtn').fadeIn();
+        } else {
+            $('#bulkDeleteBtn').fadeOut();
+        }
+    }
+
+    $('#bulkDeleteBtn').click(function() {
+        if (confirm('Are you sure you want to delete ' + $('.product-checkbox:checked').length + ' selected products? This action cannot be undone.')) {
+            const selectedIds = [];
+            $('.product-checkbox:checked').each(function() {
+                selectedIds.push($(this).val());
+            });
+
+            const form = $('<form action="product_handler.php" method="POST"></form>');
+            form.append('<input type="hidden" name="bulk_delete" value="1">');
+            selectedIds.forEach(id => {
+                form.append('<input type="hidden" name="product_ids[]" value="' + id + '">');
+            });
+            
+            // Add current params for persistence
+            const params = new URLSearchParams(window.location.search);
+            params.forEach((value, key) => {
+                form.append('<input type="hidden" name="redirect_' + key + '" value="' + value + '">');
+            });
+
+            $('body').append(form);
+            form.submit();
+        }
+    });
+
+    // Sub-category loading...
         var category_id = $(this).val();
         if(category_id) {
             $.ajax({

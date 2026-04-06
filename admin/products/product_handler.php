@@ -8,6 +8,25 @@ if (!isset($_SESSION['admin_logged_in']) || $_SESSION['admin_logged_in'] !== tru
     exit();
 }
 
+// Redirect Helper Functions
+function getRedirectUrl($default = 'index.php') {
+    $params = [];
+    foreach ($_REQUEST as $key => $value) {
+        if (strpos($key, 'redirect_') === 0 && !empty($value)) {
+            $params[str_replace('redirect_', '', $key)] = $value;
+        }
+    }
+    // For GET-based actions where params are in URL
+    foreach (['page', 'brand_id', 'category_id', 'sub_category_id'] as $std_param) {
+        if (!isset($params[$std_param]) && isset($_GET[$std_param])) {
+            $params[$std_param] = $_GET[$std_param];
+        }
+    }
+    
+    if (empty($params)) return $default;
+    return 'index.php?' . http_build_query($params);
+}
+
 // Function to handle image upload
 function uploadImage($file, $folder) {
     // Correct path relative to where this script is located (admin/products/)
@@ -93,7 +112,7 @@ if (isset($_POST['add_product'])) {
     } else {
         $_SESSION['error'] = "Error: " . $sql . "<br>" . $conn->error;
     }
-    header("Location: index.php");
+    header("Location: " . getRedirectUrl());
     exit();
 }
 
@@ -183,7 +202,7 @@ if (isset($_POST['update_product'])) {
     } else {
         $_SESSION['error'] = "Error updating product: " . $conn->error;
     }
-    header("Location: index.php");
+    header("Location: " . getRedirectUrl());
     exit();
 }
 
@@ -214,7 +233,41 @@ if (isset($_GET['delete'])) {
     } else {
         $_SESSION['error'] = "Error deleting product: " . $conn->error;
     }
-    header("Location: index.php");
+    header("Location: " . getRedirectUrl());
+    exit();
+}
+
+// Handle Bulk Delete
+if (isset($_POST['bulk_delete']) && isset($_POST['product_ids'])) {
+    $ids = $_POST['product_ids'];
+    $success_count = 0;
+    
+    foreach ($ids as $id) {
+        $id = (int)$id;
+        
+        // Get images
+        $result = $conn->query("SELECT featured_image FROM products WHERE id=$id");
+        if ($result && $row = $result->fetch_assoc()) {
+            if ($row['featured_image'] && file_exists("../../" . $row['featured_image'])) {
+                unlink("../../" . $row['featured_image']);
+            }
+        }
+        
+        // Gallery images
+        $gal_result = $conn->query("SELECT image_path FROM product_images WHERE product_id=$id");
+        while ($gal_row = $gal_result->fetch_assoc()) {
+            if ($gal_row['image_path'] && file_exists("../../" . $gal_row['image_path'])) {
+                unlink("../../" . $gal_row['image_path']);
+            }
+        }
+        
+        if ($conn->query("DELETE FROM products WHERE id=$id")) {
+            $success_count++;
+        }
+    }
+    
+    $_SESSION['success'] = "$success_count products deleted successfully.";
+    header("Location: " . getRedirectUrl());
     exit();
 }
 

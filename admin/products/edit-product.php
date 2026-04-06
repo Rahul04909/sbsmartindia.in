@@ -27,15 +27,24 @@ $gallery_res = $conn->query($gallery_sql);
 ?>
 
 <div class="admin-content">
+    <?php 
+    $current_params = $_GET;
+    unset($current_params['id']);
+    $persistence_query = http_build_query($current_params);
+    $back_url = "index.php" . (!empty($persistence_query) ? "?" . $persistence_query : "");
+    ?>
     <div class="page-header">
         <h1 class="page-title">Edit Product: <?php echo htmlspecialchars($product['title']); ?></h1>
-        <a href="index.php" class="btn-admin" style="background-color: #646970; border-color: #646970;">
+        <a href="<?php echo $back_url; ?>" class="btn-admin" style="background-color: #646970; border-color: #646970;">
             <i class="fas fa-arrow-left"></i> Back to Products
         </a>
     </div>
 
     <form action="product_handler.php" method="POST" enctype="multipart/form-data" id="productForm">
         <input type="hidden" name="product_id" value="<?php echo $id; ?>">
+        <?php foreach($current_params as $key => $val): ?>
+            <input type="hidden" name="redirect_<?php echo htmlspecialchars($key); ?>" value="<?php echo htmlspecialchars($val); ?>">
+        <?php endforeach; ?>
         
         <div class="charts-row">
             <!-- Left Column -->
