@@ -333,7 +333,7 @@ $(document).ready(function() {
         }
     });
 
-    // Sub-category loading...
+    $('#category_id').change(function() {
         var category_id = $(this).val();
         if(category_id) {
             $.ajax({
@@ -348,8 +348,5 @@ $(document).ready(function() {
             $('#sub_category_id').html('<option value="">All Sub Categories</option>');
         }
     });
-
-    // Optional: On Brand change, we could filter categories, but it requires categories to be brand-linked correctly.
-    // Given the complexity of dynamic dropdowns, let's ensure subcategory is at least dynamic.
 });
 </script>
