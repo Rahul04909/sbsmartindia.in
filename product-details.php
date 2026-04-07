@@ -372,14 +372,18 @@ if ($product_id > 0) {
                 btn.disabled = false;
             }
         });
-    }
-    </script>
-        <?php
+        }
+        ?>
+    <?php
     } else {
-        echo "<div class='container' style='padding: 100px; text-align: center;'><h2>Product not found</h2><a href='index.php' class='btn-primary'>Go Home</a></div>";
+        // Redirect to 404 if product not found or inactive
+        header("Location: 404.php");
+        exit();
     }
 } else {
-    echo "<div class='container' style='padding: 100px; text-align: center;'><h2>Invalid Product ID</h2><a href='index.php' class='btn-primary'>Go Home</a></div>";
+    // Redirect to 404 if invalid ID
+    header("Location: 404.php");
+    exit();
 }
 ?>
 

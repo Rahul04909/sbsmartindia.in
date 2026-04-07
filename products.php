@@ -32,7 +32,7 @@ try {
     }
 
     // 2. Build Query based on GET params
-    $where_clauses = ["1=1"];
+    $where_clauses = ["status = 1"];
 
     // Filter by Brand
     if (isset($_GET['brand']) && !empty($_GET['brand'])) {

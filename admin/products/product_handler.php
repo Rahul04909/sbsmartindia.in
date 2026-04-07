@@ -288,5 +288,21 @@ if (isset($_GET['delete_image'])) {
     exit();
 }
 
+
+// Handle Status Toggle (AJAX)
+if (isset($_POST['toggle_status'])) {
+    header('Content-Type: application/json');
+    $id = (int)$_POST['product_id'];
+    $status = (int)$_POST['status'];
+    
+    $sql = "UPDATE products SET status = $status WHERE id = $id";
+    if ($conn->query($sql) === TRUE) {
+        echo json_encode(['success' => true]);
+    } else {
+        echo json_encode(['success' => false, 'message' => $conn->error]);
+    }
+    exit();
+}
+
 $conn->close();
 ?>

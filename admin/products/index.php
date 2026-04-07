@@ -36,6 +36,28 @@ if (count($query_string) > 0) $base_pagination_url .= '&';
 else $base_pagination_url = '?';
 ?>
 
+<style>
+    .status-badge {
+        display: inline-block;
+        padding: 4px 10px;
+        border-radius: 4px;
+        font-size: 13px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.2s;
+        user-select: none;
+        border: 1px solid transparent;
+    }
+    .status-active { background: #edfaef; color: #00a32a; border-color: #ccf0d1; }
+    .status-inactive { background: #fce8e8; color: #d63638; border-color: #f7d0d0; }
+    .status-badge:hover {
+        opacity: 0.8 !important;
+        transform: scale(1.02);
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+</style>
+
+
 <div class="admin-content">
     <div class="page-header">
         <h1 class="page-title">Products</h1>
@@ -223,7 +245,13 @@ else $base_pagination_url = '?';
                                         <?php echo $row['stock']; ?>
                                     </span>
                                 </td>
-                                <td><span class="status-badge <?php echo $status_class; ?>"><?php echo $status_text; ?></span></td>
+                                <td>
+                                    <span class="status-badge toggle-status <?php echo $status_class; ?>" 
+                                          data-id="<?php echo $row['id']; ?>" 
+                                          data-status="<?php echo $row['status']; ?>">
+                                        <?php echo $status_text; ?>
+                                    </span>
+                                </td>
                                 <td>
                                     <div class="action-buttons">
                                         <a href="edit-product.php?id=<?php echo $row['id']; ?><?php echo $persistence_suffix; ?>" class="btn-action btn-edit" title="Edit">
@@ -347,6 +375,43 @@ $(document).ready(function() {
         } else {
             $('#sub_category_id').html('<option value="">All Sub Categories</option>');
         }
+    });
+
+    // Toggle Status Logic
+    $('.toggle-status').click(function() {
+        const badge = $(this);
+        const productId = badge.data('id');
+        const currentStatus = badge.data('status');
+        const newStatus = currentStatus == 1 ? 0 : 1;
+        
+        badge.css('opacity', '0.5').css('pointer-events', 'none');
+        
+        $.ajax({
+            url: 'product_handler.php',
+            type: 'POST',
+            data: {
+                toggle_status: 1,
+                product_id: productId,
+                status: newStatus
+            },
+            dataType: 'json',
+            success: function(response) {
+                if (response.success) {
+                    badge.data('status', newStatus);
+                    badge.text(newStatus == 1 ? 'Active' : 'Inactive');
+                    badge.removeClass('status-active status-inactive')
+                         .addClass(newStatus == 1 ? 'status-active' : 'status-inactive');
+                } else {
+                    alert(response.message || 'Error updating status');
+                }
+            },
+            error: function() {
+                alert('Communication error with server');
+            },
+            complete: function() {
+                badge.css('opacity', '1').css('pointer-events', 'auto');
+            }
+        });
     });
 });
 </script>
