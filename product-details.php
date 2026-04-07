@@ -25,11 +25,10 @@ require_once 'database/db_config.php';
         .brand-logo-badge {
             display: inline-block;
             margin-bottom: 15px;
-            background: #fff;
-            padding: 5px 12px;
-            border-radius: 6px;
-            border: 1px solid #eee;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.03);
+            background: transparent;
+            padding: 0;
+            border: none;
+            box-shadow: none;
         }
         .brand-logo-badge img {
             max-height: 45px;
