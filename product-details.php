@@ -21,6 +21,34 @@ require_once 'database/db_config.php';
     <link rel="stylesheet" href="assets/css/brand-menu.css">
     <link rel="stylesheet" href="assets/css/header-menu.css">
     <link rel="stylesheet" href="assets/css/product-details.css">
+    <style>
+        .brand-logo-badge {
+            display: inline-block;
+            margin-bottom: 15px;
+            background: #fff;
+            padding: 5px 12px;
+            border-radius: 6px;
+            border: 1px solid #eee;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.03);
+        }
+        .brand-logo-badge img {
+            max-height: 45px;
+            max-width: 140px;
+            object-fit: contain;
+            display: block;
+        }
+        .brand-name-fallback {
+            display: inline-block;
+            background-color: #eef4ff;
+            color: #004aad;
+            font-size: 13px;
+            font-weight: 600;
+            padding: 4px 12px;
+            border-radius: 4px;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+        }
+    </style>
 </head>
 <body>
 
@@ -38,13 +66,16 @@ if ($product_id > 0) {
     if ($result->num_rows > 0) {
         $product = $result->fetch_assoc();
         
-        // Fetch Brand Name
+        // Fetch Brand details
         $brand_name = '';
+        $brand_logo = '';
         if ($product['brand_id']) {
-            $brand_sql = "SELECT name FROM brands WHERE id = " . $product['brand_id'];
+            $brand_sql = "SELECT name, logo FROM brands WHERE id = " . $product['brand_id'];
             $brand_res = $conn->query($brand_sql);
-            if ($brand_res->num_rows > 0) {
-                $brand_name = $brand_res->fetch_assoc()['name'];
+            if ($brand_res && $brand_res->num_rows > 0) {
+                $brand_data = $brand_res->fetch_assoc();
+                $brand_name = $brand_data['name'];
+                $brand_logo = $brand_data['logo'];
             }
         }
         
@@ -123,7 +154,13 @@ if ($product_id > 0) {
 
                 <!-- Right: Product Info & CTA -->
                 <div class="product-info-col">
-                    <div class="brand-badge"><?php echo htmlspecialchars($brand_name); ?></div>
+                    <?php if ($brand_logo && file_exists($brand_logo)): ?>
+                        <div class="brand-logo-badge">
+                            <img src="<?php echo htmlspecialchars($brand_logo); ?>" alt="<?php echo htmlspecialchars($brand_name); ?> Logo">
+                        </div>
+                    <?php elseif (!empty($brand_name)): ?>
+                        <div class="brand-name-fallback"><?php echo htmlspecialchars($brand_name); ?></div>
+                    <?php endif; ?>
                     <h1 class="product-title"><?php echo htmlspecialchars($product['title']); ?></h1>
                     
                     <div class="rating-row">
