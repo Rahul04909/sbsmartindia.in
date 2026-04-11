@@ -56,48 +56,6 @@ $url_prefix = '';
             padding: 0 20px;
         }
 
-        /* Alphabet Filter Bar */
-        .alphabet-bar {
-            display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
-            gap: 8px;
-            margin-bottom: 40px;
-            padding: 20px;
-            background: white;
-            border-radius: 12px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-            position: sticky;
-            top: 10px;
-            z-index: 100;
-        }
-
-        .alphabet-btn {
-            width: 36px;
-            height: 36px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 8px;
-            text-decoration: none;
-            color: var(--text-dark);
-            font-weight: 600;
-            background: var(--bg-soft);
-            transition: all 0.2s ease;
-            cursor: pointer;
-            border: 1px solid transparent;
-        }
-
-        .alphabet-btn:hover, .alphabet-btn.active {
-            background: var(--brand-primary);
-            color: white;
-            transform: translateY(-2px);
-        }
-
-        .alphabet-btn.disabled {
-            opacity: 0.3;
-            pointer-events: none;
-        }
 
         /* Search Bar */
         .brand-search-row {
@@ -230,8 +188,6 @@ $url_prefix = '';
         @media (max-width: 768px) {
             .brands-hero h1 { font-size: 32px; }
             .brand-grid { grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 15px; }
-            .alphabet-bar { gap: 4px; padding: 10px; }
-            .alphabet-btn { width: 30px; height: 30px; font-size: 13px; }
         }
     </style>
 </head>
@@ -253,16 +209,6 @@ $url_prefix = '';
     </section>
 
     <div class="brands-container">
-        <!-- Alphabet Navigation -->
-        <div class="alphabet-bar">
-            <div class="alphabet-btn active" data-letter="ALL">ALL</div>
-            <?php
-            foreach (range('A', 'Z') as $char) {
-                echo '<div class="alphabet-btn" data-letter="' . $char . '">' . $char . '</div>';
-            }
-            ?>
-            <div class="alphabet-btn" data-letter="0-9">0-9</div>
-        </div>
 
         <div class="brand-grid" id="brandGrid">
             <?php
@@ -305,11 +251,9 @@ $url_prefix = '';
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const searchInput = document.getElementById('brandSearchInput');
-            const alphabetBtns = document.querySelectorAll('.alphabet-btn');
             const brandCards = document.querySelectorAll('.brand-card');
             const brandGrid = document.getElementById('brandGrid');
             
-            let activeLetter = 'ALL';
             let searchQuery = '';
 
             function filterBrands() {
@@ -317,12 +261,9 @@ $url_prefix = '';
                 
                 brandCards.forEach(card => {
                     const name = card.getAttribute('data-name');
-                    const letter = card.getAttribute('data-letter');
-                    
                     const matchesSearch = name.includes(searchQuery);
-                    const matchesLetter = (activeLetter === 'ALL' || letter === activeLetter);
                     
-                    if (matchesSearch && matchesLetter) {
+                    if (matchesSearch) {
                         card.style.display = 'flex';
                         foundAny = true;
                     } else {
@@ -337,7 +278,7 @@ $url_prefix = '';
                         noResultsMsg = document.createElement('div');
                         noResultsMsg.id = 'noResultsMsg';
                         noResultsMsg.className = 'no-brands-found';
-                        noResultsMsg.innerHTML = '<i class="fa-solid fa-magnifying-glass"></i><p>No brands match your search or filter.</p>';
+                        noResultsMsg.innerHTML = '<i class="fa-solid fa-magnifying-glass"></i><p>No brands match your search.</p>';
                         brandGrid.appendChild(noResultsMsg);
                     }
                 } else if (noResultsMsg) {
@@ -349,27 +290,6 @@ $url_prefix = '';
             searchInput.addEventListener('input', (e) => {
                 searchQuery = e.target.value.toLowerCase().trim();
                 filterBrands();
-            });
-
-            // Alphabet Filter Event
-            alphabetBtns.forEach(btn => {
-                btn.addEventListener('click', () => {
-                    alphabetBtns.forEach(b => b.classList.remove('active'));
-                    btn.classList.add('active');
-                    activeLetter = btn.getAttribute('data-letter');
-                    filterBrands();
-                });
-            });
-
-            // Highlight used letters in alphabet bar based on actual brands
-            const usedLetters = new Set();
-            brandCards.forEach(card => usedLetters.add(card.getAttribute('data-letter')));
-            
-            alphabetBtns.forEach(btn => {
-                const letter = btn.getAttribute('data-letter');
-                if (letter !== 'ALL' && !usedLetters.has(letter)) {
-                    btn.classList.add('disabled');
-                }
             });
         });
     </script>
