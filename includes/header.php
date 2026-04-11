@@ -163,7 +163,7 @@
                 ?>
                 <!-- Others Item -->
                 <li class="nav-item">
-                    <a href="<?php echo isset($url_prefix) ? $url_prefix : ''; ?>brands/index.php" class="nav-link brand-nav-btn">
+                    <a href="<?php echo isset($url_prefix) ? $url_prefix : ''; ?>coming-soon.php" class="nav-link brand-nav-btn">
                         <span>OTHERS</span>
                     </a>
                 </li>
