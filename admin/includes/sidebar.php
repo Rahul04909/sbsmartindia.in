@@ -154,7 +154,7 @@
                 <i class="fas fa-chevron-right arrow"></i>
             </a>
             <ul class="submenu">
-                <li><a href="#">General</a></li>
+                <li><a href="<?php echo $url_prefix; ?>settings/general.php">General</a></li>
                 <li><a href="<?php echo $url_prefix; ?>settings/smtp-settings.php">Smtp Settings</a></li>
             </ul>
         </li>
