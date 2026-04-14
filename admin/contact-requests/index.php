@@ -30,157 +30,109 @@ $conn->query($table_check_sql);
 include '../includes/header.php';
 ?>
 
-<style>
-    .contact-card {
-        background: #fff;
-        border: 1px solid #e2e8f0;
-        border-radius: 8px;
-        padding: 20px;
-        margin-bottom: 20px;
-        box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-    }
-    .contact-item-header {
-        display: flex;
-        justify-content: space-between;
-        align-items: flex-start;
-        border-bottom: 1px solid #f1f5f9;
-        padding-bottom: 15px;
-        margin-bottom: 15px;
-    }
-    .contact-info h3 {
-        margin: 0 0 5px 0;
-        color: #1e293b;
-        font-size: 18px;
-    }
-    .contact-meta {
-        font-size: 13px;
-        color: #64748b;
-        display: flex;
-        gap: 15px;
-    }
-    .contact-meta span i {
-        margin-right: 5px;
-        color: #004aad;
-    }
-    .contact-message {
-        background: #f8fafc;
-        padding: 15px;
-        border-radius: 6px;
-        border-left: 4px solid #004aad;
-        font-size: 14px;
-        color: #334155;
-        line-height: 1.6;
-    }
-    .badge-date {
-        background: #f1f5f9;
-        color: #475569;
-        padding: 4px 10px;
-        border-radius: 20px;
-        font-size: 12px;
-        font-weight: 500;
-    }
-    .btn-delete-simple {
-        color: #ef4444;
-        text-decoration: none;
-        font-size: 13px;
-        font-weight: 600;
-    }
-    .btn-delete-simple:hover {
-        text-decoration: underline;
-    }
-</style>
-
 <div class="admin-content">
-    <div class="page-header">
-        <h1 class="page-title">Contact Requests</h1>
-        <p style="color: #64748b; margin-top: 5px;">Manage messages received from the Contact Us form.</p>
+    <div class="page-header" style="display: flex; justify-content: space-between; align-items: center;">
+        <div>
+            <h1 class="page-title">Contact Requests</h1>
+            <p style="color: #64748b; margin-top: 5px;">Manage messages received from the Contact Us form.</p>
+        </div>
     </div>
 
     <!-- Feedback Messages -->
     <?php if (isset($_GET['msg']) && $_GET['msg'] == 'deleted'): ?>
-        <div class="alert alert-success" style="background: #ecfdf5; color: #065f46; padding: 12px; border-radius: 6px; margin-bottom: 20px; border: 1px solid #a7f3d0;">
-            <i class="fas fa-check-circle"></i> Contact request deleted successfully.
+        <div class="alert alert-success" style="background: #edfaef; color: #00a32a; padding: 10px; border-radius: 4px; margin-bottom: 20px;">
+            Contact request deleted successfully.
         </div>
     <?php endif; ?>
     <?php if (isset($error)): ?>
-        <div class="alert alert-error" style="background: #fff1f2; color: #991b1b; padding: 12px; border-radius: 6px; margin-bottom: 20px; border: 1px solid #fecaca;">
-            <i class="fas fa-exclamation-circle"></i> <?php echo $error; ?>
+        <div class="alert alert-error" style="background: #fce8e8; color: #d63638; padding: 10px; border-radius: 4px; margin-bottom: 20px;">
+            <?php echo $error; ?>
         </div>
     <?php endif; ?>
 
-    <div class="requests-list">
-        <?php
-        // Pagination Setup
-        $limit = 10;
-        $page_num = isset($_GET['page']) ? intval($_GET['page']) : 1;
-        $offset = ($page_num - 1) * $limit;
+    <div class="table-card">
+        <div class="table-responsive">
+            <table class="wp-list-table">
+                <thead>
+                    <tr>
+                        <th width="40">ID</th>
+                        <th>Name</th>
+                        <th>Contact Details</th>
+                        <th>Message</th>
+                        <th>Date</th>
+                        <th width="100">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php
+                    // Pagination Setup
+                    $limit = 10;
+                    $page_num = isset($_GET['page']) ? intval($_GET['page']) : 1;
+                    $offset = ($page_num - 1) * $limit;
 
-        // Get Total Count
-        $count_sql = "SELECT COUNT(*) as total FROM contact_requests";
-        $count_res = $conn->query($count_sql);
-        $total_rows = $count_res->fetch_assoc()['total'];
-        $total_pages = ceil($total_rows / $limit);
+                    // Get Total Count
+                    $count_sql = "SELECT COUNT(*) as total FROM contact_requests";
+                    $count_res = $conn->query($count_sql);
+                    $total_rows = $count_res->fetch_assoc()['total'];
+                    $total_pages = ceil($total_rows / $limit);
 
-        // Fetch Data
-        $sql = "SELECT * FROM contact_requests ORDER BY created_at DESC LIMIT $limit OFFSET $offset";
-        $result = $conn->query($sql);
+                    // Fetch Data
+                    $sql = "SELECT * FROM contact_requests ORDER BY created_at DESC LIMIT $limit OFFSET $offset";
+                    $result = $conn->query($sql);
 
-        if ($result->num_rows > 0) {
-            while($row = $result->fetch_assoc()) {
-                ?>
-                <div class="contact-card">
-                    <div class="contact-item-header">
-                        <div class="contact-info">
-                            <h3><?php echo htmlspecialchars($row['name']); ?></h3>
-                            <div class="contact-meta">
-                                <span><i class="fas fa-envelope"></i> <?php echo htmlspecialchars($row['email']); ?></span>
-                                <span><i class="fas fa-phone"></i> <?php echo htmlspecialchars($row['phone']); ?></span>
-                            </div>
-                        </div>
-                        <div style="text-align: right;">
-                            <span class="badge-date"><?php echo date('d M Y, h:i A', strtotime($row['created_at'])); ?></span>
-                            <div style="margin-top: 10px;">
-                                <a href="index.php?delete=<?php echo $row['id']; ?>" class="btn-delete-simple" onclick="return confirm('Are you sure you want to delete this message?');">
-                                    <i class="fas fa-trash-alt"></i> Delete Message
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="contact-message">
-                        <strong>Message:</strong><br>
-                        <?php echo nl2br(htmlspecialchars($row['message'])); ?>
-                    </div>
-                </div>
-                <?php
-            }
-        } else {
-            echo "<div style='text-align: center; padding: 60px; background: #fff; border-radius: 8px; border: 1px dashed #cbd5e1;'>
-                    <i class='fas fa-inbox' style='font-size: 40px; color: #cbd5e1; margin-bottom: 15px;'></i>
-                    <h3 style='color: #64748b;'>No contact requests found</h3>
-                    <p style='color: #94a3b8;'>Messages from the Contact Us form will appear here.</p>
-                  </div>";
-        }
-        ?>
+                    if ($result->num_rows > 0) {
+                        while($row = $result->fetch_assoc()) {
+                            echo "<tr>";
+                            echo "<td>" . $row['id'] . "</td>";
+                            echo "<td><strong>" . htmlspecialchars($row['name']) . "</strong></td>";
+                            echo "<td>
+                                    <div style='display:flex; align-items:center; gap:8px;'>
+                                        <i class='fas fa-envelope' style='color:#004aad; font-size:12px; width:15px;'></i>
+                                        <span>" . htmlspecialchars($row['email']) . "</span>
+                                    </div>
+                                    <div style='display:flex; align-items:center; gap:8px; margin-top:4px;'>
+                                        <i class='fas fa-phone' style='color:#004aad; font-size:12px; width:15px;'></i>
+                                        <span>" . htmlspecialchars($row['phone']) . "</span>
+                                    </div>
+                                  </td>";
+                            echo "<td>
+                                    <div style='max-width:350px; font-size:13px; color:#555; line-height:1.5;'>
+                                        " . nl2br(htmlspecialchars($row['message'])) . "
+                                    </div>
+                                  </td>";
+                            echo "<td>" . date('d M Y', strtotime($row['created_at'])) . "<br><small style='color:#888;'>" . date('h:i A', strtotime($row['created_at'])) . "</small></td>";
+                            echo "<td>
+                                <a href='index.php?delete=" . $row['id'] . "' class='btn-action btn-delete' onclick=\"return confirm('Are you sure you want to delete this message?');\"><i class='fas fa-trash'></i> Delete</a>
+                            </td>";
+                            echo "</tr>";
+                        }
+                    } else {
+                        echo "<tr><td colspan='6' style='text-align: center; color: #777; padding: 30px;'>No contact requests found.</td></tr>";
+                    }
+                    ?>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Pagination -->
+        <?php if ($total_pages > 1): ?>
+            <div class="pagination" style="margin-top: 20px; text-align: center; display: flex; justify-content: center; gap: 5px;">
+                <?php if($page_num > 1): ?>
+                    <a href="?page=<?php echo ($page_num-1); ?>" class="btn-page" style="padding: 5px 10px; border: 1px solid #ddd; text-decoration: none; color: #333; border-radius: 4px;">&laquo; Prev</a>
+                <?php endif; ?>
+
+                <?php for ($i = 1; $i <= $total_pages; $i++): ?>
+                    <a href="?page=<?php echo $i; ?>" class="btn-page <?php echo ($i == $page_num) ? 'active' : ''; ?>" style="padding: 5px 10px; border: 1px solid #ddd; text-decoration: none; color: #333; border-radius: 4px; <?php echo ($i == $page_num) ? 'background: #004aad; color: #fff; border-color: #004aad;' : ''; ?>">
+                        <?php echo $i; ?>
+                    </a>
+                <?php endfor; ?>
+                
+                <?php if($page_num < $total_pages): ?>
+                    <a href="?page=<?php echo ($page_num+1); ?>" class="btn-page" style="padding: 5px 10px; border: 1px solid #ddd; text-decoration: none; color: #333; border-radius: 4px;">Next &raquo;</a>
+                <?php endif; ?>
+            </div>
+        <?php endif; ?>
     </div>
-
-    <!-- Pagination -->
-    <?php if ($total_pages > 1): ?>
-        <div class="pagination" style="margin-top: 30px; display: flex; justify-content: center; gap: 8px;">
-            <?php if($page_num > 1): ?>
-                <a href="?page=<?php echo ($page_num-1); ?>" style="padding: 8px 16px; background: #fff; border: 1px solid #e2e8f0; border-radius: 6px; text-decoration: none; color: #475569; font-weight: 500;">&laquo; Previous</a>
-            <?php endif; ?>
-
-            <?php for ($i = 1; $i <= $total_pages; $i++): ?>
-                <a href="?page=<?php echo $i; ?>" style="padding: 8px 16px; border-radius: 6px; text-decoration: none; font-weight: 500; <?php echo ($i == $page_num) ? 'background: #004aad; color: #fff; border: 1px solid #004aad;' : 'background: #fff; border: 1px solid #e2e8f0; color: #475569;'; ?>">
-                    <?php echo $i; ?>
-                </a>
-            <?php endfor; ?>
-            
-            <?php if($page_num < $total_pages): ?>
-                <a href="?page=<?php echo ($page_num+1); ?>" style="padding: 8px 16px; background: #fff; border: 1px solid #e2e8f0; border-radius: 6px; text-decoration: none; color: #475569; font-weight: 500;">Next &raquo;</a>
-            <?php endif; ?>
-        </div>
-    <?php endif; ?>
 </div>
 
 <?php include '../includes/footer.php'; ?>
