@@ -494,5 +494,8 @@ try {
     });
 </script>
 
+<!-- Include Quote Modal -->
+<?php include 'components/quote-modal.php'; ?>
+
 </body>
 </html>

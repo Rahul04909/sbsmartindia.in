@@ -317,20 +317,46 @@ body {
 .btn-secondary {
     flex: 1;
     padding: 14px 20px;
-    background-color: transparent;
+    background-color: #fff;
     color: var(--primary-blue);
     font-weight: 600;
     border: 2px solid var(--primary-blue);
     border-radius: var(--radius-btn);
     cursor: pointer;
     font-size: 16px;
-    transition: all 0.2s;
+    transition: all 0.3s ease;
     text-align: center;
     text-decoration: none;
+    box-shadow: 0 2px 4px rgba(0, 74, 173, 0.1);
 }
 
 .btn-secondary:hover {
-    background-color: #eef4ff;
+    background-color: var(--primary-blue);
+    color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 74, 173, 0.2);
+    transform: translateY(-1px);
+}
+
+.btn-request-price {
+    display: inline-block;
+    padding: 8px 20px;
+    background-color: #fff;
+    color: var(--primary-blue);
+    border: 1px solid var(--primary-blue);
+    border-radius: 4px;
+    font-weight: 600;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+.btn-request-price:hover {
+    background-color: var(--primary-blue);
+    color: #fff;
+    box-shadow: 0 3px 6px rgba(0, 74, 173, 0.15);
 }
 
 .btn-cart {
