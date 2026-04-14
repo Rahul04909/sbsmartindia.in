@@ -108,6 +108,14 @@
             </a>
         </li>
 
+        <li class="menu-item <?php echo ($page == 'contact-requests') ? 'active' : ''; ?>">
+            <a href="<?php echo $url_prefix; ?>contact-requests/index.php" class="menu-link">
+                <div class="menu-text">
+                    <i class="fas fa-id-card"></i> <span>Contact Requests</span>
+                </div>
+            </a>
+        </li>
+
         <li class="menu-item <?php echo ($page == 'newsletter') ? 'active' : ''; ?>">
             <a href="<?php echo $url_prefix; ?>newsletter/index.php" class="menu-link">
                 <div class="menu-text">
