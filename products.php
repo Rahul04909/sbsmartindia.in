@@ -387,7 +387,7 @@ try {
                                     <span class="mrp-price">₹<?php echo number_format($prod['mrp'], 2); ?></span>
                                 <?php endif; ?>
                              <?php else: ?>
-                                <a href="contact-us.php?inquiry=<?php echo urlencode($prod['title']); ?>" class="btn-request-price">Request Price</a>
+                                <button type="button" class="btn-request-price" onclick="openQuoteModal(<?php echo $prod['id']; ?>, '<?php echo addslashes($prod['title']); ?>')">Request Price</button>
                              <?php endif; ?>
                         </div>
 

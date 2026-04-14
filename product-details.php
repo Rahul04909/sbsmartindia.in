@@ -408,8 +408,8 @@ if ($product_id > 0) {
                 btn.disabled = false;
             }
         });
-        }
-        ?>
+    }
+    </script>
     <?php
     } else {
         // Redirect to 404 if product not found or inactive
