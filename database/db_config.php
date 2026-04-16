@@ -1,8 +1,8 @@
 <?php
 $host = 'localhost';
-$db_user = 'sbsmarti_sbsindia';
-$db_pass = 'Sbs@2026';
-$db_name = 'sbsmarti_sbsindia';
+$db_user = 'mineib_i1_raghav_pandey';
+$db_pass = 'Rd14072003@./';
+$db_name = 'mineib_i1_sbsmart';
 
 mysqli_report(MYSQLI_REPORT_OFF); // Prevent mysqli from throwing exceptions
 
