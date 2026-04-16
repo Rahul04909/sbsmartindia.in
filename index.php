@@ -84,5 +84,8 @@ session_start();
     <?php include 'includes/services.php'; ?>
     <?php include 'includes/footer.php'; ?>
 
+    <!-- Include Quote Modal -->
+    <?php include 'components/quote-modal.php'; ?>
+
 </body>
 </html>

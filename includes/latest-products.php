@@ -60,9 +60,9 @@ $result = $conn->query($sql);
                             
                             <div class="product-actions">
                                 <a href="product-details.php?id=<?php echo $row['id']; ?>" class="btn-details">View Details</a>
-                                <a href="contact-us.php?product=<?php echo urlencode($row['title']); ?>" class="btn-enquire">
+                                <button type="button" class="btn-enquire" onclick="openQuoteModal(<?php echo $row['id']; ?>, '<?php echo addslashes($row['title']); ?>')">
                                     Enquire Now
-                                </a>
+                                </button>
                             </div>
                         </div>
                     </div>
