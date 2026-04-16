@@ -130,7 +130,7 @@ $page_title = "Frequently Asked Questions - S.B. Syscon Pvt. Ltd.";
                     <i class="fa-solid fa-chevron-down faq-toggle"></i>
                 </button>
                 <div class="faq-answer">
-                    <p>Our customer support team is available via phone at (+91) 129 4150 555 or email at marcom.sbsyscon@gmail.com. You can also use the contact form on our "Contact Us" page.</p>
+                    <p>Our customer support team is available via phone at +91 98995 98955 or email at info@sbsyscon.in. You can also use the contact form on our "Contact Us" page.</p>
                 </div>
             </div>
 
