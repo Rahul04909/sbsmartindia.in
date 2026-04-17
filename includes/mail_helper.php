@@ -26,6 +26,15 @@ function sendEmail($to, $toName, $subject, $body) {
             $mail->SMTPSecure = $smtp['encryption'];
             $mail->Port       = $smtp['port'];
             
+            // Bypass SSL certificate verification (useful for local development like WAMP)
+            $mail->SMTPOptions = array(
+                'ssl' => array(
+                    'verify_peer' => false,
+                    'verify_peer_name' => false,
+                    'allow_self_signed' => true
+                )
+            );
+            
             // Recipients
             $mail->setFrom($smtp['from_email'], $smtp['from_name']);
             $mail->addAddress($to, $toName);
