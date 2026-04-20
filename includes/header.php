@@ -109,15 +109,17 @@
                                     <span><?php echo htmlspecialchars($nb_name); ?></span>
                                 </a>
                                 
+                                <?php
+                                // Fetch Categories for this Brand
+                                $brand_id = $nav_brand['id'];
+                                $cat_sql = "SELECT * FROM product_categories WHERE brand_id = $brand_id AND status = 1 ORDER BY name ASC";
+                                $cat_res = $conn->query($cat_sql);
+                                
+                                if ($cat_res && $cat_res->num_rows > 0) {
+                                ?>
                                 <!-- Dropdown Menu -->
                                 <ul class="dropdown-menu">
                                     <?php
-                                    // Fetch Categories for this Brand
-                                    $brand_id = $nav_brand['id'];
-                                    $cat_sql = "SELECT * FROM product_categories WHERE brand_id = $brand_id AND status = 1 ORDER BY name ASC";
-                                    $cat_res = $conn->query($cat_sql);
-                                    
-                                    if ($cat_res && $cat_res->num_rows > 0) {
                                         while ($cat = $cat_res->fetch_assoc()) {
                                             $cat_id = $cat['id'];
                                             
@@ -149,11 +151,11 @@
                                             </li>
                                     <?php
                                         }
-                                    } else {
-                                        echo '<li><a href="#">No categories</a></li>';
-                                    }
                                     ?>
                                 </ul>
+                                <?php
+                                }
+                                ?>
                             </li>
                 <?php
                         }
