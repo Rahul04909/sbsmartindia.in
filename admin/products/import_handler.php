@@ -59,7 +59,7 @@ if (isset($_POST['import_products']) && isset($_FILES['import_file'])) {
                 $discount_percentage = (($mrp - $sales_price) / $mrp) * 100;
             }
 
-            // 1. Get Brand ID
+            // 1. Get or Create Brand ID
             $brand_id = 0;
             if ($brand_name) {
                 $stmt = $conn->prepare("SELECT id FROM brands WHERE name = ?");
@@ -68,11 +68,18 @@ if (isset($_POST['import_products']) && isset($_FILES['import_file'])) {
                 $res = $stmt->get_result();
                 if ($res->num_rows > 0) {
                     $brand_id = $res->fetch_assoc()['id'];
+                } else {
+                    $stmt_ins = $conn->prepare("INSERT INTO brands (name) VALUES (?)");
+                    $stmt_ins->bind_param("s", $brand_name);
+                    if ($stmt_ins->execute()) {
+                        $brand_id = $stmt_ins->insert_id;
+                    }
+                    $stmt_ins->close();
                 }
                 $stmt->close();
             }
 
-            // 2. Get Category ID (requires Brand ID)
+            // 2. Get or Create Category ID (requires Brand ID)
             $category_id = 0;
             if ($category_name && $brand_id) {
                 $stmt = $conn->prepare("SELECT id FROM product_categories WHERE name = ? AND brand_id = ?");
@@ -81,11 +88,18 @@ if (isset($_POST['import_products']) && isset($_FILES['import_file'])) {
                 $res = $stmt->get_result();
                 if ($res->num_rows > 0) {
                     $category_id = $res->fetch_assoc()['id'];
+                } else {
+                    $stmt_ins = $conn->prepare("INSERT INTO product_categories (name, brand_id, status) VALUES (?, ?, 1)");
+                    $stmt_ins->bind_param("si", $category_name, $brand_id);
+                    if ($stmt_ins->execute()) {
+                        $category_id = $stmt_ins->insert_id;
+                    }
+                    $stmt_ins->close();
                 }
                 $stmt->close();
             }
 
-            // 3. Get Sub Category ID (requires Category ID)
+            // 3. Get or Create Sub Category ID (requires Category ID)
             $sub_category_id = 0;
             if ($sub_category_name && $category_id) {
                 $stmt = $conn->prepare("SELECT id FROM product_sub_categories WHERE name = ? AND category_id = ?");
@@ -94,13 +108,24 @@ if (isset($_POST['import_products']) && isset($_FILES['import_file'])) {
                 $res = $stmt->get_result();
                 if ($res->num_rows > 0) {
                     $sub_category_id = $res->fetch_assoc()['id'];
+                } else {
+                    $stmt_ins = $conn->prepare("INSERT INTO product_sub_categories (name, category_id, status) VALUES (?, ?, 1)");
+                    $stmt_ins->bind_param("si", $sub_category_name, $category_id);
+                    if ($stmt_ins->execute()) {
+                        $sub_category_id = $stmt_ins->insert_id;
+                    }
+                    $stmt_ins->close();
                 }
                 $stmt->close();
             }
 
             if (!$brand_id || !$category_id || empty($title)) {
                 $error_count++;
-                $errors[] = "Row " . ($index + 2) . ": Missing Brand, Category, or Title. (Brand: $brand_name, Cat: $category_name)";
+                $error_msg = "Row " . ($index + 2) . ": ";
+                if (!$brand_id) $error_msg .= "Missing or invalid Brand ($brand_name). ";
+                if (!$category_id) $error_msg .= "Missing or invalid Category ($category_name). ";
+                if (empty($title)) $error_msg .= "Missing Title. ";
+                $errors[] = $error_msg;
                 continue;
             }
 
