@@ -179,14 +179,29 @@ if ($product_id > 0) {
                             <?php if ($product['is_price_request']): ?>
                                 <span class="price-request-text">Price on Request</span>
                             <?php else: ?>
-                                <span class="price-label">Best Price:</span>
+                                <?php 
+                                    $sales_price = $product['sales_price'];
+                                    $gst_amount = $sales_price * 0.18;
+                                    $total_with_gst = $sales_price + $gst_amount;
+                                ?>
+                                <span class="price-label">Best Price (Excl. GST):</span>
                                 <div>
                                     <span class="price-currency">₹</span>
-                                    <span class="price-large"><?php echo number_format($product['sales_price']); ?></span>
+                                    <span class="price-large"><?php echo number_format($sales_price); ?></span>
                                     <span class="price-mrp">MRP: ₹<?php echo number_format($product['mrp']); ?></span>
                                 </div>
-                                <?php if($product['mrp'] > $product['sales_price']): ?>
-                                    <span class="price-save">You Save: ₹<?php echo number_format($product['mrp'] - $product['sales_price']); ?> (<?php echo round((($product['mrp'] - $product['sales_price']) / $product['mrp']) * 100); ?>%)</span>
+                                <div style="margin-top: 10px; padding: 10px; background: #f8f9fa; border-radius: 6px; border-left: 4px solid #004aad;">
+                                    <div style="font-size: 14px; color: #666; margin-bottom: 4px;">
+                                        GST (18%): <strong>₹<?php echo number_format($gst_amount); ?></strong>
+                                    </div>
+                                    <div style="font-size: 18px; color: #333; font-weight: 700;">
+                                        Total Price (Incl. GST): ₹<?php echo number_format($total_with_gst); ?>
+                                    </div>
+                                </div>
+                                <?php if($product['mrp'] > $sales_price): ?>
+                                    <div style="margin-top: 8px;">
+                                        <span class="price-save">You Save: ₹<?php echo number_format($product['mrp'] - $sales_price); ?> (<?php echo round((($product['mrp'] - $sales_price) / $product['mrp']) * 100); ?>%)</span>
+                                    </div>
                                 <?php endif; ?>
                             <?php endif; ?>
                         </div>

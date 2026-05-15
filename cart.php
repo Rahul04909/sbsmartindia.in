@@ -246,16 +246,24 @@ if ($result && $result->num_rows > 0) {
             <?php if (count($cart_items) > 0): ?>
                 <h2 class="cart-title">Order Summary</h2>
                 <div class="summary-row">
-                    <span>Subtotal</span>
+                    <span>Subtotal (Excl. GST)</span>
                     <span id="subtotal">₹<?php echo number_format($subtotal); ?></span>
+                </div>
+                <?php 
+                    $gst_amount = $subtotal * 0.18;
+                    $grand_total = $subtotal + $gst_amount;
+                ?>
+                <div class="summary-row">
+                    <span>GST (18%)</span>
+                    <span>₹<?php echo number_format($gst_amount); ?></span>
                 </div>
                 <div class="summary-row">
                     <span>Shipping</span>
                     <span style="color:green;">Free</span>
                 </div>
                 <div class="summary-row summary-total">
-                    <span>Total</span>
-                    <span id="grandtotal">₹<?php echo number_format($subtotal); ?></span>
+                    <span>Total (Incl. GST)</span>
+                    <span id="grandtotal">₹<?php echo number_format($grand_total); ?></span>
                 </div>
                 <a href="checkout.php?from_cart=1" class="checkout-btn"
                     style="display:block; text-align:center; text-decoration:none;">Proceed to Buy</a>

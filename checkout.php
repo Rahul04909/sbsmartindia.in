@@ -173,8 +173,16 @@ if ($from_cart) {
         </div>
         
         <div class="price-row">
-            <span>Subtotal</span>
+            <span>Subtotal (Excl. GST)</span>
             <span>₹<?php echo number_format($total_amount); ?></span>
+        </div>
+        <?php 
+            $gst_amount = $total_amount * 0.18;
+            $grand_total = $total_amount + $gst_amount;
+        ?>
+        <div class="price-row">
+            <span>GST (18%)</span>
+            <span>₹<?php echo number_format($gst_amount); ?></span>
         </div>
         <div class="price-row">
             <span>Shipping</span>
@@ -182,8 +190,8 @@ if ($from_cart) {
         </div>
         
         <div class="total-row">
-            <span>Total Amount</span>
-            <span>₹<?php echo number_format($total_amount); ?></span>
+            <span>Total Amount (Incl. GST)</span>
+            <span>₹<?php echo number_format($grand_total); ?></span>
         </div>
     </div>
 </div>

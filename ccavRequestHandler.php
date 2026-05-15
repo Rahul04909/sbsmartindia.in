@@ -73,6 +73,9 @@ $access_code = "AVYV96HJ39CI86VYIC";
     } else {
         die("Invalid Request");
     }
+
+    // Add 18% GST to the total amount
+    $total_amount = $total_amount * 1.18;
     
     // 2. Create Order in Database
     $sql = "INSERT INTO orders (order_id, user_id, customer_name, customer_email, customer_phone, customer_address, customer_city, customer_state, customer_zip, total_amount, payment_status) 
@@ -86,7 +89,7 @@ $access_code = "AVYV96HJ39CI86VYIC";
             $p_id = $item['product_id'];
             $p_name = $conn->real_escape_string($item['product_name']);
             $qty = $item['quantity'];
-            $price = $item['price'];
+            $price = $item['price'] * 1.18; // Add 18% GST to item price
             
             $item_sql = "INSERT INTO order_items (order_id, product_id, product_name, quantity, price) 
                          VALUES ('$db_id', '$p_id', '$p_name', '$qty', '$price')";
