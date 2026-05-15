@@ -14,6 +14,7 @@
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     z-index: 1000;
     padding: 10px 0;
+    border: 1px solid #eee;
     border-top: 3px solid #004aad;
     border-radius: 0 0 4px 4px;
     text-align: left;
@@ -60,6 +61,7 @@
     background: #fff;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     padding: 10px 0;
+    border: 1px solid #eee;
     border-top: 3px solid #004aad;
     border-radius: 4px;
     margin-left: 0px;
@@ -224,4 +226,21 @@ nav,
     .mega-menu-content {
         grid-template-columns: 1fr;
     }
+}
+
+/* Fix for dropdowns being cut off on the right side */
+.nav-item:nth-last-child(-n+3) .dropdown-submenu {
+    left: auto;
+    right: 100%;
+    border-radius: 4px 0 4px 4px;
+}
+
+.nav-item:last-child .dropdown-menu {
+    left: auto;
+    right: 0;
+}
+
+.nav-item:last-child .dropdown-submenu {
+    left: auto;
+    right: 100%;
 }
