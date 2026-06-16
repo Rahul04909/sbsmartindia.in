@@ -9,7 +9,7 @@ $subtotal = 0;
 $user_id = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : null;
 $session_id = session_id();
 
-$sql = "SELECT c.id as cart_id, c.quantity, p.id as product_id, p.title, p.sales_price, p.featured_image 
+$sql = "SELECT c.id as cart_id, c.quantity, p.id as product_id, p.title, p.sales_price, p.featured_image, p.moq, p.unit 
         FROM cart c 
         JOIN products p ON c.product_id = p.id 
         WHERE ";
@@ -221,12 +221,13 @@ if ($result && $result->num_rows > 0) {
                             <h4><a
                                     href="product-details.php?id=<?php echo $item['product_id']; ?>"><?php echo htmlspecialchars($item['title']); ?></a>
                             </h4>
-                            <div class="cart-price">₹<?php echo number_format($item['sales_price']); ?></div>
+                            <div class="cart-price">₹<?php echo number_format($item['sales_price']); ?> / <?php echo htmlspecialchars($item['unit']); ?></div>
                             <div class="qty-controls">
-                                <button class="qty-btn" onclick="updateQty(<?php echo $item['cart_id']; ?>, -1)">-</button>
+                                <button class="qty-btn" onclick="updateQty(<?php echo $item['cart_id']; ?>, -1, <?php echo intval($item['moq']); ?>)">-</button>
                                 <input type="text" value="<?php echo $item['quantity']; ?>" class="qty-input" readonly
                                     id="qty-<?php echo $item['cart_id']; ?>">
-                                <button class="qty-btn" onclick="updateQty(<?php echo $item['cart_id']; ?>, 1)">+</button>
+                                <button class="qty-btn" onclick="updateQty(<?php echo $item['cart_id']; ?>, 1, <?php echo intval($item['moq']); ?>)">+</button>
+                                <span style="font-size: 14px; font-weight: 500; color: #666; text-transform: uppercase; margin-left: 5px;"><?php echo htmlspecialchars($item['unit']); ?></span>
                                 <span class="remove-btn" onclick="removeItem(<?php echo $item['cart_id']; ?>)">Remove</span>
                             </div>
                         </div>
@@ -274,11 +275,14 @@ if ($result && $result->num_rows > 0) {
     <?php require_once 'includes/footer.php'; ?>
 
     <script>
-        function updateQty(cartId, change) {
+        function updateQty(cartId, change, moq) {
             var input = document.getElementById('qty-' + cartId);
             var newQty = parseInt(input.value) + change;
-
-            if (newQty < 1) return;
+ 
+            if (newQty < moq) {
+                alert('Minimum order quantity for this product is ' + moq);
+                return;
+            }
 
             $.ajax({
                 url: 'cart_handler.php',

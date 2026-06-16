@@ -168,6 +168,25 @@ $gallery_res = $conn->query($gallery_sql);
                     <label style="display: block; margin-bottom: 8px; font-weight: 500;">Stock Quantity</label>
                     <input type="number" name="stock" value="<?php echo $product['stock']; ?>" min="0" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px;">
                 </div>
+
+                <div class="form-group" style="margin-bottom: 20px;">
+                    <label style="display: block; margin-bottom: 8px; font-weight: 500;">Unit <span style="color: red;">*</span></label>
+                    <select name="unit" required style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px;">
+                        <?php 
+                        $units = ['nos', 'meter', 'ltr', 'kg', 'pcs', 'box', 'set', 'roll', 'pack'];
+                        foreach ($units as $u) {
+                            $selected = ($product['unit'] == $u) ? 'selected' : '';
+                            echo "<option value='$u' $selected>$u</option>";
+                        }
+                        ?>
+                    </select>
+                </div>
+
+                <div class="form-group" style="margin-bottom: 20px;">
+                    <label style="display: block; margin-bottom: 8px; font-weight: 500;">Minimum Order Quantity (MOQ)</label>
+                    <input type="number" name="moq" value="<?php echo intval($product['moq']); ?>" min="1" required style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px;">
+                    <small style="color: #646970; display: block; margin-top: 5px;">Set to 1 to disable MOQ checkout enforcement.</small>
+                </div>
                  
                  <div class="form-group" style="margin-bottom: 20px;">
                     <label style="display: block; margin-bottom: 8px; font-weight: 500;">Featured Image</label>

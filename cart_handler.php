@@ -18,6 +18,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $quantity = isset($_POST['quantity']) ? intval($_POST['quantity']) : 1;
 
         if ($product_id > 0) {
+            // Fetch and enforce product MOQ
+            $moq = 1;
+            $moq_res = $conn->query("SELECT moq FROM products WHERE id = $product_id");
+            if ($moq_res && $moq_res->num_rows > 0) {
+                $moq = intval($moq_res->fetch_assoc()['moq']);
+            }
+            if ($quantity < $moq) {
+                $quantity = $moq;
+            }
             // Check if item exists
             $check_sql = "SELECT id, quantity FROM cart WHERE product_id = $product_id AND ";
             if ($user_id) {
@@ -56,6 +65,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $quantity = intval($_POST['quantity']);
         
         if ($quantity > 0) {
+            // Fetch and enforce product MOQ
+            $moq = 1;
+            $moq_res = $conn->query("SELECT p.moq FROM cart c JOIN products p ON c.product_id = p.id WHERE c.id = $cart_id");
+            if ($moq_res && $moq_res->num_rows > 0) {
+                $moq = intval($moq_res->fetch_assoc()['moq']);
+            }
+            if ($quantity < $moq) {
+                $quantity = $moq;
+            }
+
             $sql = "UPDATE cart SET quantity = $quantity WHERE id = $cart_id";
              // Ensure ownership
             if ($user_id) {

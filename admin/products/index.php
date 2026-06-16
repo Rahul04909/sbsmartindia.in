@@ -179,6 +179,7 @@ else $base_pagination_url = '?';
                         <th>Category</th>
                         <th>MRP</th>
                         <th>Sales Price</th>
+                        <th>MOQ / Unit</th>
                         <th>Stock</th>
                         <th>Status</th>
                         <th width="150">Actions</th>
@@ -207,6 +208,7 @@ else $base_pagination_url = '?';
                             $image = !empty($row['featured_image']) ? '../../' . $row['featured_image'] : '../../assets/images/no-image.png';
                             ?>
                             <tr>
+                                <td><input type="checkbox" class="product-checkbox" value="<?php echo $row['id']; ?>"></td>
                                 <td>
                                     <?php if (!empty($row['featured_image'])): ?>
                                         <img src="<?php echo $image; ?>" alt="Product" style="width: 40px; height: 40px; object-fit: cover; border-radius: 4px; border: 1px solid #ddd;">
@@ -239,6 +241,9 @@ else $base_pagination_url = '?';
                                     <?php else: ?>
                                         ₹<?php echo number_format($row['sales_price'], 2); ?>
                                     <?php endif; ?>
+                                </td>
+                                <td>
+                                    <?php echo intval($row['moq']) . ' ' . htmlspecialchars($row['unit']); ?>
                                 </td>
                                 <td>
                                     <span class="badge <?php echo $row['stock'] > 0 ? 'bg-success' : 'bg-danger'; ?>">

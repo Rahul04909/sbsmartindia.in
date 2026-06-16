@@ -52,6 +52,10 @@ if (isset($_POST['import_products']) && isset($_FILES['import_file'])) {
             $meta_title = trim($row[12] ?? '');
             $meta_description = trim($row[13] ?? '');
             $meta_keywords = trim($row[14] ?? '');
+            $moq = (int)($row[15] ?? 1);
+            if ($moq < 1) $moq = 1;
+            $unit = trim($row[16] ?? 'nos');
+            if (empty($unit)) $unit = 'nos';
             
             // Calculate discount
             $discount_percentage = 0;
@@ -132,11 +136,11 @@ if (isset($_POST['import_products']) && isset($_FILES['import_file'])) {
             $sub_category_id = ($sub_category_id > 0) ? $sub_category_id : 'NULL';
 
             // Insert Product
-            $sql = "INSERT INTO products (brand_id, category_id, sub_category_id, title, sku, hsn_code, description, specifications, mrp, sales_price, discount_percentage, stock, is_price_request, meta_title, meta_description, meta_keywords) 
-                    VALUES (?, ?, $sub_category_id, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            $sql = "INSERT INTO products (brand_id, category_id, sub_category_id, title, sku, hsn_code, description, specifications, mrp, sales_price, discount_percentage, stock, moq, unit, is_price_request, meta_title, meta_description, meta_keywords) 
+                    VALUES (?, ?, $sub_category_id, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
             
             $stmt = $conn->prepare($sql);
-            $stmt->bind_param("iisssssdddiisss", $brand_id, $category_id, $title, $sku, $hsn_code, $description, $specifications, $mrp, $sales_price, $discount_percentage, $stock, $is_price_request, $meta_title, $meta_description, $meta_keywords);
+            $stmt->bind_param("iisssssdddiisisss", $brand_id, $category_id, $title, $sku, $hsn_code, $description, $specifications, $mrp, $sales_price, $discount_percentage, $stock, $moq, $unit, $is_price_request, $meta_title, $meta_description, $meta_keywords);
             
             if ($stmt->execute()) {
                 $success_count++;

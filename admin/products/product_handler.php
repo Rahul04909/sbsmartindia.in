@@ -67,6 +67,9 @@ if (isset($_POST['add_product'])) {
     $meta_keywords = $conn->real_escape_string($_POST['meta_keywords']); 
     $is_price_request = isset($_POST['is_price_request']) ? 1 : 0;
     
+    $moq = isset($_POST['moq']) ? (int)$_POST['moq'] : 1;
+    $unit = isset($_POST['unit']) ? $conn->real_escape_string($_POST['unit']) : 'nos';
+    
     // If price on request, set prices to 0
     if($is_price_request) {
         $mrp = 0;
@@ -82,8 +85,8 @@ if (isset($_POST['add_product'])) {
     $sku = $conn->real_escape_string($_POST['sku']);
     $hsn_code = $conn->real_escape_string($_POST['hsn_code']);
 
-    $sql = "INSERT INTO products (brand_id, category_id, sub_category_id, title, sku, hsn_code, description, specifications, mrp, sales_price, discount_percentage, stock, is_price_request, featured_image, meta_title, meta_description, meta_keywords) 
-            VALUES ('$brand_id', '$category_id', $sub_category_id, '$title', '$sku', '$hsn_code', '$description', '$specifications', '$mrp', '$sales_price', '$discount_percentage', '$stock', '$is_price_request', '$featured_image', '$meta_title', '$meta_description', '$meta_keywords')";
+    $sql = "INSERT INTO products (brand_id, category_id, sub_category_id, title, sku, hsn_code, description, specifications, mrp, sales_price, discount_percentage, stock, moq, unit, is_price_request, featured_image, meta_title, meta_description, meta_keywords) 
+            VALUES ('$brand_id', '$category_id', $sub_category_id, '$title', '$sku', '$hsn_code', '$description', '$specifications', '$mrp', '$sales_price', '$discount_percentage', '$stock', '$moq', '$unit', '$is_price_request', '$featured_image', '$meta_title', '$meta_description', '$meta_keywords')";
 
     if ($conn->query($sql) === TRUE) {
         $product_id = $conn->insert_id;
@@ -134,6 +137,9 @@ if (isset($_POST['update_product'])) {
     $meta_keywords = $conn->real_escape_string($_POST['meta_keywords']);
     $is_price_request = isset($_POST['is_price_request']) ? 1 : 0;
 
+    $moq = isset($_POST['moq']) ? (int)$_POST['moq'] : 1;
+    $unit = isset($_POST['unit']) ? $conn->real_escape_string($_POST['unit']) : 'nos';
+
     // If price on request, set prices to 0
     if($is_price_request) {
         $mrp = 0;
@@ -157,6 +163,8 @@ if (isset($_POST['update_product'])) {
             sales_price='$sales_price', 
             discount_percentage='$discount_percentage', 
             stock='$stock',
+            moq='$moq',
+            unit='$unit',
             is_price_request='$is_price_request',
             meta_title='$meta_title',
             meta_description='$meta_description',

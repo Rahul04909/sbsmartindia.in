@@ -54,17 +54,21 @@ $access_code = "AVYV96HJ39CI86VYIC";
     elseif (isset($_POST['product_id'])) {
         // Handle Single Product Checkout
         $product_id = (int)$_POST['product_id'];
-        $quantity = 1;
         
-        $prod_sql = "SELECT title, sales_price FROM products WHERE id = $product_id";
+        $prod_sql = "SELECT title, sales_price, moq FROM products WHERE id = $product_id";
         $prod_res = $conn->query($prod_sql);
         if($prod_res->num_rows > 0) {
             $product = $prod_res->fetch_assoc();
-            $total_amount = $product['sales_price'];
+            $moq = isset($product['moq']) ? max(1, intval($product['moq'])) : 1;
+            $quantity = isset($_POST['quantity']) ? intval($_POST['quantity']) : $moq;
+            if ($quantity < $moq) {
+                $quantity = $moq;
+            }
+            $total_amount = $product['sales_price'] * $quantity;
             $total_items[] = [
                 'product_id' => $product_id,
                 'product_name' => $product['title'],
-                'quantity' => 1,
+                'quantity' => $quantity,
                 'price' => $product['sales_price']
             ];
         } else {

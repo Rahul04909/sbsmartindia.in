@@ -23,7 +23,9 @@ $headers = [
     'Is Price Request (1/0)',
     'Meta Title', 
     'Meta Description', 
-    'Meta Keywords'
+    'Meta Keywords',
+    'Minimum Order Quantity (MOQ)',
+    'Unit'
 ];
 
 $sheet->fromArray($headers, NULL, 'A1');
@@ -36,16 +38,16 @@ $headerStyle = [
         'startColor' => ['argb' => 'FFE0E0E0'],
     ],
 ];
-$sheet->getStyle('A1:O1')->applyFromArray($headerStyle);
+$sheet->getStyle('A1:Q1')->applyFromArray($headerStyle);
 
 // Auto-size columns
-foreach (range('A', 'O') as $col) {
+foreach (range('A', 'Q') as $col) {
     $sheet->getColumnDimension($col)->setAutoSize(true);
 }
 
 // Add a sample row (optional, for guidance)
 $sampleData = [
-    'Brand Name', 'Category Name', 'Sub Category Name', 'Sample Product Title', 'SKU-001', '123456', 'Product Description', 'Specs...', '1000', '900', '50', '0', 'Meta Title', 'Meta Desc', 'keyword1, keyword2'
+    'Brand Name', 'Category Name', 'Sub Category Name', 'Sample Product Title', 'SKU-001', '123456', 'Product Description', 'Specs...', '1000', '900', '50', '0', 'Meta Title', 'Meta Desc', 'keyword1, keyword2', '1', 'nos'
 ];
 $sheet->fromArray($sampleData, NULL, 'A2');
 

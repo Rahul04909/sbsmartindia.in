@@ -13,7 +13,7 @@ if ($from_cart) {
     $user_id = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : null;
     $session_id = session_id();
 
-    $sql = "SELECT c.quantity, p.id, p.title, p.sales_price, p.featured_image 
+    $sql = "SELECT c.quantity, p.id, p.title, p.sales_price, p.featured_image, p.unit 
             FROM cart c 
             JOIN products p ON c.product_id = p.id 
             WHERE ";
@@ -41,14 +41,18 @@ if ($from_cart) {
     $result = $conn->query($sql);
     if ($result->num_rows > 0) {
         $product = $result->fetch_assoc();
+        $moq = isset($product['moq']) ? max(1, intval($product['moq'])) : 1;
+        $quantity = isset($_GET['quantity']) ? max($moq, intval($_GET['quantity'])) : $moq;
+        
         $items_to_checkout[] = [
             'id' => $product['id'],
             'title' => $product['title'],
             'sales_price' => $product['sales_price'],
             'featured_image' => $product['featured_image'],
-            'quantity' => 1
+            'unit' => $product['unit'],
+            'quantity' => $quantity
         ];
-        $total_amount = $product['sales_price'];
+        $total_amount = $product['sales_price'] * $quantity;
     } else {
          header("Location: products.php");
          exit();
@@ -113,6 +117,7 @@ if ($from_cart) {
                 <input type="hidden" name="from_cart" value="1">
             <?php else: ?>
                 <input type="hidden" name="product_id" value="<?php echo $items_to_checkout[0]['id']; ?>">
+                <input type="hidden" name="quantity" value="<?php echo $items_to_checkout[0]['quantity']; ?>">
             <?php endif; ?>
             
             <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
@@ -166,7 +171,7 @@ if ($from_cart) {
                     <img src="<?php echo !empty($item['featured_image']) ? htmlspecialchars($item['featured_image']) : 'assets/images/no-image.png'; ?>" class="summary-img">
                     <div class="summary-details">
                         <h4><?php echo htmlspecialchars($item['title']); ?></h4>
-                        <p>Qty: <?php echo $item['quantity']; ?> x ₹<?php echo number_format($item['sales_price']); ?></p>
+                        <p>Qty: <?php echo $item['quantity'] . ' ' . htmlspecialchars($item['unit'] ?? 'nos'); ?> x ₹<?php echo number_format($item['sales_price']); ?> / <?php echo htmlspecialchars($item['unit'] ?? 'nos'); ?></p>
                     </div>
                 </div>
             <?php endforeach; ?>

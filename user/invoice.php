@@ -21,7 +21,7 @@ if ($result->num_rows == 0) {
 $order = $result->fetch_assoc();
 
 // Fetch Order Items
-$item_sql = "SELECT * FROM order_items WHERE order_id = " . $order['id'];
+$item_sql = "SELECT oi.*, p.unit FROM order_items oi LEFT JOIN products p ON oi.product_id = p.id WHERE oi.order_id = " . $order['id'];
 $item_res = $conn->query($item_sql);
 $items = [];
 while($row = $item_res->fetch_assoc()) {
@@ -117,7 +117,7 @@ $html = '
             <td>'.$i++.'</td>
             <td>'.htmlspecialchars($item['product_name']).'</td>
             <td class="text-right">'.number_format($item['price'], 2).'</td>
-            <td class="text-right">'.$item['quantity'].'</td>
+            <td class="text-right">'.$item['quantity'].' ' . htmlspecialchars($item['unit'] ?? 'nos') . '</td>
             <td class="text-right">'.number_format($row_total, 2).'</td>
         </tr>';
         $total_qty += $item['quantity'];

@@ -181,21 +181,22 @@ if ($product_id > 0) {
                             <?php else: ?>
                                 <?php 
                                     $sales_price = $product['sales_price'];
-                                    $gst_amount = $sales_price * 0.18;
-                                    $total_with_gst = $sales_price + $gst_amount;
+                                    $gst_amount = $sales_price * max(1, intval($product['moq'])) * 0.18;
+                                    $total_with_gst = ($sales_price * max(1, intval($product['moq']))) + $gst_amount;
                                 ?>
                                 <span class="price-label">Best Price (Excl. GST):</span>
                                 <div>
                                     <span class="price-currency">₹</span>
                                     <span class="price-large"><?php echo number_format($sales_price); ?></span>
-                                    <span class="price-mrp">MRP: ₹<?php echo number_format($product['mrp']); ?></span>
+                                    <span class="price-unit">/ <?php echo htmlspecialchars($product['unit']); ?></span>
+                                    <span class="price-mrp" style="margin-left: 10px;">MRP: ₹<?php echo number_format($product['mrp']); ?> / <?php echo htmlspecialchars($product['unit']); ?></span>
                                 </div>
                                 <div style="margin-top: 10px; padding: 10px; background: #f8f9fa; border-radius: 6px; border-left: 4px solid #004aad;">
                                     <div style="font-size: 14px; color: #666; margin-bottom: 4px;">
-                                        GST (18%): <strong>₹<?php echo number_format($gst_amount); ?></strong>
+                                        GST (18%): <strong>₹<span id="gstAmountVal"><?php echo number_format($gst_amount); ?></span></strong>
                                     </div>
                                     <div style="font-size: 18px; color: #333; font-weight: 700;">
-                                        Total Price (Incl. GST): ₹<?php echo number_format($total_with_gst); ?>
+                                        Total Price (Incl. GST): ₹<span id="totalWithGstVal"><?php echo number_format($total_with_gst); ?></span>
                                     </div>
                                 </div>
                                 <?php if($product['mrp'] > $sales_price): ?>
@@ -216,12 +217,33 @@ if ($product_id > 0) {
                             <?php endif; ?>
                         </div>
                         
+                        <?php if (!$product['is_price_request']): ?>
+                            <div class="quantity-selector-section" style="margin: 15px 0 20px 0; padding: 15px; background: #fdfdfd; border: 1px solid #eee; border-radius: 8px;">
+                                <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px;">
+                                    <div style="display: flex; align-items: center; gap: 12px;">
+                                        <span style="font-weight: 600; color: #444; font-size: 15px;">Quantity:</span>
+                                        <div style="display: flex; align-items: center; border: 1px solid #ccc; border-radius: 4px; overflow: hidden; background: #fff; box-shadow: inset 0 1px 2px rgba(0,0,0,0.05);">
+                                            <button type="button" onclick="adjustQty(-1)" style="border: none; background: #f1f3f6; width: 35px; height: 35px; cursor: pointer; font-size: 18px; font-weight: 600; color: #444; transition: background 0.2s;">-</button>
+                                            <input type="number" id="purchase_qty" name="quantity" value="<?php echo max(1, intval($product['moq'])); ?>" min="<?php echo max(1, intval($product['moq'])); ?>" style="width: 55px; height: 35px; text-align: center; border: none; font-size: 16px; font-weight: 700; color: #333; -moz-appearance: textfield; padding: 0;" readonly>
+                                            <button type="button" onclick="adjustQty(1)" style="border: none; background: #f1f3f6; width: 35px; height: 35px; cursor: pointer; font-size: 18px; font-weight: 600; color: #444; transition: background 0.2s;">+</button>
+                                        </div>
+                                        <span style="font-weight: 600; color: #666; font-size: 14px; text-transform: uppercase;"><?php echo htmlspecialchars($product['unit']); ?></span>
+                                    </div>
+                                    <?php if (intval($product['moq']) > 1): ?>
+                                        <div style="font-size: 13px; color: #dc3545; font-weight: 600; display: flex; align-items: center; gap: 5px; background: #fff5f5; padding: 6px 12px; border-radius: 20px; border: 1px solid #ffd8d8;">
+                                            <i class="fa-solid fa-circle-info"></i> Minimum Order: <?php echo intval($product['moq']) . ' ' . htmlspecialchars($product['unit']); ?>
+                                        </div>
+                                    <?php endif; ?>
+                                </div>
+                            </div>
+                        <?php endif; ?>
+
                         <div class="action-buttons">
                              <?php if($product['is_price_request']): ?>
                                 <button type="button" class="btn-primary" onclick="openQuoteModal(<?php echo $product['id']; ?>, '<?php echo addslashes($product['title']); ?>')">Request Quote</button>
                             <?php else: ?>
                                 <button type="button" class="btn-cart" onclick="addToCart(<?php echo $product['id']; ?>)">Add to Cart</button>
-                                <a href="checkout.php?product_id=<?php echo $product['id']; ?>" class="btn-primary">Buy Now</a>
+                                <button type="button" class="btn-primary" onclick="buyNow(<?php echo $product['id']; ?>)">Buy Now</button>
                                 <button type="button" class="btn-secondary" onclick="openEnquiryModal(<?php echo $product['id']; ?>, '<?php echo addslashes($product['title']); ?>')">Enquire Now</button>
                             <?php endif; ?>
                         </div>
@@ -397,6 +419,8 @@ if ($product_id > 0) {
     }
 
     function addToCart(productId) {
+        var qtyInput = document.getElementById('purchase_qty');
+        var qty = qtyInput ? parseInt(qtyInput.value) : 1;
         var btn = document.querySelector('.btn-cart');
         var originalText = btn.innerText;
         btn.innerText = "Adding...";
@@ -405,7 +429,7 @@ if ($product_id > 0) {
         $.ajax({
             url: 'cart_handler.php',
             type: 'POST',
-            data: { action: 'add', product_id: productId, quantity: 1 },
+            data: { action: 'add', product_id: productId, quantity: qty },
             dataType: 'json',
             success: function(response) {
                 if(response.status === 'success') {
@@ -423,6 +447,43 @@ if ($product_id > 0) {
                 btn.disabled = false;
             }
         });
+    }
+
+    const salesPrice = <?php echo isset($sales_price) ? (float)$sales_price : 0; ?>;
+    const moq = <?php echo isset($product['moq']) ? max(1, intval($product['moq'])) : 1; ?>;
+    
+    function adjustQty(change) {
+        const input = document.getElementById('purchase_qty');
+        if (!input) return;
+        let currentVal = parseInt(input.value) || moq;
+        let newVal = currentVal + change;
+        if (newVal < moq) {
+            alert('Minimum order quantity for this product is ' + moq + ' <?php echo isset($product['unit']) ? htmlspecialchars($product['unit']) : 'nos'; ?>.');
+            return;
+        }
+        input.value = newVal;
+        updateDynamicPrices(newVal);
+    }
+    
+    function updateDynamicPrices(qty) {
+        const subtotal = salesPrice * qty;
+        const gst = subtotal * 0.18;
+        const total = subtotal + gst;
+        
+        const gstEl = document.getElementById('gstAmountVal');
+        const totalEl = document.getElementById('totalWithGstVal');
+        if (gstEl) gstEl.innerText = formatCurrency(gst);
+        if (totalEl) totalEl.innerText = formatCurrency(total);
+    }
+    
+    function formatCurrency(num) {
+        return new Intl.NumberFormat('en-IN', { maximumFractionDigits: 0 }).format(num);
+    }
+
+    function buyNow(productId) {
+        const qtyInput = document.getElementById('purchase_qty');
+        const qty = qtyInput ? parseInt(qtyInput.value) : 1;
+        window.location.href = 'checkout.php?product_id=' + productId + '&quantity=' + qty;
     }
     </script>
     <?php

@@ -124,6 +124,27 @@ require_once '../../database/db_config.php';
                     <label style="display: block; margin-bottom: 8px; font-weight: 500;">Stock Quantity</label>
                     <input type="number" name="stock" value="0" min="0" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px;">
                 </div>
+
+                <div class="form-group" style="margin-bottom: 20px;">
+                    <label style="display: block; margin-bottom: 8px; font-weight: 500;">Unit <span style="color: red;">*</span></label>
+                    <select name="unit" required style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px;">
+                        <option value="nos" selected>nos</option>
+                        <option value="meter">meter</option>
+                        <option value="ltr">ltr</option>
+                        <option value="kg">kg</option>
+                        <option value="pcs">pcs</option>
+                        <option value="box">box</option>
+                        <option value="set">set</option>
+                        <option value="roll">roll</option>
+                        <option value="pack">pack</option>
+                    </select>
+                </div>
+
+                <div class="form-group" style="margin-bottom: 20px;">
+                    <label style="display: block; margin-bottom: 8px; font-weight: 500;">Minimum Order Quantity (MOQ)</label>
+                    <input type="number" name="moq" value="1" min="1" required style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px;">
+                    <small style="color: #646970; display: block; margin-top: 5px;">Set to 1 to disable MOQ checkout enforcement.</small>
+                </div>
                  
                  <div class="form-group" style="margin-bottom: 20px;">
                     <label style="display: block; margin-bottom: 8px; font-weight: 500;">Featured Image</label>
