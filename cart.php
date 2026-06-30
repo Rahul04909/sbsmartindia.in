@@ -23,8 +23,29 @@ if ($user_id) {
 $result = $conn->query($sql);
 if ($result && $result->num_rows > 0) {
     while ($row = $result->fetch_assoc()) {
+        $moq = max(1, intval($row['moq']));
+        $qty = intval($row['quantity']);
+        $adjusted = false;
+        
+        if ($qty < $moq) {
+            $qty = $moq;
+            $adjusted = true;
+        } elseif ($qty % $moq !== 0) {
+            $qty = round($qty / $moq) * $moq;
+            if ($qty < $moq) {
+                $qty = $moq;
+            }
+            $adjusted = true;
+        }
+        
+        if ($adjusted) {
+            $update_sql = "UPDATE cart SET quantity = $qty WHERE id = " . intval($row['cart_id']);
+            $conn->query($update_sql);
+            $row['quantity'] = $qty;
+        }
+        
         $cart_items[] = $row;
-        $subtotal += $row['sales_price'] * $row['quantity'];
+        $subtotal += $row['sales_price'] * $qty;
     }
 }
 ?>
@@ -277,7 +298,7 @@ if ($result && $result->num_rows > 0) {
     <script>
         function updateQty(cartId, change, moq) {
             var input = document.getElementById('qty-' + cartId);
-            var newQty = parseInt(input.value) + change;
+            var newQty = parseInt(input.value) + (change * moq);
  
             if (newQty < moq) {
                 alert('Minimum order quantity for this product is ' + moq);

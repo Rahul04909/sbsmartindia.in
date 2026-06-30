@@ -22,10 +22,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $moq = 1;
             $moq_res = $conn->query("SELECT moq FROM products WHERE id = $product_id");
             if ($moq_res && $moq_res->num_rows > 0) {
-                $moq = intval($moq_res->fetch_assoc()['moq']);
+                $moq = max(1, intval($moq_res->fetch_assoc()['moq']));
             }
             if ($quantity < $moq) {
                 $quantity = $moq;
+            } else {
+                $quantity = round($quantity / $moq) * $moq;
+                if ($quantity < $moq) {
+                    $quantity = $moq;
+                }
             }
             // Check if item exists
             $check_sql = "SELECT id, quantity FROM cart WHERE product_id = $product_id AND ";
@@ -41,6 +46,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 // Update quantity
                 $row = $check_res->fetch_assoc();
                 $new_qty = $row['quantity'] + $quantity;
+                if ($new_qty < $moq) {
+                    $new_qty = $moq;
+                } else {
+                    $new_qty = round($new_qty / $moq) * $moq;
+                    if ($new_qty < $moq) {
+                        $new_qty = $moq;
+                    }
+                }
                 $update_sql = "UPDATE cart SET quantity = $new_qty WHERE id = " . $row['id'];
                 if ($conn->query($update_sql)) {
                     $response = ['status' => 'success', 'message' => 'Cart updated'];
@@ -69,10 +82,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $moq = 1;
             $moq_res = $conn->query("SELECT p.moq FROM cart c JOIN products p ON c.product_id = p.id WHERE c.id = $cart_id");
             if ($moq_res && $moq_res->num_rows > 0) {
-                $moq = intval($moq_res->fetch_assoc()['moq']);
+                $moq = max(1, intval($moq_res->fetch_assoc()['moq']));
             }
             if ($quantity < $moq) {
                 $quantity = $moq;
+            } else {
+                $quantity = round($quantity / $moq) * $moq;
+                if ($quantity < $moq) {
+                    $quantity = $moq;
+                }
             }
 
             $sql = "UPDATE cart SET quantity = $quantity WHERE id = $cart_id";

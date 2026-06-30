@@ -25,7 +25,7 @@ $access_code = "AVYV96HJ39CI86VYIC";
     if (isset($_POST['from_cart']) && $_POST['from_cart'] == 1) {
         // Handle Cart Checkout
         $session_id = session_id();
-        $sql = "SELECT c.quantity, p.id, p.title, p.sales_price 
+        $sql = "SELECT c.quantity, p.id, p.title, p.sales_price, p.moq 
             FROM cart c 
             JOIN products p ON c.product_id = p.id 
             WHERE ";
@@ -39,13 +39,23 @@ $access_code = "AVYV96HJ39CI86VYIC";
         $result = $conn->query($sql);
         if ($result && $result->num_rows > 0) {
             while ($row = $result->fetch_assoc()) {
+                $moq = isset($row['moq']) ? max(1, intval($row['moq'])) : 1;
+                $qty = intval($row['quantity']);
+                if ($qty < $moq) {
+                    $qty = $moq;
+                } else {
+                    $qty = round($qty / $moq) * $moq;
+                    if ($qty < $moq) {
+                        $qty = $moq;
+                    }
+                }
                 $total_items[] = [
                     'product_id' => $row['id'],
                     'product_name' => $row['title'],
-                    'quantity' => $row['quantity'],
+                    'quantity' => $qty,
                     'price' => $row['sales_price']
                 ];
-                $total_amount += $row['sales_price'] * $row['quantity'];
+                $total_amount += $row['sales_price'] * $qty;
             }
         } else {
              die("Cart is empty");
@@ -63,6 +73,11 @@ $access_code = "AVYV96HJ39CI86VYIC";
             $quantity = isset($_POST['quantity']) ? intval($_POST['quantity']) : $moq;
             if ($quantity < $moq) {
                 $quantity = $moq;
+            } else {
+                $quantity = round($quantity / $moq) * $moq;
+                if ($quantity < $moq) {
+                    $quantity = $moq;
+                }
             }
             $total_amount = $product['sales_price'] * $quantity;
             $total_items[] = [

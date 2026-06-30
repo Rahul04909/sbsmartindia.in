@@ -456,7 +456,7 @@ if ($product_id > 0) {
         const input = document.getElementById('purchase_qty');
         if (!input) return;
         let currentVal = parseInt(input.value) || moq;
-        let newVal = currentVal + change;
+        let newVal = currentVal + (change * moq);
         if (newVal < moq) {
             alert('Minimum order quantity for this product is ' + moq + ' <?php echo isset($product['unit']) ? htmlspecialchars($product['unit']) : 'nos'; ?>.');
             return;

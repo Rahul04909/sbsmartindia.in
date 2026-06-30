@@ -13,7 +13,7 @@ if ($from_cart) {
     $user_id = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : null;
     $session_id = session_id();
 
-    $sql = "SELECT c.quantity, p.id, p.title, p.sales_price, p.featured_image, p.unit 
+    $sql = "SELECT c.quantity, p.id, p.title, p.sales_price, p.featured_image, p.unit, p.moq 
             FROM cart c 
             JOIN products p ON c.product_id = p.id 
             WHERE ";
@@ -27,8 +27,19 @@ if ($from_cart) {
     $result = $conn->query($sql);
     if ($result && $result->num_rows > 0) {
         while ($row = $result->fetch_assoc()) {
+            $moq = isset($row['moq']) ? max(1, intval($row['moq'])) : 1;
+            $qty = intval($row['quantity']);
+            if ($qty < $moq) {
+                $qty = $moq;
+            } else {
+                $qty = round($qty / $moq) * $moq;
+                if ($qty < $moq) {
+                    $qty = $moq;
+                }
+            }
+            $row['quantity'] = $qty;
             $items_to_checkout[] = $row;
-            $total_amount += $row['sales_price'] * $row['quantity'];
+            $total_amount += $row['sales_price'] * $qty;
         }
     } else {
         // Cart empty
@@ -42,7 +53,15 @@ if ($from_cart) {
     if ($result->num_rows > 0) {
         $product = $result->fetch_assoc();
         $moq = isset($product['moq']) ? max(1, intval($product['moq'])) : 1;
-        $quantity = isset($_GET['quantity']) ? max($moq, intval($_GET['quantity'])) : $moq;
+        $quantity = isset($_GET['quantity']) ? intval($_GET['quantity']) : $moq;
+        if ($quantity < $moq) {
+            $quantity = $moq;
+        } else {
+            $quantity = round($quantity / $moq) * $moq;
+            if ($quantity < $moq) {
+                $quantity = $moq;
+            }
+        }
         
         $items_to_checkout[] = [
             'id' => $product['id'],
