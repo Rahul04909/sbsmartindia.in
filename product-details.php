@@ -69,6 +69,7 @@ $canonical_url = "https://sbsmart.in/products/" . $prod_slug;
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <base href="/">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?php echo htmlspecialchars($page_title); ?></title>
@@ -88,22 +89,22 @@ $canonical_url = "https://sbsmart.in/products/" . $prod_slug;
     <meta property="og:description" content="<?php echo htmlspecialchars($meta_desc); ?>">
     <?php endif; ?>
     <?php if (!empty($product['featured_image'])): ?>
-    <meta property="og:image" content="https://sbsmart.in/<?php echo htmlspecialchars($product['featured_image']); ?>">
+    <meta property="og:image" content="https://sbsmart.in/<?php echo htmlspecialchars(ltrim($product['featured_image'], '/')); ?>">
     <?php endif; ?>
 
     <!-- Favicon -->
-    <link rel="icon" type="image/png" href="favicon.png">
+    <link rel="icon" type="image/png" href="/favicon.png">
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     
     <!-- Custom CSS -->
-    <link rel="stylesheet" href="asstes/css/style.css">
-    <link rel="stylesheet" href="asstes/css/footer.css">
-    <link rel="stylesheet" href="assets/css/brand-menu.css">
-    <link rel="stylesheet" href="assets/css/header-menu.css">
-    <link rel="stylesheet" href="assets/css/product-details.css">
+    <link rel="stylesheet" href="/asstes/css/style.css">
+    <link rel="stylesheet" href="/asstes/css/footer.css">
+    <link rel="stylesheet" href="/assets/css/brand-menu.css">
+    <link rel="stylesheet" href="/assets/css/header-menu.css">
+    <link rel="stylesheet" href="/assets/css/product-details.css">
     <style>
         .brand-logo-badge {
             display: inline-block;
@@ -135,6 +136,7 @@ $canonical_url = "https://sbsmart.in/products/" . $prod_slug;
 <body>
 
 <?php
+$url_prefix = '/';
 require_once 'includes/header.php';
 
 // Fetch Brand details
@@ -202,8 +204,8 @@ if ($product['brand_id']) {
         <div class="product-details-container">
             <!-- Breadcrumbs -->
             <div class="breadcrumbs">
-                <a href="index.php">Home</a> &gt; 
-                <a href="products.php">Products</a> &gt; 
+                <a href="/index.php">Home</a> &gt; 
+                <a href="/products.php">Products</a> &gt; 
                 <span><?php echo htmlspecialchars($product['title']); ?></span>
             </div>
 
@@ -212,14 +214,16 @@ if ($product['brand_id']) {
                 <!-- Left: Image Gallery -->
                 <div class="product-gallery-card">
                     <div class="gallery-thumbs">
-                        <?php foreach($gallery as $index => $img): ?>
-                            <div class="gallery-thumb <?php echo $index === 0 ? 'active' : ''; ?>" onclick="changeImage(this, '<?php echo $img; ?>')">
-                                <img src="<?php echo $img; ?>" alt="Product Thumbnail">
+                        <?php foreach($gallery as $index => $img): 
+                            $clean_img = '/' . ltrim($img, '/');
+                        ?>
+                            <div class="gallery-thumb <?php echo $index === 0 ? 'active' : ''; ?>" onclick="changeImage(this, '<?php echo $clean_img; ?>')">
+                                <img src="<?php echo $clean_img; ?>" alt="Product Thumbnail">
                             </div>
                         <?php endforeach; ?>
                     </div>
                     <div class="gallery-main">
-                        <img id="mainImage" src="<?php echo !empty($gallery) ? $gallery[0] : 'assets/images/no-image.png'; ?>" alt="<?php echo htmlspecialchars($product['title']); ?>">
+                        <img id="mainImage" src="<?php echo !empty($gallery) ? '/' . ltrim($gallery[0], '/') : '/assets/images/no-image.png'; ?>" alt="<?php echo htmlspecialchars($product['title']); ?>">
                     </div>
                 </div>
 
@@ -227,7 +231,7 @@ if ($product['brand_id']) {
                 <div class="product-info-col">
                     <?php if ($brand_logo && file_exists($brand_logo)): ?>
                         <div class="brand-logo-badge">
-                            <img src="<?php echo htmlspecialchars($brand_logo); ?>" alt="<?php echo htmlspecialchars($brand_name); ?> Logo">
+                            <img src="<?php echo htmlspecialchars('/' . ltrim($brand_logo, '/')); ?>" alt="<?php echo htmlspecialchars($brand_name); ?> Logo">
                         </div>
                     <?php elseif (!empty($brand_name)): ?>
                         <div class="brand-name-fallback"><?php echo htmlspecialchars($brand_name); ?></div>
@@ -499,7 +503,7 @@ if ($product['brand_id']) {
         btn.disabled = true;
 
         $.ajax({
-            url: 'cart_handler.php',
+            url: '/cart_handler.php',
             type: 'POST',
             data: { action: 'add', product_id: productId, quantity: qty },
             dataType: 'json',
@@ -555,7 +559,7 @@ if ($product['brand_id']) {
     function buyNow(productId) {
         const qtyInput = document.getElementById('purchase_qty');
         const qty = qtyInput ? parseInt(qtyInput.value) : 1;
-        window.location.href = 'checkout.php?product_id=' + productId + '&quantity=' + qty;
+        window.location.href = '/checkout.php?product_id=' + productId + '&quantity=' + qty;
     }
     </script>
 

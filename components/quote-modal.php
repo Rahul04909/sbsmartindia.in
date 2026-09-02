@@ -290,7 +290,7 @@ function sendQuoteOTP() {
     btn.prop('disabled', true).text('Sending...');
     
     $.ajax({
-        url: 'quote_handler.php',
+        url: '/quote_handler.php',
         type: 'POST',
         data: { action: 'send_otp', email: email },
         dataType: 'json',
@@ -334,7 +334,7 @@ function verifyQuoteOTP() {
     btn.prop('disabled', true).text('Verifying...');
     
     $.ajax({
-        url: 'quote_handler.php',
+        url: '/quote_handler.php',
         type: 'POST',
         data: { action: 'verify_otp', email: email, otp: otp },
         dataType: 'json',
@@ -366,7 +366,7 @@ $('#quote-details-form').on('submit', function(e) {
     // Ensure email is included if it wasn't in the form explicitly as editable (it is hidden)
     
     $.ajax({
-        url: 'quote_handler.php',
+        url: '/quote_handler.php',
         type: 'POST',
         data: formData,
         dataType: 'json',

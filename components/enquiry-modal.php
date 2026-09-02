@@ -205,7 +205,7 @@ function sendEnquiryOTP() {
     btn.prop('disabled', true).text('Sending...');
     
     $.ajax({
-        url: 'contact_handler.php', // Using contact_handler, or reuse quote_handler if logic serves? contact_handler is better for generic contact stuff.
+        url: '/contact_handler.php', // Using contact_handler, or reuse quote_handler if logic serves? contact_handler is better for generic contact stuff.
         // Wait, quote_handler has OTP logic. contact_handler has it too (from Assisted Orders).
         // I'll use contact_handler.php as per plan.
         type: 'POST',
@@ -258,7 +258,7 @@ function verifyEnquiryOTP() { // Note: contact_handler doesn't have 'verify_otp'
     btn.prop('disabled', true).text('Verifying...');
     
     $.ajax({
-        url: 'contact_handler.php',
+        url: '/contact_handler.php',
         type: 'POST',
         data: { action: 'verify_otp_only', email: email, otp: otp }, // New action needed in contact_handler
         dataType: 'json',
@@ -296,7 +296,7 @@ $('#enquiry-details-form').on('submit', function(e) {
     formData += '&otp=' + otp;
 
     $.ajax({
-        url: 'contact_handler.php',
+        url: '/contact_handler.php',
         type: 'POST',
         data: formData,
         dataType: 'json',
