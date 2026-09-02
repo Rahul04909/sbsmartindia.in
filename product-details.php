@@ -10,14 +10,25 @@ $slug = isset($_GET['slug']) ? trim($_GET['slug']) : '';
 // 1. If slug is present, fetch by slug
 if (!empty($slug)) {
     $slug_escaped = $conn->real_escape_string($slug);
-    $sql = "SELECT * FROM products WHERE slug = '$slug_escaped' AND status = 1";
-    $result = $conn->query($sql);
+    $sql = "SELECT * FROM products WHERE status = 1 AND slug = '$slug_escaped'";
+    $result = @$conn->query($sql);
     if ($result && $result->num_rows > 0) {
         $product = $result->fetch_assoc();
     } else {
-        // Fallback: If numeric slug passed, check by ID
+        // Fallback A: If numeric slug passed, check by ID
         if (is_numeric($slug) && intval($slug) > 0) {
             $product_id = intval($slug);
+        } else {
+            // Fallback B: Search for product by title slug if DB slug column is not yet populated
+            $all_prods = $conn->query("SELECT * FROM products WHERE status = 1");
+            if ($all_prods && $all_prods->num_rows > 0) {
+                while ($p = $all_prods->fetch_assoc()) {
+                    if (createSlug($p['title']) === $slug) {
+                        $product = $p;
+                        break;
+                    }
+                }
+            }
         }
     }
 }

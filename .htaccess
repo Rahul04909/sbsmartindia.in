@@ -1,5 +1,8 @@
 # --- SEO & Security Enhancements ---
 
+Options -MultiViews
+Options +FollowSymLinks
+
 <IfModule mod_rewrite.c>
     RewriteEngine On
     RewriteBase /
@@ -13,19 +16,22 @@
     RewriteCond %{HTTP_HOST} ^www\.(.*)$ [NC]
     RewriteRule ^(.*)$ https://%1%{REQUEST_URI} [R=301,L]
 
-    # 3. Clean Product URLs (sbsmart.in/products/product-name -> product-details.php?slug=product-name)
+    # 3. Products Listing Page (sbsmart.in/products or sbsmart.in/products/)
+    RewriteRule ^products/?$ products.php [L]
+
+    # 4. Clean Product Details URLs (sbsmart.in/products/product-name -> product-details.php?slug=product-name)
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteCond %{REQUEST_FILENAME} !-d
-    RewriteRule ^products/([a-zA-Z0-9_-]+)/?$ product-details.php?slug=$1 [QSA,L]
+    RewriteRule ^products/([^/]+)/?$ product-details.php?slug=$1 [QSA,L]
 </IfModule>
 
-# 3. HSTS Security Header
+# 5. HSTS Security Header
 <IfModule mod_headers.c>
     # Forces browsers to only connect over HTTPS
     Header set Strict-Transport-Security "max-age=31536000; includeSubDomains; preload"
 </IfModule>
 
-# 4. Custom 404 Error Handler
+# 6. Custom 404 Error Handler
 ErrorDocument 404 /404.php
 
 # --- End SEO & Security Enhancements ---
