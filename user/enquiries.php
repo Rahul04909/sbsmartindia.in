@@ -7,6 +7,7 @@ if (!isset($_SESSION['user_id'])) {
 $page = 'enquiries';
 $url_prefix = '../';
 require_once '../database/db_config.php';
+require_once '../includes/url_helper.php';
 
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
@@ -15,7 +16,7 @@ if ($conn->connect_error) {
 
 $user_id = $_SESSION['user_id'];
 // Fetch Enquiries with Product Details
-$sql = "SELECT e.*, p.title as product_name, p.featured_image as product_image 
+$sql = "SELECT e.*, p.title as product_name, p.slug as product_slug, p.featured_image as product_image 
         FROM product_enquiries e 
         LEFT JOIN products p ON e.product_id = p.id 
         WHERE e.user_id = $user_id 
@@ -91,7 +92,7 @@ $result = $conn->query($sql);
                                             <div style="display: flex; align-items: center; gap: 10px;">
                                                 <img src="<?php echo $prod_img; ?>" alt="Product" class="product-thumb">
                                                 <div>
-                                                    <a href="../product-details.php?id=<?php echo $row['product_id']; ?>" style="text-decoration: none; color: #333; font-weight: 600;" target="_blank">
+                                                    <a href="<?php echo getProductUrl(['id' => $row['product_id'], 'slug' => $row['product_slug'], 'title' => $row['product_name']], '../'); ?>" style="text-decoration: none; color: #333; font-weight: 600;" target="_blank">
                                                         <?php echo htmlspecialchars($row['product_name']); ?>
                                                     </a>
                                                 </div>

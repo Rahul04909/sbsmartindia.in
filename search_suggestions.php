@@ -1,5 +1,6 @@
 <?php
 require_once 'database/db_config.php';
+require_once 'includes/url_helper.php';
 
 header('Content-Type: application/json');
 
@@ -7,7 +8,7 @@ if (isset($_GET['q']) && !empty(trim($_GET['q']))) {
     $q = $conn->real_escape_string(trim($_GET['q']));
     
     // Search in title, sku, meta_keywords
-    $sql = "SELECT p.id, p.title, p.featured_image, p.sales_price, p.mrp, p.is_price_request, c.name as category_name 
+    $sql = "SELECT p.id, p.title, p.slug, p.featured_image, p.sales_price, p.mrp, p.is_price_request, c.name as category_name 
             FROM products p 
             LEFT JOIN product_categories c ON p.category_id = c.id 
             WHERE p.status = 1 AND (p.title LIKE '%$q%' OR p.sku LIKE '%$q%' OR p.meta_keywords LIKE '%$q%') 
@@ -22,6 +23,8 @@ if (isset($_GET['q']) && !empty(trim($_GET['q']))) {
             $image = !empty($row['featured_image']) && file_exists($row['featured_image']) ? $row['featured_image'] : 'asstes/logo/logo.png';
             $products[] = [
                 'id' => $row['id'],
+                'slug' => !empty($row['slug']) ? $row['slug'] : createSlug($row['title']),
+                'url' => getProductUrl($row),
                 'title' => $row['title'],
                 'category' => $row['category_name'],
                 'image' => $image,

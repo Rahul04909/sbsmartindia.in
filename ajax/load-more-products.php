@@ -3,6 +3,7 @@
  * AJAX Handler for Loading More Products
  */
 require_once __DIR__ . '/../database/db_config.php';
+require_once __DIR__ . '/../includes/url_helper.php';
 
 $offset = isset($_GET['offset']) ? (int)$_GET['offset'] : 0;
 $limit = 8;
@@ -22,11 +23,14 @@ if ($result->num_rows > 0) {
         $image_path = !empty($row['featured_image']) ? $row['featured_image'] : 'assets/images/no-image.png';
         $brand = !empty($row['brand_name']) ? $row['brand_name'] : 'Generic';
         $price_request = $row['is_price_request'];
+        $prod_url = getProductUrl($row);
         
         $html .= '
         <div class="product-card">
             <div class="product-image-box">
-                <img src="' . htmlspecialchars($image_path) . '" alt="' . htmlspecialchars($row['title']) . '" class="product-image">
+                <a href="' . $prod_url . '">
+                    <img src="' . htmlspecialchars($image_path) . '" alt="' . htmlspecialchars($row['title']) . '" class="product-image">
+                </a>
                 <div class="product-badges">';
                     if($row['discount_percentage'] > 0 && !$price_request) {
                         $html .= '<span class="badge-sale">' . round($row['discount_percentage']) . '% OFF</span>';
@@ -37,7 +41,7 @@ if ($result->num_rows > 0) {
             <div class="product-details">
                 <div class="product-brand">' . htmlspecialchars($brand) . '</div>
                 <h3 class="product-title" title="' . htmlspecialchars($row['title']) . '">
-                    ' . htmlspecialchars($row['title']) . '
+                    <a href="' . $prod_url . '" style="color: inherit; text-decoration: none;">' . htmlspecialchars($row['title']) . '</a>
                 </h3>
                 
                 <div class="product-price-box">';
@@ -52,7 +56,7 @@ if ($result->num_rows > 0) {
         $html .= '</div>
                 
                 <div class="product-actions">
-                    <a href="product-details.php?id=' . $row['id'] . '" class="btn-details">View Details</a>
+                    <a href="' . $prod_url . '" class="btn-details">View Details</a>
                     <a href="contact-us.php?product=' . urlencode($row['title']) . '" class="btn-enquire">
                         Enquire Now
                     </a>

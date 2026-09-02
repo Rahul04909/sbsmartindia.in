@@ -1,6 +1,7 @@
 <?php
 session_start();
 require_once 'database/db_config.php';
+require_once 'includes/url_helper.php';
 
 // Cart Logic: Fetch items explained
 $cart_items = [];
@@ -9,7 +10,7 @@ $subtotal = 0;
 $user_id = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : null;
 $session_id = session_id();
 
-$sql = "SELECT c.id as cart_id, c.quantity, p.id as product_id, p.title, p.sales_price, p.featured_image, p.moq, p.unit 
+$sql = "SELECT c.id as cart_id, c.quantity, p.id as product_id, p.title, p.slug, p.sales_price, p.featured_image, p.moq, p.unit 
         FROM cart c 
         JOIN products p ON c.product_id = p.id 
         WHERE ";
@@ -240,7 +241,7 @@ if ($result && $result->num_rows > 0) {
                             class="cart-img">
                         <div class="cart-details">
                             <h4><a
-                                    href="product-details.php?id=<?php echo $item['product_id']; ?>"><?php echo htmlspecialchars($item['title']); ?></a>
+                                    href="<?php echo getProductUrl($item); ?>"><?php echo htmlspecialchars($item['title']); ?></a>
                             </h4>
                             <div class="cart-price">₹<?php echo number_format($item['sales_price']); ?> / <?php echo htmlspecialchars($item['unit']); ?></div>
                             <div class="qty-controls">

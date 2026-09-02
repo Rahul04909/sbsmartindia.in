@@ -1,13 +1,85 @@
 <?php
 session_start();
 require_once 'database/db_config.php';
+require_once 'includes/url_helper.php';
+
+$product = null;
+$product_id = isset($_GET['id']) ? intval($_GET['id']) : 0;
+$slug = isset($_GET['slug']) ? trim($_GET['slug']) : '';
+
+// 1. If slug is present, fetch by slug
+if (!empty($slug)) {
+    $slug_escaped = $conn->real_escape_string($slug);
+    $sql = "SELECT * FROM products WHERE slug = '$slug_escaped' AND status = 1";
+    $result = $conn->query($sql);
+    if ($result && $result->num_rows > 0) {
+        $product = $result->fetch_assoc();
+    } else {
+        // Fallback: If numeric slug passed, check by ID
+        if (is_numeric($slug) && intval($slug) > 0) {
+            $product_id = intval($slug);
+        }
+    }
+}
+
+// 2. If product not found yet and ID is present, fetch by ID
+if (!$product && $product_id > 0) {
+    $sql = "SELECT * FROM products WHERE id = $product_id AND status = 1";
+    $result = $conn->query($sql);
+    if ($result && $result->num_rows > 0) {
+        $product = $result->fetch_assoc();
+        
+        // HTTP 301 Permanent Redirect for legacy query parameter URLs (product-details.php?id=8322)
+        $prod_slug = !empty($product['slug']) ? $product['slug'] : createSlug($product['title']);
+        $protocol = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on') ? "https" : "https";
+        $host = $_SERVER['HTTP_HOST'] ?? 'sbsmart.in';
+        
+        header("HTTP/1.1 301 Moved Permanently");
+        header("Location: {$protocol}://{$host}/products/{$prod_slug}");
+        exit();
+    }
+}
+
+// 3. If product still not found, redirect to 404
+if (!$product) {
+    header("Location: 404.php");
+    exit();
+}
+
+$product_id = (int)$product['id'];
+$prod_slug = !empty($product['slug']) ? $product['slug'] : createSlug($product['title']);
+
+// Dynamic SEO Metadata
+$page_title = !empty($product['meta_title']) ? $product['meta_title'] : $product['title'] . " | SB Smart India";
+$meta_desc = !empty($product['meta_description']) ? $product['meta_description'] : strip_tags(substr($product['description'] ?? '', 0, 160));
+$meta_keywords = !empty($product['meta_keywords']) ? $product['meta_keywords'] : '';
+$canonical_url = "https://sbsmart.in/products/" . $prod_slug;
 ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Product Details - SB Smart India</title>
+    <title><?php echo htmlspecialchars($page_title); ?></title>
+    <?php if (!empty($meta_desc)): ?>
+    <meta name="description" content="<?php echo htmlspecialchars($meta_desc); ?>">
+    <?php endif; ?>
+    <?php if (!empty($meta_keywords)): ?>
+    <meta name="keywords" content="<?php echo htmlspecialchars($meta_keywords); ?>">
+    <?php endif; ?>
+    <link rel="canonical" href="<?php echo htmlspecialchars($canonical_url); ?>">
+
+    <!-- Open Graph / Facebook SEO -->
+    <meta property="og:type" content="product">
+    <meta property="og:url" content="<?php echo htmlspecialchars($canonical_url); ?>">
+    <meta property="og:title" content="<?php echo htmlspecialchars($page_title); ?>">
+    <?php if (!empty($meta_desc)): ?>
+    <meta property="og:description" content="<?php echo htmlspecialchars($meta_desc); ?>">
+    <?php endif; ?>
+    <?php if (!empty($product['featured_image'])): ?>
+    <meta property="og:image" content="https://sbsmart.in/<?php echo htmlspecialchars($product['featured_image']); ?>">
+    <?php endif; ?>
+
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="favicon.png">
     <!-- Font Awesome -->
@@ -54,30 +126,19 @@ require_once 'database/db_config.php';
 <?php
 require_once 'includes/header.php';
 
-// Get Product ID
-$product_id = isset($_GET['id']) ? intval($_GET['id']) : 0;
+// Fetch Brand details
+$brand_name = '';
+$brand_logo = '';
+if ($product['brand_id']) {
+    $brand_sql = "SELECT name, logo FROM brands WHERE id = " . $product['brand_id'];
+    $brand_res = $conn->query($brand_sql);
+    if ($brand_res && $brand_res->num_rows > 0) {
+        $brand_data = $brand_res->fetch_assoc();
+        $brand_name = $brand_data['name'];
+        $brand_logo = $brand_data['logo'];
+    }
+}
 
-if ($product_id > 0) {
-    // Fetch Product Details
-    $sql = "SELECT * FROM products WHERE id = $product_id AND status = 1";
-    $result = $conn->query($sql);
-    
-    if ($result->num_rows > 0) {
-        $product = $result->fetch_assoc();
-        
-        // Fetch Brand details
-        $brand_name = '';
-        $brand_logo = '';
-        if ($product['brand_id']) {
-            $brand_sql = "SELECT name, logo FROM brands WHERE id = " . $product['brand_id'];
-            $brand_res = $conn->query($brand_sql);
-            if ($brand_res && $brand_res->num_rows > 0) {
-                $brand_data = $brand_res->fetch_assoc();
-                $brand_name = $brand_data['name'];
-                $brand_logo = $brand_data['logo'];
-            }
-        }
-        
         // Fetch Gallery Images
         $gallery = [];
         // Add featured image first
@@ -486,18 +547,6 @@ if ($product_id > 0) {
         window.location.href = 'checkout.php?product_id=' + productId + '&quantity=' + qty;
     }
     </script>
-    <?php
-    } else {
-        // Redirect to 404 if product not found or inactive
-        header("Location: 404.php");
-        exit();
-    }
-} else {
-    // Redirect to 404 if invalid ID
-    header("Location: 404.php");
-    exit();
-}
-?>
 
 
 <!-- Include Quote Modal -->

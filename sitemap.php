@@ -1,6 +1,7 @@
 <?php
 header("Content-Type: application/xml; charset=utf-8");
 require_once 'database/db_config.php';
+require_once 'includes/url_helper.php';
 
 // Set Base URL
 $base_url = "https://sbsmart.in/";
@@ -32,12 +33,12 @@ foreach ($static_pages as $page => $meta) {
 }
 
 // 2. Dynamic Products
-$product_sql = "SELECT id, updated_at FROM products WHERE status = 1 ORDER BY id DESC";
+$product_sql = "SELECT id, title, slug, updated_at FROM products WHERE status = 1 ORDER BY id DESC";
 $product_res = $conn->query($product_sql);
 if ($product_res && $product_res->num_rows > 0) {
     while ($product = $product_res->fetch_assoc()) {
         echo '<url>';
-        echo '<loc>' . $base_url . 'product-details.php?id=' . $product['id'] . '</loc>';
+        echo '<loc>' . $base_url . getProductUrl($product) . '</loc>';
         echo '<lastmod>' . date('Y-m-d', strtotime($product['updated_at'])) . '</lastmod>';
         echo '<changefreq>weekly</changefreq>';
         echo '<priority>0.8</priority>';

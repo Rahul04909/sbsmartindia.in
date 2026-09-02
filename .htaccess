@@ -12,6 +12,11 @@
     # Redirection from https://www.sbsmart.in/ to https://sbsmart.in/
     RewriteCond %{HTTP_HOST} ^www\.(.*)$ [NC]
     RewriteRule ^(.*)$ https://%1%{REQUEST_URI} [R=301,L]
+
+    # 3. Clean Product URLs (sbsmart.in/products/product-name -> product-details.php?slug=product-name)
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteRule ^products/([a-zA-Z0-9_-]+)/?$ product-details.php?slug=$1 [QSA,L]
 </IfModule>
 
 # 3. HSTS Security Header

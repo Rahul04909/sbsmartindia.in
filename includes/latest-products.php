@@ -3,6 +3,7 @@
  * Latest Products Component
  */
 require_once __DIR__ . '/../database/db_config.php';
+require_once __DIR__ . '/../includes/url_helper.php';
 
 // Fetch latest 8 active products
 $sql = "SELECT p.*, b.name as brand_name 
@@ -30,10 +31,13 @@ $result = $conn->query($sql);
                     $image_path = !empty($row['featured_image']) ? $row['featured_image'] : 'assets/images/no-image.png';
                     $brand = !empty($row['brand_name']) ? $row['brand_name'] : 'Generic';
                     $price_request = $row['is_price_request'];
+                    $prod_url = getProductUrl($row);
                     ?>
                     <div class="product-card">
                         <div class="product-image-box">
-                            <img src="<?php echo htmlspecialchars($image_path); ?>" alt="<?php echo htmlspecialchars($row['title']); ?>" class="product-image">
+                            <a href="<?php echo $prod_url; ?>">
+                                <img src="<?php echo htmlspecialchars($image_path); ?>" alt="<?php echo htmlspecialchars($row['title']); ?>" class="product-image">
+                            </a>
                             <div class="product-badges">
                                 <?php if($row['discount_percentage'] > 0 && !$price_request): ?>
                                     <span class="badge-sale"><?php echo round($row['discount_percentage']); ?>% OFF</span>
@@ -44,7 +48,7 @@ $result = $conn->query($sql);
                         <div class="product-details">
                             <div class="product-brand"><?php echo htmlspecialchars($brand); ?></div>
                             <h3 class="product-title" title="<?php echo htmlspecialchars($row['title']); ?>">
-                                <?php echo htmlspecialchars($row['title']); ?>
+                                <a href="<?php echo $prod_url; ?>" style="color: inherit; text-decoration: none;"><?php echo htmlspecialchars($row['title']); ?></a>
                             </h3>
                             
                             <div class="product-price-box">
@@ -59,7 +63,7 @@ $result = $conn->query($sql);
                             </div>
                             
                             <div class="product-actions">
-                                <a href="product-details.php?id=<?php echo $row['id']; ?>" class="btn-details">View Details</a>
+                                <a href="<?php echo $prod_url; ?>" class="btn-details">View Details</a>
                                 <button type="button" class="btn-enquire" onclick="openQuoteModal(<?php echo $row['id']; ?>, '<?php echo addslashes($row['title']); ?>')">
                                     Enquire Now
                                 </button>

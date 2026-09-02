@@ -1,6 +1,7 @@
 <?php
 session_start();
 require_once 'database/db_config.php';
+require_once 'includes/url_helper.php';
 
 // brand.php — Displays a paginated list of products filtered by brand or subcategory.
 
@@ -216,7 +217,7 @@ $page_title = "$filter_name - SB Smart India";
                         ?>
                         <div class="product-card">
                             <div class="product-image">
-                                <a href="product-details.php?id=<?php echo $prod['id']; ?>">
+                                <a href="<?php echo getProductUrl($prod); ?>">
                                     <?php if (!empty($prod['featured_image']) && file_exists($prod['featured_image'])): ?>
                                         <img src="<?php echo htmlspecialchars($prod['featured_image']); ?>"
                                             alt="<?php echo htmlspecialchars($prod['title']); ?>">
@@ -240,7 +241,7 @@ $page_title = "$filter_name - SB Smart India";
                                 <div class="product-brand"><?php echo htmlspecialchars($b_name_disp); ?></div>
                                 <h3 class="product-title">
                                     <a
-                                        href="product-details.php?id=<?php echo $prod['id']; ?>"><?php echo htmlspecialchars($prod['title']); ?></a>
+                                        href="<?php echo getProductUrl($prod); ?>"><?php echo htmlspecialchars($prod['title']); ?></a>
                                 </h3>
 
                                 <div class="product-price">
@@ -256,7 +257,7 @@ $page_title = "$filter_name - SB Smart India";
                                 </div>
 
                                 <div class="product-actions">
-                                    <a href="product-details.php?id=<?php echo $prod['id']; ?>" class="btn-view">View
+                                    <a href="<?php echo getProductUrl($prod); ?>" class="btn-view">View
                                         Details</a>
                                 </div>
                             </div>

@@ -311,8 +311,9 @@
                             let html = '';
                             response.data.forEach(function(item) {
                                 const priceText = item.is_price_request ? 'Price on Request' : '₹' + item.price.toLocaleString('en-IN');
+                                const itemUrl = item.url ? (urlPrefix + item.url) : (urlPrefix + 'products/' + (item.slug || item.id));
                                 html += `
-                                    <a href="<?php echo isset($url_prefix) ? $url_prefix : ""; ?>product-details.php?id=${item.id}" class="search-result-item">
+                                    <a href="${itemUrl}" class="search-result-item">
                                         <img src="<?php echo isset($url_prefix) ? $url_prefix : ""; ?>${item.image}" alt="${item.title}" class="search-result-image">
                                         <div class="search-result-info">
                                             <span class="search-result-title">${item.title}</span>

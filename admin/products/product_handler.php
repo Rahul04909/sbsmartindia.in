@@ -1,6 +1,7 @@
 <?php
 session_start();
 require_once '../../database/db_config.php';
+require_once '../../includes/url_helper.php';
 
 // Auth Check
 if (!isset($_SESSION['admin_logged_in']) || $_SESSION['admin_logged_in'] !== true) {
@@ -70,6 +71,23 @@ if (isset($_POST['add_product'])) {
     $moq = isset($_POST['moq']) ? (int)$_POST['moq'] : 1;
     $unit = isset($_POST['unit']) ? $conn->real_escape_string($_POST['unit']) : 'nos';
     
+    // Slug handling
+    $user_slug = isset($_POST['slug']) ? trim($_POST['slug']) : '';
+    $base_slug = !empty($user_slug) ? createSlug($user_slug) : createSlug($_POST['title']);
+    $slug = $base_slug;
+    $counter = 1;
+    while (true) {
+        $chk_slug = $conn->real_escape_string($slug);
+        $chk_res = $conn->query("SELECT id FROM products WHERE slug = '$chk_slug'");
+        if ($chk_res && $chk_res->num_rows > 0) {
+            $counter++;
+            $slug = $base_slug . '-' . $counter;
+        } else {
+            break;
+        }
+    }
+    $slug_escaped = $conn->real_escape_string($slug);
+
     // If price on request, set prices to 0
     if($is_price_request) {
         $mrp = 0;
@@ -85,8 +103,8 @@ if (isset($_POST['add_product'])) {
     $sku = $conn->real_escape_string($_POST['sku']);
     $hsn_code = $conn->real_escape_string($_POST['hsn_code']);
 
-    $sql = "INSERT INTO products (brand_id, category_id, sub_category_id, title, sku, hsn_code, description, specifications, mrp, sales_price, discount_percentage, stock, moq, unit, is_price_request, featured_image, meta_title, meta_description, meta_keywords) 
-            VALUES ('$brand_id', '$category_id', $sub_category_id, '$title', '$sku', '$hsn_code', '$description', '$specifications', '$mrp', '$sales_price', '$discount_percentage', '$stock', '$moq', '$unit', '$is_price_request', '$featured_image', '$meta_title', '$meta_description', '$meta_keywords')";
+    $sql = "INSERT INTO products (brand_id, category_id, sub_category_id, title, slug, sku, hsn_code, description, specifications, mrp, sales_price, discount_percentage, stock, moq, unit, is_price_request, featured_image, meta_title, meta_description, meta_keywords) 
+            VALUES ('$brand_id', '$category_id', $sub_category_id, '$title', '$slug_escaped', '$sku', '$hsn_code', '$description', '$specifications', '$mrp', '$sales_price', '$discount_percentage', '$stock', '$moq', '$unit', '$is_price_request', '$featured_image', '$meta_title', '$meta_description', '$meta_keywords')";
 
     if ($conn->query($sql) === TRUE) {
         $product_id = $conn->insert_id;
@@ -140,6 +158,23 @@ if (isset($_POST['update_product'])) {
     $moq = isset($_POST['moq']) ? (int)$_POST['moq'] : 1;
     $unit = isset($_POST['unit']) ? $conn->real_escape_string($_POST['unit']) : 'nos';
 
+    // Slug handling
+    $user_slug = isset($_POST['slug']) ? trim($_POST['slug']) : '';
+    $base_slug = !empty($user_slug) ? createSlug($user_slug) : createSlug($_POST['title']);
+    $slug = $base_slug;
+    $counter = 1;
+    while (true) {
+        $chk_slug = $conn->real_escape_string($slug);
+        $chk_res = $conn->query("SELECT id FROM products WHERE slug = '$chk_slug' AND id != $id");
+        if ($chk_res && $chk_res->num_rows > 0) {
+            $counter++;
+            $slug = $base_slug . '-' . $counter;
+        } else {
+            break;
+        }
+    }
+    $slug_escaped = $conn->real_escape_string($slug);
+
     // If price on request, set prices to 0
     if($is_price_request) {
         $mrp = 0;
@@ -155,6 +190,7 @@ if (isset($_POST['update_product'])) {
             category_id='$category_id',
             sub_category_id=$sub_category_id, 
             title='$title', 
+            slug='$slug_escaped',
             sku='$sku',
             hsn_code='$hsn_code',
             description='$description', 
